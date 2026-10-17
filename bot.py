@@ -175,7 +175,7 @@ def extract_json(text):
         return json.loads(m.group(0), strict=False) if m else None
 
 
-def call_gemini(st, user_msg, system=None, max_tokens=8192):
+def call_gemini(st, user_msg, system=None, max_tokens=8192, timeout=150):
     """Prueba los modelos en orden. Devuelve dict o None. Nunca hay coste: sin facturación, 429 = parar."""
     day = dt.datetime.now(TZ_PT).strftime("%Y-%m-%d")
     calls = st.setdefault("calls", {}).setdefault(day, {})
@@ -193,7 +193,7 @@ def call_gemini(st, user_msg, system=None, max_tokens=8192):
         for attempt in range(2):
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
             try:
-                r = requests.post(url, json=body, timeout=150,
+                r = requests.post(url, json=body, timeout=timeout,
                                   headers={"x-goog-api-key": GEMINI_KEY, "Content-Type": "application/json"})
             except requests.RequestException as exc:
                 log(f"  {model}: error de red {type(exc).__name__}")

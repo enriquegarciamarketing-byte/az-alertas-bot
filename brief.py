@@ -168,12 +168,23 @@ def no_colons(htm):
 
 
 def build_caption(p, header=None):
+    """Monta el pie. Si pasa de los 1.024 caracteres de Telegram, quita párrafos del final del cuerpo."""
+    body = no_colons(sanitize(p.get("cuerpo", "")))
+    paras = [x for x in body.split("\n\n") if x.strip()]
+    while True:
+        cap = _caption(p, header, "\n\n".join(paras))
+        if visible_len(cap) <= 1020 or len(paras) <= 2:
+            return cap
+        paras.pop()
+
+
+def _caption(p, header, body):
     parts = []
     if header:
         parts.append(header)
     parts.append(f"<b><u>{sanitize(p.get('seccion', ''))}</u></b>")
     parts.append(f"<b>{no_colons(sanitize(p.get('titular', ''))).upper()}</b>")
-    parts.append(no_colons(sanitize(p.get("cuerpo", ""))))
+    parts.append(body)
     if (p.get("fuentes") or "").strip():
         parts.append(f"📚 {sanitize(p['fuentes'])}")
     return "\n\n".join(x for x in parts if x)
@@ -276,7 +287,7 @@ def main():
             block += f"\nTexto {c['text']}"
         msg.append(block)
 
-    result = bot.call_gemini(st, "\n".join(msg), system=BRIEF_PROMPT, max_tokens=24000)
+    result = bot.call_gemini(st, "\n".join(msg), system=BRIEF_PROMPT, max_tokens=24000, timeout=420)
     posts = (result or {}).get("posts") or []
     posts = [p for p in posts if isinstance(p, dict)]
     posts.sort(key=lambda p: int(p.get("n", 99)))
