@@ -1,0 +1,70 @@
+name: Brief diario AZ News
+
+on:
+  schedule:
+    # 7.45 en España todo el año. GitHub solo entiende UTC, así que se programa a las
+    # 5.45 y a las 6.45 UTC y el script solo publica la primera que caiga entre las 7 y las 11.
+    - cron: "45 5,6 * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "dry genera y no publica (imágenes en Artifacts), test publica ya en el canal, normal como el automático"
+        type: choice
+        default: dry
+        options: [dry, test, normal]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: brief-diario
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias y fuentes Barlow
+        run: |
+          pip install -r requirements.txt
+          mkdir -p fonts
+          for f in Barlow-Black Barlow-Bold Barlow-Medium Barlow-SemiBold; do
+            curl -sL -o fonts/$f.ttf "https://raw.githubusercontent.com/google/fonts/main/ofl/barlow/$f.ttf"
+          done
+          curl -sL -o fonts/BarlowCondensed-Bold.ttf "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Bold.ttf"
+
+      - name: Redactar, generar tarjetas y publicar
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODE: ${{ github.event.inputs.modo || 'normal' }}
+        run: python brief.py
+
+      - name: Guardar imágenes y textos del brief
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: brief-${{ github.run_number }}
+          path: brief_out/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Guardar memoria de briefs publicados
+        if: always()
+        run: |
+          git config user.name "az-alertas-bot"
+          git config user.email "az-alertas-bot@users.noreply.github.com"
+          git add brief_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "brief $(date -u +%F)" -q
+            git pull --rebase -q || true
+            git push -q || true
+          fi
