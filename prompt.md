@@ -58,7 +58,7 @@ Ejemplos de calibración
 - Una empresa mediana española gana un contrato de 200 millones, 1+1+1+1 = 4
 - Un analista sube el precio objetivo de Tesla, 2+0+0+1 = 3
 
-Si varias candidatas cuentan lo mismo, trátalas como UNA sola noticia y usa todas sus fuentes para redactar.
+Si varias candidatas cuentan lo mismo, trátalas como UNA sola noticia y usa todas sus fuentes para redactar. En "ids" pon primero la candidata del medio más fiable que NO venga de Google News (Reuters, CNBC, Expansión, Cinco Días, Europa Press...), porque su enlace se publica como fuente.
 
 ## Veracidad
 

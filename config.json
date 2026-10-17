@@ -132,5 +132,6 @@
       "name": "Google News Macro España",
       "url": "https://news.google.com/rss/search?q=(BCE+OR+Fed+OR+IPC+OR+inflaci%C3%B3n+OR+paro+OR+PIB+OR+Ormuz+OR+petr%C3%B3leo+OR+aranceles)+when:2h&hl=es&gl=ES&ceid=ES:es"
     }
-  ]
+  ],
+  "stock_photo_fallback": false
 }

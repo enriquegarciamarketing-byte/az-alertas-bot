@@ -372,8 +372,45 @@ def to_telegram_html(text):
     return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t, flags=re.S)
 
 
-def send_telegram(text, photo=None):
+SOURCE_NAMES = {
+    "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch", "seekingalpha.com": "Seeking Alpha",
+    "asia.nikkei.com": "Nikkei Asia", "coindesk.com": "CoinDesk", "es.investing.com": "Investing.com",
+    "expansion.com": "Expansión", "cincodias.elpais.com": "Cinco Días", "elpais.com": "El País",
+    "europapress.es": "Europa Press", "reuters.com": "Reuters", "bloomberg.com": "Bloomberg",
+    "ft.com": "Financial Times", "wsj.com": "WSJ", "eleconomista.es": "elEconomista",
+    "finance.yahoo.com": "Yahoo Finance", "apnews.com": "AP", "bbc.com": "BBC", "elmundo.es": "El Mundo",
+}
+
+
+def source_link(post, cands):
+    """Enlace directo a la noticia original (no Google News) y nombre del medio, o (None, None)."""
+    from urllib.parse import urlparse
+    for i in post.get("ids") or []:
+        try:
+            c = cands[int(i)]
+        except (ValueError, IndexError, TypeError):
+            continue
+        url = c.get("link") or ""
+        if not url.startswith("http") or "news.google.com" in url:
+            continue
+        host = urlparse(url).netloc.lower().removeprefix("www.")
+        name = next((v for k, v in SOURCE_NAMES.items() if host == k or host.endswith("." + k)), None)
+        return url, name or host
+    return None, None
+
+
+def send_telegram(text, photo=None, link=None):
     base = f"https://api.telegram.org/bot{TG_TOKEN}"
+    if link and link[0]:
+        # foto de la propia noticia vía previsualización del enlace, con la fuente al pie
+        url, name = link
+        body = to_telegram_html(text) + f'\n\n🔗 <a href="{html.escape(url, quote=True)}">Fuente {html.escape(name)}</a>'
+        r = requests.post(f"{base}/sendMessage", timeout=20, json={
+            "chat_id": TG_CHAT, "text": body, "parse_mode": "HTML",
+            "link_preview_options": {"url": url, "prefer_large_media": True, "show_above_text": True}})
+        if r.status_code == 200 and r.json().get("ok"):
+            return True
+        log(f"  el enlace con vista previa falló ({r.status_code}), publico sin él")
     # el pie de foto de Telegram admite 1024 caracteres; si no cabe, va como texto
     if photo and len(text.replace("**", "")) <= 1000:
         r = requests.post(f"{base}/sendPhoto", timeout=60,
@@ -521,12 +558,15 @@ def main():
             log("  descartada por formato")
             continue
         log(f"\n--- [{p.get('score')}] ---\n{text}\n")
-        photo = find_photo(st, p.get("imagen", ""), p.get("category", ""))
+        link = source_link(p, cands)
+        photo = None
+        if not link[0] and CFG.get("stock_photo_fallback"):
+            photo = find_photo(st, p.get("imagen", ""), p.get("category", ""))
         if MODE == "dry":
-            log(f"  foto {'sí' if photo else 'no'}")
+            log(f"  fuente {link[1]} {link[0]} · foto de banco {'sí' if photo else 'no'}")
             published += 1
             continue
-        if send_telegram(text, photo):
+        if send_telegram(text, photo, link):
             published += 1
             st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
                                 "title": text.split("\n")[0].strip("*")})
