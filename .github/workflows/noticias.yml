@@ -1,0 +1,53 @@
+name: Alertas Bursátiles
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "test publica 1 noticia ya, dry solo la muestra en el log, normal funciona como el automático"
+        type: choice
+        default: test
+        options: [test, dry, normal]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alertas-bursatiles
+  cancel-in-progress: false
+
+jobs:
+  noticias:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Buscar, redactar y publicar
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODE: ${{ github.event.inputs.modo || 'normal' }}
+        run: python bot.py
+
+      - name: Guardar memoria de lo ya publicado
+        if: always()
+        run: |
+          git config user.name "az-alertas-bot"
+          git config user.email "az-alertas-bot@users.noreply.github.com"
+          git add state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "estado $(date -u +%FT%TZ)" -q
+            git pull --rebase -q || true
+            git push -q || true
+          fi
