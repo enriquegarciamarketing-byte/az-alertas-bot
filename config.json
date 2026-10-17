@@ -1,0 +1,41 @@
+{
+  "telegram_chat": "@AZ_Inversion",
+
+  "models": ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"],
+  "max_calls_per_model_per_day": 0,
+
+  "min_score": 8,
+  "min_score_night": 9,
+  "night_hours": [0, 7],
+  "test_min_score": 6,
+  "max_posts_per_run": 3,
+  "daily_post_cap": 20,
+
+  "max_age_minutes": 180,
+  "max_candidates": 45,
+  "article_chars": 1200,
+  "call_if_new_at_least": 6,
+  "call_every_minutes": 40,
+  "seconds_between_posts": 4,
+
+  "feeds": [
+    {"name": "CNBC Top News", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"},
+    {"name": "CNBC Earnings", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15839135"},
+    {"name": "CNBC Technology", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910"},
+    {"name": "MarketWatch", "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories"},
+    {"name": "MarketWatch Market Pulse", "url": "https://feeds.content.dowjones.io/public/rss/mw_marketpulse"},
+    {"name": "Yahoo Finance", "url": "https://finance.yahoo.com/news/rssindex"},
+    {"name": "Seeking Alpha", "url": "https://seekingalpha.com/market_currents.xml"},
+    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar"},
+    {"name": "Investing.com España", "url": "https://es.investing.com/rss/news_25.rss"},
+    {"name": "Expansión Mercados", "url": "https://e00-expansion.uecdn.es/rss/mercados.xml"},
+    {"name": "Expansión Empresas", "url": "https://e00-expansion.uecdn.es/rss/empresas.xml"},
+    {"name": "Cinco Días", "url": "https://feeds.elpais.com/mrss-s/pages/ep/site/cincodias.elpais.com/portada"},
+    {"name": "elEconomista Mercados", "url": "https://www.eleconomista.es/rss/rss-mercados.php"},
+    {"name": "Europa Press Economía", "url": "https://www.europapress.es/rss/rss.aspx?ch=00136"},
+    {"name": "Google News Business", "url": "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"},
+    {"name": "Google News Economía", "url": "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=es&gl=ES&ceid=ES:es"},
+    {"name": "Google News Resultados y M&A", "url": "https://news.google.com/rss/search?q=(earnings+OR+guidance+OR+acquisition+OR+merger)+when:2h&hl=en-US&gl=US&ceid=US:en"},
+    {"name": "Google News Reuters", "url": "https://news.google.com/rss/search?q=site:reuters.com+business+when:2h&hl=en-US&gl=US&ceid=US:en"}
+  ]
+}

@@ -1,0 +1,430 @@
+#!/usr/bin/env python3
+"""AZ Inversión · Alertas Bursátiles
+
+Lee feeds de medios financieros, deja que Gemini (capa gratuita) elija las
+noticias que importan y las redacte en formato flash AZ, y las publica en el
+canal de Telegram con el bot. Pensado para ejecutarse cada 15 min en GitHub
+Actions. Coste 0: si la cuota gratuita se agota, la llamada falla y no se cobra.
+
+Variables de entorno
+  TELEGRAM_BOT_TOKEN  token del bot (secreto)
+  GEMINI_API_KEY      clave de Google AI Studio SIN facturación (secreto)
+  MODE                normal | test | dry
+"""
+import calendar
+import datetime as dt
+import hashlib
+import html
+import json
+import os
+import re
+import sys
+import time
+from concurrent.futures import ThreadPoolExecutor
+from zoneinfo import ZoneInfo
+
+import feedparser
+import requests
+
+try:
+    import trafilatura
+except ImportError:  # el bot funciona igual, solo con los resúmenes del feed
+    trafilatura = None
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(BASE, "config.json"), encoding="utf-8") as fh:
+    CFG = json.load(fh)
+with open(os.path.join(BASE, "prompt.md"), encoding="utf-8") as fh:
+    SYSTEM_PROMPT = fh.read()
+STATE_PATH = os.path.join(BASE, "state.json")
+
+TZ_ES = ZoneInfo("Europe/Madrid")
+TZ_PT = ZoneInfo("America/Los_Angeles")  # la cuota de Gemini se reinicia a medianoche del Pacífico
+UA = {"User-Agent": "Mozilla/5.0 (compatible; AZInversionBot/1.0; +https://t.me/AZ_Inversion)"}
+
+MODE = os.environ.get("MODE", "normal").strip().lower() or "normal"
+TG_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+TG_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "").strip() or CFG["telegram_chat"]
+GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+
+BANNED = [
+    "el matiz", "lo importante", "aquí está lo interesante", "aqui esta lo interesante",
+    "el mercado parece estar diciendo", "el mercado no parece", "es una señal bastante clara",
+    "tiene más fondo del que parece", "y aquí aparece el problema", "ojo,", "ojo ",
+]
+PHRASE_FIXES = [
+    r"\b(y\s+)?el matiz (es que|está en que|está en|es)\s*",
+    r"\bojo,?\s*",
+    r"\blo importante (no es solo[^,.]*,\s*(sino\s*)?|es que\s*|aquí es que\s*)",
+    r"\b(y\s+)?aquí está lo interesante,?\s*",
+    r"\bde momento,\s*",
+]
+EMOJI = r"[\U0001F000-\U0001FAFF☀-➿⬀-⯿]️?"
+
+
+def log(*args):
+    print(*args, flush=True)
+
+
+# ---------------------------------------------------------------- estado
+
+def load_state():
+    try:
+        with open(STATE_PATH, encoding="utf-8") as fh:
+            st = json.load(fh)
+    except Exception:
+        st = {}
+    st.setdefault("seen", {})        # clave noticia -> epoch
+    st.setdefault("posted", [])      # [{d, t, title}]
+    st.setdefault("calls", {})       # fecha PT -> {modelo: n}
+    st.setdefault("exhausted", {})   # fecha PT -> [modelos sin cuota]
+    st.setdefault("last_call", 0)
+    return st
+
+
+def save_state(st):
+    now = time.time()
+    st["seen"] = {k: v for k, v in st["seen"].items() if now - v < 3 * 86400}
+    st["posted"] = st["posted"][-200:]
+    for key in ("calls", "exhausted"):
+        st[key] = {d: st[key][d] for d in sorted(st[key])[-3:]}
+    with open(STATE_PATH, "w", encoding="utf-8") as fh:
+        json.dump(st, fh, ensure_ascii=False, indent=1)
+
+
+# ---------------------------------------------------------------- fuentes
+
+def clean(text, limit):
+    text = re.sub(r"<[^>]+>", " ", text or "")
+    text = html.unescape(re.sub(r"\s+", " ", text)).strip()
+    return text[:limit]
+
+
+def news_key(title):
+    t = re.sub(r"\s+-\s+[^-]{2,40}$", "", title.lower())  # quita " - Medio" de Google News
+    t = re.sub(r"\W+", " ", t).strip()
+    return hashlib.sha1(t[:140].encode()).hexdigest()[:16]
+
+
+def fetch_feed(feed):
+    try:
+        r = requests.get(feed["url"], headers=UA, timeout=15)
+        r.raise_for_status()
+        parsed = feedparser.parse(r.content)
+    except Exception as exc:
+        return feed["name"], [], f"error {type(exc).__name__}"
+    items = []
+    now = time.time()
+    for e in parsed.entries[:40]:
+        title = clean(e.get("title"), 300)
+        if not title:
+            continue
+        ts = None
+        for k in ("published_parsed", "updated_parsed"):
+            if e.get(k):
+                ts = calendar.timegm(e[k])
+                break
+        if ts is None or ts > now + 600:
+            ts = now  # sin fecha fiable, se trata como recién visto (luego queda deduplicado)
+        items.append({
+            "source": feed["name"],
+            "title": title,
+            "summary": clean(e.get("summary") or e.get("description"), 500),
+            "link": e.get("link", ""),
+            "ts": ts,
+            "key": news_key(title),
+        })
+    return feed["name"], items, "ok"
+
+
+def article_text(url):
+    if not trafilatura or not url or "news.google.com" in url:
+        return ""
+    try:
+        r = requests.get(url, headers=UA, timeout=8)
+        if r.status_code != 200 or "html" not in r.headers.get("content-type", ""):
+            return ""
+        txt = trafilatura.extract(r.text, include_comments=False, include_tables=False) or ""
+        return re.sub(r"\s+", " ", txt)[: CFG["article_chars"]]
+    except Exception:
+        return ""
+
+
+# ---------------------------------------------------------------- Gemini
+
+def extract_json(text):
+    text = text.strip()
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        m = re.search(r"\{.*\}", text, re.S)
+        return json.loads(m.group(0)) if m else None
+
+
+def call_gemini(st, user_msg):
+    """Prueba los modelos en orden. Devuelve dict o None. Nunca hay coste: sin facturación, 429 = parar."""
+    day = dt.datetime.now(TZ_PT).strftime("%Y-%m-%d")
+    calls = st["calls"].setdefault(day, {})
+    exhausted = st["exhausted"].setdefault(day, [])
+    cap = int(CFG.get("max_calls_per_model_per_day") or 0)
+    body = {
+        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": [{"role": "user", "parts": [{"text": user_msg}]}],
+        "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json",
+                             "maxOutputTokens": 8192},
+    }
+    for model in CFG["models"]:
+        if model in exhausted or (cap and calls.get(model, 0) >= cap):
+            continue
+        for attempt in range(2):
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+            try:
+                r = requests.post(url, json=body, timeout=150,
+                                  headers={"x-goog-api-key": GEMINI_KEY, "Content-Type": "application/json"})
+            except requests.RequestException as exc:
+                log(f"  {model}: error de red {type(exc).__name__}")
+                break
+            calls[model] = calls.get(model, 0) + 1
+            st["last_call"] = time.time()
+            if r.status_code == 200:
+                data = r.json()
+                parts = (data.get("candidates") or [{}])[0].get("content", {}).get("parts", [])
+                text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+                try:
+                    parsed = extract_json(text)
+                except Exception:
+                    parsed = None
+                if isinstance(parsed, dict):
+                    log(f"  modelo usado {model}")
+                    return parsed
+                log(f"  {model}: respuesta sin JSON válido")
+                break
+            msg = r.text[:400]
+            if r.status_code == 429:
+                if "PerDay" in msg or "per day" in msg.lower() or attempt == 1:
+                    log(f"  {model}: cuota gratuita del día agotada, paso al siguiente")
+                    exhausted.append(model)
+                    break
+                log(f"  {model}: límite por minuto, espero 40 s")
+                time.sleep(40)
+                continue
+            if r.status_code in (400, 404) and ("not found" in msg.lower() or "not supported" in msg.lower()):
+                log(f"  {model}: modelo no disponible, paso al siguiente")
+                exhausted.append(model)
+                break
+            if r.status_code in (401, 403):
+                log(f"  ERROR clave de Gemini rechazada ({r.status_code}). Revisa el secreto GEMINI_API_KEY. {msg}")
+                return None
+            log(f"  {model}: HTTP {r.status_code} {msg}")
+            break
+    return None
+
+
+# ---------------------------------------------------------------- estilo AZ
+
+def lint(text):
+    """Aplica las reglas de redacción que no se pueden dejar al azar. Devuelve texto o None."""
+    t = (text or "").strip().replace("\r", "")
+    t = t.replace("—", ",").replace("–", "-")
+    t = re.sub(r"(\d{1,2}):(\d{2})", r"\1.\2", t)          # 15:30 -> 15.30
+    t = re.sub(r"\s*:\s*", ", ", t)                         # sin dos puntos
+    t = re.sub(r",\s*,", ",", t)
+    t = re.sub(r"\*\*\s*,\s*", "** ", t)
+    t = re.sub(r"[ \t]+", " ", t)
+
+    parts = [p.strip() for p in re.split(r"\n\s*\n", t) if p.strip()]
+    if len(parts) < 2:
+        return None
+    title, body = parts[0], " ".join(parts[1:])            # un solo párrafo
+    title = title.strip("* ").strip()
+    if not title:
+        return None
+    title = f"**{title.replace('**', '')}**"
+
+    # quita coletillas prohibidas; si no se pueden quitar limpiamente, cae la frase entera
+    for pat in PHRASE_FIXES:
+        body = re.sub(pat, "", body, flags=re.I)
+    body = re.sub(r"\s+,", ",", re.sub(r",\s*,", ",", body))
+    body = re.sub(r"(^|[.!?]\s+)([a-záéíóúñ])", lambda m: m.group(1) + m.group(2).upper(), body)
+    sentences = re.split(r"(?<=[.!?])\s+", body)
+    sentences = [s for s in sentences if not any(b in s.lower() for b in BANNED)]
+    body = " ".join(sentences).strip()
+    if len(body) < 40:
+        return None
+
+    # como mucho 2 negritas en el cuerpo
+    count = 0
+
+    def keep_two(m):
+        nonlocal count
+        count += 1
+        return m.group(0) if count <= 2 else m.group(1)
+    body = re.sub(r"\*\*(.+?)\*\*", keep_two, body)
+
+    # como mucho 1 emoji, y sin punto antes del emoji final
+    emojis = list(re.finditer(EMOJI, body))
+    if len(emojis) > 1:
+        last = emojis[-1].group(0)
+        body = re.sub(EMOJI, "", body).rstrip()
+        body = re.sub(r"\s+([.,])", r"\1", body) + " " + last
+    body = re.sub(r"[.,;]\s*(" + EMOJI + r")\s*$", r" \1", body)
+    body = re.sub(r" {2,}", " ", body).strip()
+    title = re.sub(EMOJI, "", title).replace("  ", " ")
+    return f"{title}\n\n{body}"
+
+
+def to_telegram_html(text):
+    t = html.escape(text, quote=False)
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t, flags=re.S)
+
+
+def send_telegram(text):
+    r = requests.post(
+        f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
+        json={"chat_id": TG_CHAT, "text": to_telegram_html(text), "parse_mode": "HTML",
+              "disable_web_page_preview": True},
+        timeout=20,
+    )
+    ok = r.status_code == 200 and r.json().get("ok")
+    if not ok:
+        try:
+            desc = r.json().get("description")
+        except Exception:
+            desc = r.text[:200]
+        log(f"  ERROR Telegram {r.status_code} {desc}")
+    return ok
+
+
+# ---------------------------------------------------------------- principal
+
+def build_message(cands, st, min_score, max_posts, now_es):
+    recent = [p["title"] for p in st["posted"][-30:]]
+    lines = [
+        f"Fecha y hora actual en España {now_es.strftime('%A %d/%m/%Y %H.%M')}.",
+        f"Puntuación mínima para publicar {min_score}. Máximo {max_posts} noticias.",
+    ]
+    if MODE == "test":
+        lines.append("Esto es una prueba del canal, devuelve SIEMPRE la mejor noticia disponible (1 sola) aunque no llegue a la puntuación, siempre que sea real y relevante.")
+    lines.append("\nYa publicado en el canal (no repitas estos temas)")
+    lines += [f"- {t}" for t in recent] or ["- (nada todavía)"]
+    lines.append("\nNoticias candidatas")
+    for i, c in enumerate(cands):
+        mins = int((time.time() - c["ts"]) / 60)
+        block = f"\n[{i}] {c['source']} · hace {mins} min\nTitular {c['title']}"
+        if c["summary"] and c["summary"] not in c["title"]:
+            block += f"\nResumen {c['summary']}"
+        if c.get("text"):
+            block += f"\nTexto {c['text']}"
+        lines.append(block)
+    return "\n".join(lines)
+
+
+def main():
+    if MODE not in ("normal", "test", "dry"):
+        sys.exit(f"MODE desconocido {MODE}")
+    if not GEMINI_KEY:
+        sys.exit("Falta el secreto GEMINI_API_KEY")
+    if MODE != "dry" and not TG_TOKEN:
+        sys.exit("Falta el secreto TELEGRAM_BOT_TOKEN")
+
+    st = load_state()
+    now = time.time()
+    now_es = dt.datetime.now(TZ_ES)
+    log(f"AZ Alertas · modo {MODE} · {now_es:%d/%m/%Y %H.%M} España")
+
+    with ThreadPoolExecutor(10) as ex:
+        results = list(ex.map(fetch_feed, CFG["feeds"]))
+    items = []
+    for name, its, status in results:
+        log(f"  feed {name}: {status} ({len(its)})")
+        items += its
+
+    max_age = CFG["max_age_minutes"] * 60 * (2 if MODE == "test" else 1)
+    cands, keys = [], set()
+    for it in sorted(items, key=lambda x: -x["ts"]):
+        if now - it["ts"] > max_age or it["key"] in keys:
+            continue
+        if it["key"] in st["seen"] and MODE != "test":
+            continue
+        keys.add(it["key"])
+        cands.append(it)
+    cands = cands[: CFG["max_candidates"]]
+    log(f"  candidatas nuevas {len(cands)}")
+    if not cands:
+        save_state(st)
+        if MODE == "test":
+            sys.exit("La prueba no ha encontrado noticias en los feeds")
+        return
+
+    today = now_es.strftime("%Y-%m-%d")
+    posted_today = sum(1 for p in st["posted"] if p.get("d") == today)
+    night = CFG["night_hours"][0] <= now_es.hour < CFG["night_hours"][1]
+    min_score = CFG["min_score_night"] if night else CFG["min_score"]
+    max_posts = min(CFG["max_posts_per_run"], CFG["daily_post_cap"] - posted_today)
+    if MODE == "test":
+        min_score, max_posts = CFG["test_min_score"], 1
+
+    def mark_seen():
+        for c in cands:
+            st["seen"][c["key"]] = now
+
+    if max_posts <= 0:
+        log("  tope diario de publicaciones alcanzado")
+        mark_seen()
+        save_state(st)
+        return
+
+    # agrupa llamadas para no gastar la cuota gratuita en 1 noticia suelta
+    mins_since = (now - st.get("last_call", 0)) / 60
+    if MODE == "normal" and len(cands) < CFG["call_if_new_at_least"] and mins_since < CFG["call_every_minutes"]:
+        log(f"  espero a juntar más noticias ({len(cands)} nuevas, última llamada hace {int(mins_since)} min)")
+        save_state(st)
+        return
+
+    with ThreadPoolExecutor(10) as ex:
+        texts = list(ex.map(lambda c: article_text(c["link"]), cands))
+    for c, t in zip(cands, texts):
+        c["text"] = t
+
+    result = call_gemini(st, build_message(cands, st, min_score, max_posts, now_es))
+    if result is None:
+        log("  sin respuesta del modelo, lo reintento en la siguiente ejecución")
+        save_state(st)
+        if MODE == "test":
+            sys.exit("La prueba no ha obtenido respuesta de Gemini")
+        return
+
+    posts = [p for p in result.get("posts", []) if isinstance(p, dict) and p.get("text")]
+    posts.sort(key=lambda p: -float(p.get("score", 0) or 0))
+    published = 0
+    for p in posts:
+        if published >= max_posts:
+            break
+        if MODE != "test" and float(p.get("score", 0) or 0) < min_score:
+            continue
+        text = lint(p["text"])
+        if not text:
+            log("  descartada por formato")
+            continue
+        log(f"\n--- [{p.get('score')}] ---\n{text}\n")
+        if MODE == "dry":
+            published += 1
+            continue
+        if send_telegram(text):
+            published += 1
+            st["posted"].append({"d": today, "t": int(now), "title": text.split("\n")[0].strip("*")})
+            time.sleep(CFG["seconds_between_posts"])
+        elif MODE == "test":
+            save_state(st)
+            sys.exit("La prueba no ha podido publicar en Telegram")
+
+    log(f"  publicadas {published}")
+    mark_seen()
+    save_state(st)
+    if MODE == "test" and published == 0:
+        sys.exit("La prueba no ha generado ninguna noticia publicable")
+
+
+if __name__ == "__main__":
+    main()
