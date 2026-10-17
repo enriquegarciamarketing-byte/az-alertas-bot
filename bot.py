@@ -59,7 +59,9 @@ PHRASE_FIXES = [
     r"\b(y\s+)?aquí está lo interesante,?\s*",
     r"\bde momento,\s*",
 ]
-EMOJI = r"[\U0001F000-\U0001FAFF☀-➿⬀-⯿]️?"
+EMOJI = (r"(?:[\U0001F1E6-\U0001F1FF]{2}"
+         r"|[\U0001F000-\U0001F1E5\U0001F200-\U0001FAFF☀-➿⬀-⯿₿]️?)")
+LEAD_EMOJI = r"^\s*(" + EMOJI + r")\s*"
 
 
 def log(*args):
@@ -237,10 +239,14 @@ def lint(text):
     if len(parts) < 2:
         return None
     title, body = parts[0], " ".join(parts[1:])            # un solo párrafo
-    title = title.strip("* ").strip()
+    title = title.replace("**", "").strip("* ").strip()
+    lead = re.match(LEAD_EMOJI, title)
+    lead = lead.group(1) + " " if lead and not title.startswith("$") else ""
+    title = re.sub(EMOJI, "", title)
+    title = re.sub(r" {2,}", " ", title).strip(" ,.")
     if not title:
         return None
-    title = f"**{title.replace('**', '')}**"
+    title = f"**{lead}{title}**"
 
     # quita coletillas prohibidas; si no se pueden quitar limpiamente, cae la frase entera
     for pat in PHRASE_FIXES:
@@ -270,7 +276,6 @@ def lint(text):
         body = re.sub(r"\s+([.,])", r"\1", body) + " " + last
     body = re.sub(r"[.,;]\s*(" + EMOJI + r")\s*$", r" \1", body)
     body = re.sub(r" {2,}", " ", body).strip()
-    title = re.sub(EMOJI, "", title).replace("  ", " ")
     return f"{title}\n\n{body}"
 
 
@@ -299,7 +304,7 @@ def send_telegram(text):
 # ---------------------------------------------------------------- principal
 
 def build_message(cands, st, min_score, max_posts, now_es):
-    recent = [p["title"] for p in st["posted"][-30:]]
+    recent = [f"[{p.get('c', '?')}] {p['title']}" for p in st["posted"][-30:]]
     lines = [
         f"Fecha y hora actual en España {now_es.strftime('%A %d/%m/%Y %H.%M')}.",
         f"Puntuación mínima para publicar {min_score}. Máximo {max_posts} noticias.",
@@ -397,12 +402,20 @@ def main():
 
     posts = [p for p in result.get("posts", []) if isinstance(p, dict) and p.get("text")]
     posts.sort(key=lambda p: -float(p.get("score", 0) or 0))
+    last_post = st["posted"][-1]["t"] if st["posted"] else 0
+    gap_ok = (now - last_post) / 60 >= CFG["min_minutes_between_posts"]
     published = 0
     for p in posts:
         if published >= max_posts:
             break
-        if MODE != "test" and float(p.get("score", 0) or 0) < min_score:
+        score = float(p.get("score", 0) or 0)
+        if MODE != "test" and score < min_score:
             continue
+        if MODE == "normal" and not gap_ok and score < CFG["breaking_score"]:
+            log(f"  [{score}] se queda fuera para no saturar (última publicación hace {int((now - last_post) / 60)} min)")
+            continue
+        if MODE == "normal" and published >= 1 and score < CFG["breaking_score"]:
+            continue  # en una misma pasada solo se suma una segunda si es de última hora
         text = lint(p["text"])
         if not text:
             log("  descartada por formato")
@@ -413,7 +426,8 @@ def main():
             continue
         if send_telegram(text):
             published += 1
-            st["posted"].append({"d": today, "t": int(now), "title": text.split("\n")[0].strip("*")})
+            st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
+                                "title": text.split("\n")[0].strip("*")})
             time.sleep(CFG["seconds_between_posts"])
         elif MODE == "test":
             save_state(st)
