@@ -560,7 +560,7 @@ def main():
             log("  descartada por formato")
             continue
         log(f"\n--- [{p.get('score')}] ---\n{text}\n")
-        link = source_link(p, cands)
+        link = source_link(p, cands) if CFG.get("source_link", False) else (None, None)
         photo = None
         if not link[0] and CFG.get("stock_photo_fallback"):
             photo = find_photo(st, p.get("imagen", ""), p.get("category", "")) if CFG.get("images") else None

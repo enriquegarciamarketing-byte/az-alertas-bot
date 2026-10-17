@@ -9,7 +9,7 @@ Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo l
 4. limpia el formato (dos puntos, rayas, coletillas, negritas y emojis de más)
 5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
 
-Cada noticia termina con "🔗 Fuente [medio]" enlazando a la noticia original, y Telegram muestra la imagen de esa noticia en grande encima del texto (vista previa del enlace). Si la noticia solo viene de Google News no hay enlace directo y sale solo el texto. Con `stock_photo_fallback: true` en config.json, en ese caso se usa una foto de Pixabay.
+Las noticias salen solo con texto, sin imagen ni fuente. En config.json, `"source_link": true` añade "🔗 Fuente [medio]" con la vista previa de la noticia original, y `"images": true` activa fotos de Pixabay.
 
 Las noticias de acciones llevan $TICKER. El resto (macro, Fed, Ormuz, petróleo, cripto...) va sin ticker, con bandera o emoji de categoría.
 

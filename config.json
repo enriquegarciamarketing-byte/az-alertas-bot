@@ -1,6 +1,7 @@
 {
   "telegram_chat": "@AZ_Inversion",
   "images": false,
+  "source_link": false,
   "models": [
     "gemini-3.8-flash",
     "gemini-3.5-flash-lite",
