@@ -225,9 +225,35 @@ def call_gemini(st, user_msg):
 
 # ---------------------------------------------------------------- estilo AZ
 
-def lint(text):
+NAMES = {  # códigos que el modelo a veces pone con $ en noticias que no son de acciones
+    "BTC": "Bitcoin", "ETH": "Ethereum", "SOL": "Solana", "SPX": "S&P 500", "SPY": "S&P 500",
+    "NDX": "Nasdaq 100", "QQQ": "Nasdaq 100", "DJI": "Dow Jones", "IBEX": "Ibex 35", "DAX": "DAX",
+    "OIL": "El petróleo", "WTI": "WTI", "BRENT": "Brent", "GOLD": "El oro", "XAU": "El oro",
+    "DXY": "El dólar", "EURUSD": "El euro", "USDJPY": "El yen",
+}
+RUBRIC_MAX = {"alcance": 3, "sorpresa": 3, "magnitud": 2, "impacto": 2}
+
+
+def rubric_score(post):
+    """Suma la escala de importancia AZ. Cada criterio se limita a su máximo, así el modelo no puede inflarla."""
+    pts = post.get("puntos")
+    if not isinstance(pts, dict):
+        return 0
+    total = 0
+    for key, top in RUBRIC_MAX.items():
+        try:
+            total += max(0, min(top, int(float(pts.get(key, 0)))))
+        except (TypeError, ValueError):
+            pass
+    return total
+
+
+def lint(text, category=""):
     """Aplica las reglas de redacción que no se pueden dejar al azar. Devuelve texto o None."""
     t = (text or "").strip().replace("\r", "")
+    if category and category != "empresas":
+        # sin ticker si no es una acción, en el titular se quita entero y en el cuerpo se deja el nombre
+        t = re.sub(r"\$([A-Z][A-Z0-9.]{0,9})\b", lambda m: NAMES.get(m.group(1), m.group(1)), t)
     t = t.replace("—", ",").replace("–", "-")
     t = re.sub(r"(\d{1,2}):(\d{2})", r"\1.\2", t)          # 15:30 -> 15.30
     t = re.sub(r"\s*:\s*", ", ", t)                         # sin dos puntos
@@ -307,7 +333,7 @@ def build_message(cands, st, min_score, max_posts, now_es):
     recent = [f"[{p.get('c', '?')}] {p['title']}" for p in st["posted"][-30:]]
     lines = [
         f"Fecha y hora actual en España {now_es.strftime('%A %d/%m/%Y %H.%M')}.",
-        f"Puntuación mínima para publicar {min_score}. Máximo {max_posts} noticias.",
+        f"Puntuación mínima en la escala de importancia AZ para publicar {min_score} sobre 10. Máximo {max_posts} noticias.",
     ]
     if MODE == "test":
         lines.append("Esto es una prueba del canal, devuelve SIEMPRE la mejor noticia disponible (1 sola) aunque no llegue a la puntuación, siempre que sea real y relevante.")
@@ -401,7 +427,10 @@ def main():
         return
 
     posts = [p for p in result.get("posts", []) if isinstance(p, dict) and p.get("text")]
-    posts.sort(key=lambda p: -float(p.get("score", 0) or 0))
+    for p in posts:
+        p["score"] = rubric_score(p)
+        log(f"  propuesta [{p['score']}/10 · {p.get('category', '?')}] {p.get('puntos')} {p.get('motivo', '')}")
+    posts.sort(key=lambda p: -p["score"])
     last_post = st["posted"][-1]["t"] if st["posted"] else 0
     gap_ok = (now - last_post) / 60 >= CFG["min_minutes_between_posts"]
     published = 0
@@ -416,7 +445,7 @@ def main():
             continue
         if MODE == "normal" and published >= 1 and score < CFG["breaking_score"]:
             continue  # en una misma pasada solo se suma una segunda si es de última hora
-        text = lint(p["text"])
+        text = lint(p["text"], p.get("category", ""))
         if not text:
             log("  descartada por formato")
             continue

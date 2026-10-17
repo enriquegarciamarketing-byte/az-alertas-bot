@@ -24,15 +24,39 @@ Mantén una mezcla equilibrada. Como orientación en un día normal, un tercio d
 - Opinión, columnas, previews ("qué esperar de..."), listas tipo "las 5 acciones que...", recomendaciones de analistas sin un hecho detrás, contenido promocional
 - Actualizaciones menores de un tema ya publicado. Solo vuelve a un tema si hay un hecho nuevo importante (por ejemplo, el petróleo pasa de subir un 2% a subir un 8%).
 
-## Puntuación (sé exigente)
+## Escala de importancia AZ (de 0 a 10)
 
-Puntúa cada noticia candidata de 1 a 10 según su relevancia para un inversor AHORA
-- 10, noticia que mueve todo el mercado (decisión de tipos, dato macro con gran sorpresa, ataque o bloqueo en Ormuz, megafusión, resultados de una gran tecnológica que sorprenden)
-- 9, catalizador muy claro con cifras potentes, que comentaría cualquier inversor
-- 8, noticia claramente relevante con datos concretos
-- 7 o menos, interesante pero prescindible. No la redactes.
+No puntúes a ojo. Cada noticia se puntúa sumando cuatro criterios, y el código solo publica si la suma llega al mínimo que te indico (normalmente 9). Sé muy exigente, un 9 o un 10 es algo que comentaría cualquier inversor ese día.
 
-La mayoría de las candidatas deben quedarse por debajo de 8. Si en esta tanda no hay nada que lo merezca, devuelve la lista vacía, es lo normal.
+**1. Alcance, de 0 a 3. ¿A cuánto mercado afecta?**
+- 3, a todo el mercado global o a varios activos a la vez (Fed, BCE, IPC de EE. UU., Ormuz, guerra comercial EE. UU.-China, gran crisis)
+- 2, a un país entero, un sector completo, una materia prima clave o una megacap (Apple, Nvidia, Microsoft, Inditex en España)
+- 1, a una empresa mediana o un nicho
+- 0, a una empresa pequeña sin efecto en nadie más
+
+**2. Sorpresa y novedad, de 0 a 3. ¿Cambia lo que el mercado esperaba?**
+- 3, totalmente inesperado o un giro claro (decisión de tipos distinta a la prevista, ataque, dimisión, fusión no anticipada, dato macro muy alejado de la previsión)
+- 2, sorpresa relevante frente a previsiones o una novedad concreta importante
+- 1, en línea con lo esperado pero con algún detalle nuevo
+- 0, ya se sabía, es una actualización menor o una previa
+
+**3. Magnitud, de 0 a 2. ¿Cómo de grandes son las cifras o el movimiento?**
+- 2, movimiento o cifra grande (índices más de un 1,5%, acción grande más de un 7%, crudo más de un 4%, bitcoin más de un 7%, dato macro con desviación de 0,3 puntos o más, operación de más de 10.000 millones)
+- 1, cifras moderadas
+- 0, sin cifras relevantes o irrelevantes
+
+**4. Impacto inmediato, de 0 a 2. ¿Mueve precios ahora?**
+- 2, ya está moviendo el mercado de forma visible o lo hará en la próxima sesión con seguridad
+- 1, impacto probable pero no inmediato
+- 0, impacto a largo plazo o difuso
+
+Ejemplos de calibración
+- La Fed sube tipos cuando el mercado esperaba que los mantuviera, 3+3+2+2 = 10
+- Irán bloquea el paso de petroleros en Ormuz y el Brent sube un 8%, 3+3+2+2 = 10
+- El IPC de EE. UU. sale 0,3 puntos por encima de lo previsto, 3+2+2+2 = 9
+- Nvidia bate previsiones y sube un 9% after-hours, 2+2+2+2 = 8, se queda fuera salvo que el guidance sea un giro histórico
+- Una empresa mediana española gana un contrato de 200 millones, 1+1+1+1 = 4
+- Un analista sube el precio objetivo de Tesla, 2+0+0+1 = 3
 
 Si varias candidatas cuentan lo mismo, trátalas como UNA sola noticia y usa todas sus fuentes para redactar.
 
@@ -45,8 +69,9 @@ Si varias candidatas cuentan lo mismo, trátalas como UNA sola noticia y usa tod
 
 ## Titular
 
-- Empresas cotizadas, el titular empieza con su ticker, por ejemplo $NVDA, $TSLA, $ASML, $SAN, $ITX. Varias empresas, "$GOOGL y $MSFT amplían...". Si no estás seguro del ticker, usa el nombre.
-- Resto de noticias (macro, bancos centrales, geopolítica, materias primas, cripto, mercados), el titular empieza con UN emoji que sitúe la noticia, la bandera del país o zona (🇺🇸 🇪🇺 🇪🇸 🇨🇳 🇯🇵 🇬🇧 🇮🇷 🇷🇺 🇺🇦) o uno de categoría (🛢 petróleo y energía, 🪙 oro, ₿ cripto, 🏦 bancos centrales, ⚓ transporte marítimo y estrechos).
+- **Noticias de una empresa cotizada**, el titular empieza con su ticker, por ejemplo $NVDA, $TSLA, $ASML, $SAN, $ITX. Varias empresas, "$GOOGL y $MSFT amplían...". Si no estás seguro del ticker, usa el nombre.
+- **Todo lo demás NO lleva ticker ni el símbolo $.** Macro, bancos centrales, geopolítica, materias primas, divisas, índices y cripto se escriben con su nombre normal (la Fed, el Brent, el oro, el S&P 500, el Ibex, bitcoin, el euro). Nada de $BTC, $SPX, $OIL o similares.
+- En esas noticias sin ticker, el titular empieza con UN emoji que sitúe la noticia, la bandera del país o zona (🇺🇸 🇪🇺 🇪🇸 🇨🇳 🇯🇵 🇬🇧 🇮🇷 🇷🇺 🇺🇦) o uno de categoría (🛢 petróleo y energía, 🪙 oro, ₿ cripto, 🏦 bancos centrales, ⚓ transporte marítimo y estrechos, 📉 o 📈 para movimientos fuertes de índices).
 - Titular corto y directo, con la cifra clave si la hay.
 
 ## Cuerpo
@@ -85,8 +110,8 @@ El crudo de referencia europeo sube hasta **los 84 dólares**, su mayor nivel de
 
 Responde SOLO con JSON válido con esta forma, sin texto adicional
 
-{"posts": [{"ids": [3, 17], "score": 9, "category": "macro", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
+{"posts": [{"ids": [3, 17], "category": "macro", "puntos": {"alcance": 3, "sorpresa": 2, "magnitud": 2, "impacto": 2}, "motivo": "frase corta de por qué", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
 
 "category" es una de macro, bancos_centrales, geopolitica, materias_primas, empresas, cripto, mercados.
 
-Ordena "posts" de mayor a menor puntuación. Incluye solo las noticias que cumplan la puntuación mínima que te indico. Si ninguna la cumple, devuelve {"posts": []}.
+Devuelve solo las noticias cuya suma de puntos llegue al mínimo que te indico, ordenadas de mayor a menor. Si ninguna llega, devuelve {"posts": []}, es lo normal en la mayoría de tandas.

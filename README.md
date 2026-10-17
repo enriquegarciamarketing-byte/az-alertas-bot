@@ -5,9 +5,11 @@ Bot que publica noticias flash de actualidad de mercados en el canal de Telegram
 Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo lo merece
 1. lee 27 fuentes (CNBC, MarketWatch, Seeking Alpha, Nikkei Asia, CoinDesk, Investing, Expansión, Cinco Días, Europa Press, Google News con Reuters, bancos centrales y geopolítica...)
 2. descarta lo ya visto y lo de hace más de 2,5 horas
-3. Gemini puntúa de 1 a 10 y redacta solo las de 8 o más (9 o más de 00.00 a 07.00), buscando variedad de temas
+3. Gemini puntúa cada noticia con la escala de importancia AZ (alcance 0-3, sorpresa 0-3, magnitud 0-2, impacto inmediato 0-2). El código suma los puntos y solo publica lo que llega a 9 sobre 10
 4. limpia el formato (dos puntos, rayas, coletillas, negritas y emojis de más)
-5. deja al menos 25 min entre publicaciones salvo noticias de última hora (9 o más), como mucho 2 por pasada y 15 al día
+5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
+
+Las noticias de acciones llevan $TICKER. El resto (macro, Fed, Ormuz, petróleo, cripto...) va sin ticker, con bandera o emoji de categoría.
 
 ## Coste 0 €
 
@@ -33,9 +35,9 @@ Actions → Alertas Bursátiles → Run workflow
 
 ## Ajustes (config.json)
 
-- `min_score`, `min_score_night` umbral de calidad (subir a 9 = menos noticias y más gordas)
+- `min_score`, `min_score_night` nota mínima en la escala AZ (9 por defecto; 10 = solo bombazos, 8 = algo más de volumen)
 - `max_posts_per_run`, `daily_post_cap`, `min_minutes_between_posts` volumen y ritmo
-- `breaking_score` puntuación a partir de la cual una noticia sale aunque se acabe de publicar otra
+- `breaking_score` nota a partir de la cual una noticia sale aunque se acabe de publicar otra
 - `feeds` añadir o quitar fuentes
 - `models` orden de modelos gratuitos de Gemini
 - El estilo de redacción está en `prompt.md`
