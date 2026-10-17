@@ -5,8 +5,9 @@ Cada mañana (7.45 hora de España) recoge las noticias de las últimas 24 horas
 los datos de mercado, deja que Gemini redacte los 8 posts del brief con las reglas
 de AZ News, genera una tarjeta AZ para cada uno y los publica en orden en el canal.
 
-MODE  normal (solo publica una vez al día y entre las 7.00 y las 10.59 de España)
-      test   (publica ya, aunque hoy ya se haya publicado)
+MODE  normal  (solo publica una vez al día y entre las 7.00 y las 10.59 de España)
+      test    (publica ya en el canal, aunque hoy ya se haya publicado)
+      privado (lo manda al chat privado de quien haya escrito al bot por última vez, no toca el canal ni la memoria)
       dry    (no publica, genera textos e imágenes en brief_out/ para revisarlos)
 """
 import datetime as dt
@@ -220,13 +221,32 @@ def publish(caption, png):
 
 # ---------------------------------------------------------------- principal
 
+def private_chat():
+    """Chat privado más reciente que ha escrito al bot (el de Enrique tras pulsar Iniciar)."""
+    r = requests.get(f"https://api.telegram.org/bot{bot.TG_TOKEN}/getUpdates", timeout=20)
+    best = None
+    for u in r.json().get("result", []):
+        m = u.get("message") or u.get("edited_message") or {}
+        chat = m.get("chat") or {}
+        if chat.get("type") == "private":
+            best = chat.get("id")
+    return best
+
+
 def main():
-    if MODE not in ("normal", "test", "dry"):
+    if MODE not in ("normal", "test", "dry", "privado"):
         sys.exit(f"MODE desconocido {MODE}")
     if not bot.GEMINI_KEY:
         sys.exit("Falta el secreto GEMINI_API_KEY")
     if MODE != "dry" and not bot.TG_TOKEN:
         sys.exit("Falta el secreto TELEGRAM_BOT_TOKEN")
+
+    if MODE == "privado":
+        chat = private_chat()
+        if not chat:
+            sys.exit("Nadie ha escrito al bot por privado. Abre el bot en Telegram, pulsa Iniciar y repite.")
+        bot.TG_CHAT = chat
+        log("  modo privado, el brief va a tu chat con el bot")
 
     now = dt.datetime.now(bot.TZ_ES)
     today = now.strftime("%Y-%m-%d")
@@ -351,6 +371,10 @@ def main():
         log(f"  post {i + 1} publicado")
         time.sleep(4)
 
+    if MODE == "privado":
+        save_state(st)
+        log("Prueba privada enviada, 8 de 8 (no se guarda en la memoria del brief)")
+        return
     mem = result.get("memoria") or {}
     mem["date"] = today
     st["briefs"].append(mem)
