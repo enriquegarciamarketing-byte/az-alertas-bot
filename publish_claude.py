@@ -24,7 +24,7 @@ def main():
     if not bot.TG_TOKEN:
         sys.exit("Falta el secreto TELEGRAM_BOT_TOKEN")
     day = os.environ.get("BRIEF_DATE") or dt.datetime.now(bot.TZ_ES).strftime("%Y-%m-%d")
-    folder = os.path.join(BASE, "claude_brief", day)
+    folder = os.path.join(BASE, os.environ.get("BRIEF_DIR") or "claude_brief", day)
     manifest = os.path.join(folder, "posts.json")
     if not os.path.exists(manifest):
         print(f"No hay brief de Claude para {day}")
@@ -40,7 +40,7 @@ def main():
 
     with open(manifest, encoding="utf-8") as fh:
         posts = sorted(json.load(fh), key=lambda p: int(p.get("n", 99)))
-    if len(posts) != 8:
+    if len(posts) != 8 and MODE != "privado":
         sys.exit(f"El brief de Claude tiene {len(posts)} posts, se esperaban 8")
     for p in posts:
         png = os.path.join(folder, p["image"])

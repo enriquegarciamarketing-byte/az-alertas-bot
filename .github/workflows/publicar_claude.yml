@@ -14,6 +14,10 @@ on:
       fecha:
         description: "Fecha del brief AAAA-MM-DD (vacío = hoy)"
         required: false
+      carpeta:
+        description: "claude_brief (el de verdad) o claude_brief_test (pruebas)"
+        required: false
+        default: claude_brief
 
 permissions:
   contents: write
@@ -43,6 +47,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           MODE: ${{ github.event.inputs.modo || 'normal' }}
           BRIEF_DATE: ${{ github.event.inputs.fecha }}
+          BRIEF_DIR: ${{ github.event.inputs.carpeta }}
         run: python publish_claude.py
 
       - name: Guardar marca de publicado
