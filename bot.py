@@ -175,17 +175,17 @@ def extract_json(text):
         return json.loads(m.group(0)) if m else None
 
 
-def call_gemini(st, user_msg):
+def call_gemini(st, user_msg, system=None, max_tokens=8192):
     """Prueba los modelos en orden. Devuelve dict o None. Nunca hay coste: sin facturación, 429 = parar."""
     day = dt.datetime.now(TZ_PT).strftime("%Y-%m-%d")
-    calls = st["calls"].setdefault(day, {})
-    exhausted = st["exhausted"].setdefault(day, [])
+    calls = st.setdefault("calls", {}).setdefault(day, {})
+    exhausted = st.setdefault("exhausted", {}).setdefault(day, [])
     cap = int(CFG.get("max_calls_per_model_per_day") or 0)
     body = {
-        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "systemInstruction": {"parts": [{"text": system or SYSTEM_PROMPT}]},
         "contents": [{"role": "user", "parts": [{"text": user_msg}]}],
         "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json",
-                             "maxOutputTokens": 8192},
+                             "maxOutputTokens": max_tokens},
     }
     for model in CFG["models"]:
         if model in exhausted or (cap and calls.get(model, 0) >= cap):

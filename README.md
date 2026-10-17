@@ -49,3 +49,19 @@ Actions → Alertas Bursátiles → Run workflow
 ## Pausar
 
 Actions → Alertas Bursátiles → menú `···` → Disable workflow.
+
+## Brief diario (brief.py)
+
+Todos los días a las 7.45 hora de España publica en el canal el brief de 8 posts, cada uno con su tarjeta AZ (1080x1350, generada por código con Barlow y el isotipo `az_logo.png`, sin imágenes de terceros).
+
+1. La historia del día, con la cabecera AZ NEWS y el termómetro del VIX
+2. El concepto del día
+3-6. En contexto 1/4 a 4/4, de sectores distintos
+7. Cómo te afecta, con S&P 500, Euríbor 12 meses y Brent (datos de Yahoo Finance y euribor-rates.eu, nunca inventados por el modelo)
+8. Dato curioso
+
+Gemini redacta con las reglas de `brief_prompt.md` a partir de las noticias de 24 h. `brief_state.json` guarda lo publicado para no repetir historia, protagonista, concepto (30 días) ni dato curioso.
+
+Probar en Actions → Brief diario AZ News → Run workflow
+- `dry` no publica, deja los 8 textos en el log y las 8 imágenes en Artifacts
+- `test` publica ya en el canal
