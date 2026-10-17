@@ -339,6 +339,8 @@ def _search_pexels(q):
 def find_photo(st, query, category):
     """Busca una foto libre relacionada con la noticia (Pixabay o Pexels) y la descarga.
     Devuelve los bytes de la imagen o None. Se descarga para no enlazar en caliente."""
+    if not CFG.get("images", False):
+        return None
     providers = [f for k, f in ((PIXABAY_KEY, _search_pixabay), (PEXELS_KEY, _search_pexels)) if k]
     if not providers:
         return None
