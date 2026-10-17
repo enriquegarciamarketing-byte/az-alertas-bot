@@ -102,7 +102,10 @@ def euribor():
             if len(pairs) >= 2:
                 vals = [float(v.replace(",", ".")) for _, v in pairs[:2]]
                 if all(-1 < v < 10 for v in vals):
-                    return {"valor": vals[0], "anterior": vals[1], "fecha": pairs[0][0]}
+                    a, b2, y = re.split(r"[/-]", pairs[0][0])
+                    if int(b2) > 12:          # la página en inglés da mes/día
+                        a, b2 = b2, a
+                    return {"valor": vals[0], "anterior": vals[1], "fecha": f"{int(a):02d}/{int(b2):02d}/{y}"}
         except Exception:
             continue
     return None
@@ -150,13 +153,27 @@ def visible_len(htm):
     return len(html.unescape(re.sub(r"<[^>]+>", "", htm)))
 
 
+def no_colons(htm):
+    """Regla de estilo AZ, sin dos puntos en la redacción. Se mantienen solo al presentar una lista."""
+    out = []
+    for line in htm.split("\n"):
+        plain = re.sub(r"<[^>]+>", "", line).strip()
+        if plain.startswith("•") or plain.endswith(":"):
+            out.append(line)
+            continue
+        line = re.sub(r"(\d{1,2}):(\d{2})", r"\1.\2", line)
+        line = re.sub(r"\s*:\s+", ", ", line)
+        out.append(line)
+    return "\n".join(out)
+
+
 def build_caption(p, header=None):
     parts = []
     if header:
         parts.append(header)
     parts.append(f"<b><u>{sanitize(p.get('seccion', ''))}</u></b>")
-    parts.append(f"<b>{sanitize(p.get('titular', '')).upper()}</b>")
-    parts.append(sanitize(p.get("cuerpo", "")))
+    parts.append(f"<b>{no_colons(sanitize(p.get('titular', ''))).upper()}</b>")
+    parts.append(no_colons(sanitize(p.get("cuerpo", ""))))
     if (p.get("fuentes") or "").strip():
         parts.append(f"📚 {sanitize(p['fuentes'])}")
     return "\n\n".join(x for x in parts if x)

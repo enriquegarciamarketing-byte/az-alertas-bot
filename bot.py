@@ -169,10 +169,10 @@ def extract_json(text):
     text = text.strip()
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
     try:
-        return json.loads(text)
+        return json.loads(text, strict=False)   # strict=False admite saltos de línea sin escapar dentro de textos
     except json.JSONDecodeError:
         m = re.search(r"\{.*\}", text, re.S)
-        return json.loads(m.group(0)) if m else None
+        return json.loads(m.group(0), strict=False) if m else None
 
 
 def call_gemini(st, user_msg, system=None, max_tokens=8192):
@@ -211,7 +211,8 @@ def call_gemini(st, user_msg, system=None, max_tokens=8192):
                 if isinstance(parsed, dict):
                     log(f"  modelo usado {model}")
                     return parsed
-                log(f"  {model}: respuesta sin JSON válido")
+                fin = (data.get("candidates") or [{}])[0].get("finishReason")
+                log(f"  {model}: respuesta sin JSON válido (fin {fin}, {len(text)} caracteres)")
                 break
             msg = r.text[:400]
             if r.status_code == 429:
