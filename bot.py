@@ -561,7 +561,7 @@ def main():
         link = source_link(p, cands)
         photo = None
         if not link[0] and CFG.get("stock_photo_fallback"):
-            photo = find_photo(st, p.get("imagen", ""), p.get("category", ""))
+            photo = find_photo(st, p.get("imagen", ""), p.get("category", "")) if CFG.get("images") else None
         if MODE == "dry":
             log(f"  fuente {link[1]} {link[0]} · foto de banco {'sí' if photo else 'no'}")
             published += 1
