@@ -1,0 +1,58 @@
+name: Publicar brief de Claude
+
+on:
+  push:
+    paths:
+      - "claude_brief/**/posts.json"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "normal publica en el canal, privado te lo manda a tu chat con el bot"
+        type: choice
+        default: privado
+        options: [privado, normal]
+      fecha:
+        description: "Fecha del brief AAAA-MM-DD (vacío = hoy)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: brief-diario
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Publicar en Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODE: ${{ github.event.inputs.modo || 'normal' }}
+          BRIEF_DATE: ${{ github.event.inputs.fecha }}
+        run: python publish_claude.py
+
+      - name: Guardar marca de publicado
+        if: always()
+        run: |
+          git config user.name "az-alertas-bot"
+          git config user.email "az-alertas-bot@users.noreply.github.com"
+          git add claude_brief brief_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "brief de Claude publicado $(date -u +%F)" -q
+            git pull --rebase -q || true
+            git push -q || true
+          fi

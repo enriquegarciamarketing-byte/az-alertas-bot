@@ -1,10 +1,10 @@
-name: Brief diario AZ News
+name: Brief diario AZ News (respaldo Gemini)
 
 on:
   schedule:
-    # 7.45 en España todo el año. GitHub solo entiende UTC, así que se programa a las
-    # 5.45 y a las 6.45 UTC y el script solo publica la primera que caiga entre las 7 y las 11.
-    - cron: "45 5,6 * * *"
+    # Respaldo a las 8.45 en España, por si el brief de Claude no ha llegado. GitHub solo entiende
+    # UTC, así que se programa a las 6.45 y 7.45 UTC y el script decide según la hora de España.
+    - cron: "45 6,7 * * *"
   workflow_dispatch:
     inputs:
       modo:
