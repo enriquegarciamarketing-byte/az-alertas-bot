@@ -110,8 +110,10 @@ El crudo de referencia europeo sube hasta **los 84 dólares**, su mayor nivel de
 
 Responde SOLO con JSON válido con esta forma, sin texto adicional
 
-{"posts": [{"ids": [3, 17], "category": "macro", "puntos": {"alcance": 3, "sorpresa": 2, "magnitud": 2, "impacto": 2}, "motivo": "frase corta de por qué", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
+{"posts": [{"ids": [3, 17], "category": "macro", "puntos": {"alcance": 3, "sorpresa": 2, "magnitud": 2, "impacto": 2}, "motivo": "frase corta de por qué", "imagen": "federal reserve building", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
 
 "category" es una de macro, bancos_centrales, geopolitica, materias_primas, empresas, cripto, mercados.
+
+"imagen" son 2 a 4 palabras EN INGLÉS para buscar una foto de banco de imágenes que represente el tema de la noticia. Describe objetos o lugares que salen en fotos genéricas, nunca nombres de personas, marcas ni logotipos. Ejemplos, "oil tanker sea" para Ormuz o el petróleo, "federal reserve building" para la Fed, "european central bank frankfurt" para el BCE, "stock market trading screen" para bolsa, "bitcoin coins" para cripto, "semiconductor chip" para chips, "electric car charging" para coches eléctricos, "cargo ship containers port" para aranceles o comercio, "supermarket prices" para inflación, "gold bars" para el oro.
 
 Devuelve solo las noticias cuya suma de puntos llegue al mínimo que te indico, ordenadas de mayor a menor. Si ninguna llega, devuelve {"posts": []}, es lo normal en la mayoría de tandas.

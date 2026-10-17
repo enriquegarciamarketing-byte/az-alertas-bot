@@ -9,6 +9,8 @@ Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo l
 4. limpia el formato (dos puntos, rayas, coletillas, negritas y emojis de más)
 5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
 
+Cada noticia va con una foto libre de Pixabay relacionada con el tema. La foto se descarga y se sube a Telegram, no se enlaza. Si no hay foto o no hay clave, sale solo el texto. Pixabay pide indicar de dónde salen las imágenes, por eso conviene poner "Fotos de Pixabay" en la descripción del canal.
+
 Las noticias de acciones llevan $TICKER. El resto (macro, Fed, Ormuz, petróleo, cripto...) va sin ticker, con bandera o emoji de categoría.
 
 ## Coste 0 €
@@ -25,6 +27,8 @@ No actives nunca la facturación en el proyecto de Google Cloud de la clave.
 |---|---|
 | `TELEGRAM_BOT_TOKEN` | token de Alertas Bursátiles (BotFather → /mybots → API Token) |
 | `GEMINI_API_KEY` | clave de aistudio.google.com/apikey |
+| `PIXABAY_API_KEY` | clave gratuita de pixabay.com/api/docs, para la foto de cada noticia |
+| `PEXELS_API_KEY` | opcional, segunda fuente de fotos si algún día tienes clave de Pexels |
 
 ## Probar
 

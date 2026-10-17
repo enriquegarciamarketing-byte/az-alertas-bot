@@ -46,6 +46,15 @@ MODE = os.environ.get("MODE", "normal").strip().lower() or "normal"
 TG_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TG_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "").strip() or CFG["telegram_chat"]
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+PEXELS_KEY = os.environ.get("PEXELS_API_KEY", "").strip()
+PIXABAY_KEY = os.environ.get("PIXABAY_API_KEY", "").strip()
+
+FALLBACK_IMAGE = {  # búsqueda de reserva por categoría si la del modelo no da resultados
+    "macro": "economy finance charts", "bancos_centrales": "central bank building",
+    "geopolitica": "world map globe", "materias_primas": "oil barrels industry",
+    "empresas": "business district skyscrapers", "cripto": "bitcoin coins",
+    "mercados": "stock market trading screen",
+}
 
 BANNED = [
     "el matiz", "lo importante", "aquí está lo interesante", "aqui esta lo interesante",
@@ -81,6 +90,7 @@ def load_state():
     st.setdefault("calls", {})       # fecha PT -> {modelo: n}
     st.setdefault("exhausted", {})   # fecha PT -> [modelos sin cuota]
     st.setdefault("last_call", 0)
+    st.setdefault("photos", [])      # ids de Pexels ya usados, para no repetir foto
     return st
 
 
@@ -88,6 +98,7 @@ def save_state(st):
     now = time.time()
     st["seen"] = {k: v for k, v in st["seen"].items() if now - v < 3 * 86400}
     st["posted"] = st["posted"][-200:]
+    st["photos"] = st["photos"][-400:]
     for key in ("calls", "exhausted"):
         st[key] = {d: st[key][d] for d in sorted(st[key])[-3:]}
     with open(STATE_PATH, "w", encoding="utf-8") as fh:
@@ -305,14 +316,74 @@ def lint(text, category=""):
     return f"{title}\n\n{body}"
 
 
+def _search_pixabay(q):
+    r = requests.get("https://pixabay.com/api/", timeout=15,
+                     params={"key": PIXABAY_KEY, "q": q[:100], "image_type": "photo",
+                             "orientation": "horizontal", "safesearch": "true", "per_page": 30})
+    if r.status_code != 200:
+        log(f"  Pixabay HTTP {r.status_code}")
+        return []
+    return [("pixabay", h["id"], h["largeImageURL"], h.get("user")) for h in r.json().get("hits", [])]
+
+
+def _search_pexels(q):
+    r = requests.get("https://api.pexels.com/v1/search", timeout=15, headers={"Authorization": PEXELS_KEY},
+                     params={"query": q, "per_page": 30, "orientation": "landscape"})
+    if r.status_code != 200:
+        log(f"  Pexels HTTP {r.status_code}")
+        return []
+    return [("pexels", p["id"], p["src"].get("large") or p["src"]["original"], p.get("photographer"))
+            for p in r.json().get("photos", [])]
+
+
+def find_photo(st, query, category):
+    """Busca una foto libre relacionada con la noticia (Pixabay o Pexels) y la descarga.
+    Devuelve los bytes de la imagen o None. Se descarga para no enlazar en caliente."""
+    providers = [f for k, f in ((PIXABAY_KEY, _search_pixabay), (PEXELS_KEY, _search_pexels)) if k]
+    if not providers:
+        return None
+    for q in [query, FALLBACK_IMAGE.get(category)]:
+        if not q:
+            continue
+        for search in providers:
+            try:
+                results = search(q)
+            except Exception as exc:
+                log(f"  error buscando foto {type(exc).__name__}")
+                continue
+            for source, pid, url, author in results:
+                key = f"{source}:{pid}"
+                if key in st["photos"] or pid in st["photos"]:
+                    continue
+                try:
+                    img = requests.get(url, headers=UA, timeout=20)
+                except requests.RequestException:
+                    continue
+                if img.status_code == 200 and img.headers.get("content-type", "").startswith("image/") \
+                        and len(img.content) < 9_000_000:
+                    st["photos"].append(key)
+                    log(f"  foto {source} '{q}' de {author}")
+                    return img.content
+    return None
+
+
 def to_telegram_html(text):
     t = html.escape(text, quote=False)
     return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t, flags=re.S)
 
 
-def send_telegram(text):
+def send_telegram(text, photo=None):
+    base = f"https://api.telegram.org/bot{TG_TOKEN}"
+    # el pie de foto de Telegram admite 1024 caracteres; si no cabe, va como texto
+    if photo and len(text.replace("**", "")) <= 1000:
+        r = requests.post(f"{base}/sendPhoto", timeout=60,
+                          data={"chat_id": TG_CHAT, "caption": to_telegram_html(text), "parse_mode": "HTML"},
+                          files={"photo": ("foto.jpg", photo)})
+        if r.status_code == 200 and r.json().get("ok"):
+            return True
+        log(f"  la foto no se pudo enviar ({r.status_code}), publico solo el texto")
     r = requests.post(
-        f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
+        f"{base}/sendMessage",
         json={"chat_id": TG_CHAT, "text": to_telegram_html(text), "parse_mode": "HTML",
               "disable_web_page_preview": True},
         timeout=20,
@@ -450,10 +521,12 @@ def main():
             log("  descartada por formato")
             continue
         log(f"\n--- [{p.get('score')}] ---\n{text}\n")
+        photo = find_photo(st, p.get("imagen", ""), p.get("category", ""))
         if MODE == "dry":
+            log(f"  foto {'sí' if photo else 'no'}")
             published += 1
             continue
-        if send_telegram(text):
+        if send_telegram(text, photo):
             published += 1
             st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
                                 "title": text.split("\n")[0].strip("*")})
