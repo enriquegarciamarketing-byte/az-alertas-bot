@@ -8,7 +8,7 @@
     "gemini-3.1-flash-lite"
   ],
   "max_calls_per_model_per_day": 0,
-  "min_score": 9,
+  "min_score": 8,
   "min_score_night": 9,
   "night_hours": [
     0,

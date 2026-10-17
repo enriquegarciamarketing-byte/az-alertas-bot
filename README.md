@@ -5,7 +5,7 @@ Bot que publica noticias flash de actualidad de mercados en el canal de Telegram
 Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo lo merece
 1. lee 27 fuentes (CNBC, MarketWatch, Seeking Alpha, Nikkei Asia, CoinDesk, Investing, Expansión, Cinco Días, Europa Press, Google News con Reuters, bancos centrales y geopolítica...)
 2. descarta lo ya visto y lo de hace más de 2,5 horas
-3. Gemini puntúa cada noticia con la escala de importancia AZ (alcance 0-3, sorpresa 0-3, magnitud 0-2, impacto inmediato 0-2). El código suma los puntos y solo publica lo que llega a 9 sobre 10
+3. Gemini puntúa cada noticia con la escala de importancia AZ (alcance 0-3, sorpresa 0-3, magnitud 0-2, impacto inmediato 0-2). El código suma los puntos y solo publica lo que llega a 8 sobre 10 (9 de madrugada)
 4. limpia el formato (dos puntos, rayas, coletillas, negritas y emojis de más)
 5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
 
@@ -39,7 +39,7 @@ Actions → Alertas Bursátiles → Run workflow
 
 ## Ajustes (config.json)
 
-- `min_score`, `min_score_night` nota mínima en la escala AZ (9 por defecto; 10 = solo bombazos, 8 = algo más de volumen)
+- `min_score`, `min_score_night` nota mínima en la escala AZ (8 por defecto, 9 de madrugada; subir a 9 = solo noticias muy gordas)
 - `max_posts_per_run`, `daily_post_cap`, `min_minutes_between_posts` volumen y ritmo
 - `breaking_score` nota a partir de la cual una noticia sale aunque se acabe de publicar otra
 - `feeds` añadir o quitar fuentes
