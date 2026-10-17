@@ -5,7 +5,7 @@ Cada mañana (7.45 hora de España) recoge las noticias de las últimas 24 horas
 los datos de mercado, deja que Gemini redacte los 8 posts del brief con las reglas
 de AZ News, genera una tarjeta AZ para cada uno y los publica en orden en el canal.
 
-MODE  normal  (solo publica una vez al día y entre las 7.00 y las 10.59 de España)
+MODE  normal  (respaldo, solo si Claude no ha dejado su brief, una vez al día entre las 8.00 y las 11.59)
       test    (publica ya en el canal, aunque hoy ya se haya publicado)
       privado (lo manda al chat privado de quien haya escrito al bot por última vez, no toca el canal ni la memoria)
       dry    (no publica, genera textos e imágenes en brief_out/ para revisarlos)
@@ -253,8 +253,12 @@ def main():
     st = load_state()
     log(f"AZ Brief · modo {MODE} · {now:%d/%m/%Y %H.%M} España")
     if MODE == "normal":
-        if not 7 <= now.hour <= 10:
-            log("  fuera de la franja de la mañana, no toca")
+        # respaldo, solo si Claude no ha dejado su brief de hoy
+        if os.path.exists(os.path.join(BASE, "claude_brief", today, "posts.json")):
+            log("  hoy el brief lo hace Claude, el de Gemini no hace falta")
+            return
+        if not 8 <= now.hour <= 11:
+            log("  fuera de la franja de respaldo (8.00 a 11.59), no toca")
             return
         if any(b.get("date") == today for b in st["briefs"]):
             log("  el brief de hoy ya está publicado")
