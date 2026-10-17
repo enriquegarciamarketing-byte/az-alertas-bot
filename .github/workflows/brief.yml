@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "dry genera y no publica (imágenes en Artifacts), test publica ya en el canal, normal como el automático"
+        description: "privado te lo manda a tu chat con el bot, dry no publica (imágenes en Artifacts), test publica ya en el canal, normal como el automático"
         type: choice
-        default: dry
-        options: [dry, test, normal]
+        default: privado
+        options: [privado, dry, test, normal]
 
 permissions:
   contents: write
