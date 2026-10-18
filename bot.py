@@ -255,6 +255,11 @@ for with by at from as after over its his their new says said will would could t
 sube baja cae suben bajan caen""".split())
 
 
+# raíces (5 letras, sin tildes) que aparecen en casi todas las noticias de un mismo conflicto o mercado
+CONTEXT_TOKENS = {"iran", "irani", "ormuz", "estre", "golfo", "petro", "crudo", "brent", "barri",
+                  "trump", "rusia", "ucran", "israe", "china", "unido", "estad", "europ"}
+
+
 def key_tokens(text):
     """Palabras clave normalizadas (sin tildes, sin palabras vacías, raíz de 5 letras) para comparar noticias."""
     t = re.sub(r"<[^>]+>|\*\*|\$", " ", text or "")
@@ -277,6 +282,10 @@ def same_story(new, old):
     if a_t and b_t:
         shared = len(a_t & b_t)
         ratio = shared / min(len(a_t), len(b_t))
+        # las palabras de contexto (Irán, Ormuz, petróleo...) salen en hechos distintos del mismo conflicto,
+        # así que para darla por repetida hace falta al menos una palabra en común que no sea de contexto
+        if not (a_t & b_t) - CONTEXT_TOKENS:
+            shared = 0
         if ratio >= 0.5 and shared >= 2:
             return True, f"titular {ratio:.0%} igual"
         if shared >= 3 and ratio >= 0.3:
