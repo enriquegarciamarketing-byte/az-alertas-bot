@@ -25,6 +25,8 @@ from concurrent.futures import ThreadPoolExecutor
 from zoneinfo import ZoneInfo
 
 import feedparser
+
+from web import store as web_store
 import requests
 
 try:
@@ -663,6 +665,8 @@ def main():
             published += 1
             st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
                                 "tema": p.get("tema", ""), "title": text.split("\n")[0].strip("*")})
+            if MODE == "normal" or MODE == "test":
+                web_store.add_flash(text, p.get("category", ""), time.time(), TZ_ES)
             time.sleep(CFG["seconds_between_posts"])
         elif MODE == "test":
             save_state(st)

@@ -1,0 +1,67 @@
+name: Web AZ News
+
+# Construye la web con lo publicado en Telegram y la despliega en GitHub Pages.
+# - push: cuando llega un brief de Claude o cambia el código de la web
+# - workflow_call: lo llaman Alertas Bursátiles y el brief de Gemini cuando publican algo nuevo
+#   (sus commits los hace el bot y GitHub no lanza workflows por ellos)
+on:
+  push:
+    branches: [main]
+    paths:
+      - "claude_brief/**"
+      - "web/**"
+      - "az_logo.png"
+      - ".github/workflows/web.yml"
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: web-pages
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main   # siempre lo último, también cuando lo llama otro workflow tras su commit
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install Pillow
+
+      - name: Recuperar las tarjetas ya convertidas
+        uses: actions/cache@v4
+        with:
+          path: _site/brief
+          key: web-tarjetas-${{ hashFiles('claude_brief/**/posts.json', 'web/gemini_brief/**/posts.json') }}
+          restore-keys: web-tarjetas-
+
+      - name: Construir la web
+        run: python web/build.py
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Desplegar
+        id: deploy
+        uses: actions/deploy-pages@v4

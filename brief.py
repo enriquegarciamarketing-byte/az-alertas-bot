@@ -23,6 +23,7 @@ import requests
 
 import bot
 import cards
+from web import store as web_store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 STATE_PATH = os.path.join(BASE, "brief_state.json")
@@ -379,6 +380,7 @@ def main():
         save_state(st)
         log("Prueba privada enviada, 8 de 8 (no se guarda en la memoria del brief)")
         return
+    web_store.save_gemini_brief(today, ready)
     mem = result.get("memoria") or {}
     mem["date"] = today
     st["briefs"].append(mem)

@@ -21,6 +21,8 @@ concurrency:
 jobs:
   noticias:
     runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.guardar.outputs.web }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -43,13 +45,25 @@ jobs:
         run: python bot.py
 
       - name: Guardar memoria de lo ya publicado
+        id: guardar
         if: always()
         run: |
           git config user.name "az-alertas-bot"
           git config user.email "az-alertas-bot@users.noreply.github.com"
           git add state.json
+          git add web/data 2>/dev/null || true
+          if git diff --cached --name-only | grep -q '^web/data/'; then echo "web=true" >> "$GITHUB_OUTPUT"; fi
           if ! git diff --cached --quiet; then
             git commit -m "estado $(date -u +%FT%TZ)" -q
             git pull --rebase -q || true
             git push -q || true
           fi
+
+  web:
+    needs: noticias
+    if: always() && needs.noticias.outputs.web == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/web.yml

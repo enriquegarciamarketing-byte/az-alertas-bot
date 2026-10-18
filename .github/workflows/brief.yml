@@ -23,6 +23,8 @@ concurrency:
 jobs:
   brief:
     runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.guardar.outputs.web }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -58,13 +60,25 @@ jobs:
           retention-days: 7
 
       - name: Guardar memoria de briefs publicados
+        id: guardar
         if: always()
         run: |
           git config user.name "az-alertas-bot"
           git config user.email "az-alertas-bot@users.noreply.github.com"
           git add brief_state.json
+          git add web/gemini_brief 2>/dev/null || true
+          if git diff --cached --name-only | grep -q '^web/gemini_brief/'; then echo "web=true" >> "$GITHUB_OUTPUT"; fi
           if ! git diff --cached --quiet; then
             git commit -m "brief $(date -u +%F)" -q
             git pull --rebase -q || true
             git push -q || true
           fi
+
+  web:
+    needs: brief
+    if: always() && needs.brief.outputs.web == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/web.yml

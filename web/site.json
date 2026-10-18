@@ -1,0 +1,17 @@
+{
+  "name": "AZ News",
+  "tagline": "Bolsa, inversión y finanzas en 30 segundos",
+  "base_url": "https://enriquegarciamarketing-byte.github.io/az-alertas-bot",
+  "custom_domain": "",
+  "telegram_url": "https://t.me/AZ_Inversion",
+  "telegram_handle": "@AZ_Inversion",
+  "titular": "Enrique García Rizo",
+  "nif": "",
+  "email": "",
+  "adsense_client": "",
+  "adsense_slot_article": "",
+  "adsense_slot_list": "",
+  "google_site_verification": "",
+  "latest_on_home": 12,
+  "latest_on_list": 60
+}
