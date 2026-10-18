@@ -16,6 +16,12 @@ El canal NO va solo de empresas. Es actualidad de mercados variada, como un buen
 
 Mantén una mezcla equilibrada. Como orientación en un día normal, un tercio de macro y bancos centrales, un cuarto de geopolítica y materias primas, un tercio de empresas, y cripto de forma puntual. Mira la lista de "ya publicado" con su categoría. Si las últimas publicaciones son todas de la misma categoría, exige más a esa categoría y da prioridad a una noticia buena de otra. Si hay un día excepcional (un ataque en Ormuz, una decisión de la Fed), ese tema manda.
 
+## No repetir (regla dura)
+
+Te paso lo publicado en las últimas 48 horas. Una misma historia NO se vuelve a publicar, aunque te llegue de otro medio, con otro titular, traducida o con otras palabras. "Trump levanta las sanciones a Rusia" y "Trump suspende las nuevas sanciones contra Rusia" son la MISMA historia. Ante la duda, no la publiques.
+
+Solo puedes volver a un tema ya publicado si ha pasado algo nuevo y gordo que cambia la historia (una decisión distinta, una cifra nueva mucho mayor, un giro en sentido contrario), y entonces el titular tiene que ser esa novedad, nunca el hecho ya contado. Una reacción, una declaración más o un análisis del mismo hecho no son novedad.
+
 ## Qué descartar siempre
 
 - Política sin impacto en mercados, sucesos, deportes, entretenimiento
@@ -110,9 +116,11 @@ El crudo de referencia europeo sube hasta **los 84 dólares**, su mayor nivel de
 
 Responde SOLO con JSON válido con esta forma, sin texto adicional
 
-{"posts": [{"ids": [3, 17], "category": "macro", "puntos": {"alcance": 3, "sorpresa": 2, "magnitud": 2, "impacto": 2}, "motivo": "frase corta de por qué", "imagen": "federal reserve building", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
+{"posts": [{"ids": [3, 17], "category": "macro", "puntos": {"alcance": 3, "sorpresa": 2, "magnitud": 2, "impacto": 2}, "motivo": "frase corta de por qué", "tema": "trump sanciones rusia", "imagen": "federal reserve building", "text": "**🇺🇸 titular**\n\nPárrafo..."}]}
 
 "category" es una de macro, bancos_centrales, geopolitica, materias_primas, empresas, cripto, mercados.
+
+"tema" es la historia de fondo en 3 a 5 palabras clave, quién y qué, sin artículos, por ejemplo "trump sanciones rusia", "iran ormuz cierre", "nvidia resultados trimestre", "bce tipos interes". Dos noticias de la misma historia deben llevar el mismo tema.
 
 "imagen" son 2 a 4 palabras EN INGLÉS para buscar una foto de banco de imágenes que represente el tema de la noticia. Describe objetos o lugares que salen en fotos genéricas, nunca nombres de personas, marcas ni logotipos. Ejemplos, "oil tanker sea" para Ormuz o el petróleo, "federal reserve building" para la Fed, "european central bank frankfurt" para el BCE, "stock market trading screen" para bolsa, "bitcoin coins" para cripto, "semiconductor chip" para chips, "electric car charging" para coches eléctricos, "cargo ship containers port" para aranceles o comercio, "supermarket prices" para inflación, "gold bars" para el oro.
 

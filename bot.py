@@ -20,6 +20,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from zoneinfo import ZoneInfo
 
@@ -71,6 +72,8 @@ PHRASE_FIXES = [
 EMOJI = (r"(?:[\U0001F1E6-\U0001F1FF]{2}"
          r"|[\U0001F000-\U0001F1E5\U0001F200-\U0001FAFF☀-➿⬀-⯿₿]️?)")
 LEAD_EMOJI = r"^\s*(" + EMOJI + r")\s*"
+DEFAULT_EMOJI = {"macro": "📊", "bancos_centrales": "🏦", "geopolitica": "🌍", "materias_primas": "🛢",
+                 "cripto": "₿", "mercados": "📈"}
 
 
 def log(*args):
@@ -243,6 +246,61 @@ NAMES = {  # códigos que el modelo a veces pone con $ en noticias que no son de
     "OIL": "El petróleo", "WTI": "WTI", "BRENT": "Brent", "GOLD": "El oro", "XAU": "El oro",
     "DXY": "El dólar", "EURUSD": "El euro", "USDJPY": "El yen",
 }
+# ---------------------------------------------------------------- no repetir
+
+STOP = set("""de la el los las un una unos unas y o en por para con sin sobre tras ante entre hasta desde que se su
+sus del al lo le les como mas pero este esta estos estas ese esa eso ya muy ha han hay ser son fue era sera tiene
+tienen nuevo nueva nuevos nuevas durante segun mientras porque cuando donde hoy ayer otra otro the of and to in on
+for with by at from as after over its his their new says said will would could than into about against amid while
+sube baja cae suben bajan caen""".split())
+
+
+def key_tokens(text):
+    """Palabras clave normalizadas (sin tildes, sin palabras vacías, raíz de 5 letras) para comparar noticias."""
+    t = re.sub(r"<[^>]+>|\*\*|\$", " ", text or "")
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower()
+    out = set()
+    for w in re.findall(r"[a-z0-9]+", t):
+        if w in STOP:
+            continue
+        if w.isdigit():
+            if len(w) >= 2:
+                out.add(w)
+        elif len(w) >= 4:
+            out.add(w[:5])
+    return out
+
+
+def same_story(new, old):
+    """True si dos noticias cuentan lo mismo. new y old son dicts con 'title' y 'tema'."""
+    a_t, b_t = key_tokens(new.get("title")), key_tokens(old.get("title"))
+    if a_t and b_t:
+        shared = len(a_t & b_t)
+        ratio = shared / min(len(a_t), len(b_t))
+        if ratio >= 0.5 and shared >= 2:
+            return True, f"titular {ratio:.0%} igual"
+        if shared >= 3 and ratio >= 0.3:
+            return True, f"{shared} palabras clave en común"
+    a_m, b_m = key_tokens(new.get("tema")), key_tokens(old.get("tema"))
+    if len(a_m) >= 2 and len(b_m) >= 2:
+        shared = len(a_m & b_m)
+        if shared >= 3 or shared / min(len(a_m), len(b_m)) >= 0.75:
+            return True, "mismo tema"
+    return False, ""
+
+
+def already_told(st, cand, hours):
+    """Busca en lo publicado en las últimas horas una noticia con la misma historia."""
+    limit = time.time() - hours * 3600
+    for old in reversed(st["posted"]):
+        if old.get("t", 0) < limit:
+            break
+        dup, why = same_story(cand, old)
+        if dup:
+            return old, why
+    return None, ""
+
+
 RUBRIC_MAX = {"alcance": 3, "sorpresa": 3, "magnitud": 2, "impacto": 2}
 
 
@@ -284,6 +342,8 @@ def lint(text, category=""):
     title = re.sub(r" {2,}", " ", title).strip(" ,.")
     if not title:
         return None
+    if not lead and not title.startswith("$") and category and category != "empresas":
+        lead = DEFAULT_EMOJI.get(category, "") + " " if DEFAULT_EMOJI.get(category) else ""
     title = f"**{lead}{title}**"
 
     # quita coletillas prohibidas; si no se pueden quitar limpiamente, cae la frase entera
@@ -441,14 +501,18 @@ def send_telegram(text, photo=None, link=None):
 # ---------------------------------------------------------------- principal
 
 def build_message(cands, st, min_score, max_posts, now_es):
-    recent = [f"[{p.get('c', '?')}] {p['title']}" for p in st["posted"][-30:]]
+    limit = time.time() - 48 * 3600
+    recent = [f"[{dt.datetime.fromtimestamp(p['t'], TZ_ES):%d/%m %H.%M}] {p['title']}"
+              + (f" · tema {p['tema']}" if p.get("tema") else "")
+              for p in st["posted"] if p.get("t", 0) >= limit]
     lines = [
         f"Fecha y hora actual en España {now_es.strftime('%A %d/%m/%Y %H.%M')}.",
         f"Puntuación mínima en la escala de importancia AZ para publicar {min_score} sobre 10. Máximo {max_posts} noticias.",
     ]
     if MODE == "test":
         lines.append("Esto es una prueba del canal, devuelve SIEMPRE la mejor noticia disponible (1 sola) aunque no llegue a la puntuación, siempre que sea real y relevante.")
-    lines.append("\nYa publicado en el canal (no repitas estos temas)")
+    lines.append("\nYA PUBLICADO EN LAS ÚLTIMAS 48 HORAS. Prohibido volver a publicar cualquiera de estas historias, "
+                 "aunque venga con otro titular, de otro medio o con otras palabras")
     lines += [f"- {t}" for t in recent] or ["- (nada todavía)"]
     lines.append("\nNoticias candidatas")
     for i, c in enumerate(cands):
@@ -545,6 +609,7 @@ def main():
     last_post = st["posted"][-1]["t"] if st["posted"] else 0
     gap_ok = (now - last_post) / 60 >= CFG["min_minutes_between_posts"]
     published = 0
+    sent_now = []
     for p in posts:
         if published >= max_posts:
             break
@@ -560,6 +625,22 @@ def main():
         if not text:
             log("  descartada por formato")
             continue
+        cand = {"title": text.split("\n")[0], "tema": p.get("tema", "")}
+        old, why = already_told(st, cand, CFG.get("no_repeat_hours", 36))
+        if old and score >= CFG["breaking_score"] and why != "mismo tema":
+            a_t, b_t = key_tokens(cand["title"]), key_tokens(old["title"])
+            ratio = len(a_t & b_t) / max(1, min(len(a_t), len(b_t)))
+            if ratio < 0.7:   # giro gordo de una historia ya contada (nota 10 y titular distinto)
+                log(f"  tema ya publicado pero es un giro de 10, se publica · antes {old['title'][:60]}")
+                old = None
+        if old and MODE != "test":
+            log(f"  repetida, no se publica ({why}) · ya salió {dt.datetime.fromtimestamp(old['t'], TZ_ES):%d/%m %H.%M} · {old['title'][:70]}")
+            continue
+        dup_batch = [q for q in sent_now if same_story(cand, q)[0]]
+        if dup_batch:
+            log("  misma historia que otra de esta pasada, no se publica")
+            continue
+        sent_now.append(cand)
         log(f"\n--- [{p.get('score')}] ---\n{text}\n")
         link = source_link(p, cands) if CFG.get("source_link", False) else (None, None)
         photo = None
@@ -572,7 +653,7 @@ def main():
         if send_telegram(text, photo, link):
             published += 1
             st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
-                                "title": text.split("\n")[0].strip("*")})
+                                "tema": p.get("tema", ""), "title": text.split("\n")[0].strip("*")})
             time.sleep(CFG["seconds_between_posts"])
         elif MODE == "test":
             save_state(st)

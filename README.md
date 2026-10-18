@@ -8,6 +8,7 @@ Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo l
 3. Gemini puntúa cada noticia con la escala de importancia AZ (alcance 0-3, sorpresa 0-3, magnitud 0-2, impacto inmediato 0-2). El código suma los puntos y solo publica lo que llega a 8 sobre 10 (9 de madrugada)
 4. limpia el formato (dos puntos, rayas, coletillas, negritas y emojis de más)
 5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
+6. no repite historias, compara cada noticia con todo lo publicado en las últimas 36 horas (titular, palabras clave y tema) y descarta las que ya se han contado aunque vengan con otras palabras. Solo deja pasar un giro gordo del mismo tema si es un 10 y el titular es distinto
 
 Las noticias salen solo con texto, sin imagen ni fuente. En config.json, `"source_link": true` añade "🔗 Fuente [medio]" con la vista previa de la noticia original, y `"images": true` activa fotos de Pixabay.
 
@@ -41,6 +42,7 @@ Actions → Alertas Bursátiles → Run workflow
 
 - `min_score`, `min_score_night` nota mínima en la escala AZ (8 por defecto, 9 de madrugada; subir a 9 = solo noticias muy gordas)
 - `max_posts_per_run`, `daily_post_cap`, `min_minutes_between_posts` volumen y ritmo
+- `no_repeat_hours` horas durante las que una historia ya publicada no se repite (36)
 - `breaking_score` nota a partir de la cual una noticia sale aunque se acabe de publicar otra
 - `feeds` añadir o quitar fuentes
 - `models` orden de modelos gratuitos de Gemini
