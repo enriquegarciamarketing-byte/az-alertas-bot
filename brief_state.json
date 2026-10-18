@@ -1,14 +1,32 @@
 {
- "briefs": [],
+ "briefs": [
+  {
+   "historia": "Liquidación en cascada de 52 millones de dólares en derivados de chips en 10 minutos con Wall Street cerrado",
+   "protagonista": "Binance e Hyperliquid",
+   "concepto": "Liquidación en cascada",
+   "contexto": [
+    "Sarah Breeden del Banco de Inglaterra alerta sobre el riesgo de shock por el apalancamiento de los hedge funds en deuda",
+    "Toyota transformará sus 50 modelos de automóviles en vehículos basados en software para 2030 con su plataforma Arene",
+    "Ursula von der Leyen anuncia una herramienta de diversificación comercial en la UE para diciembre frente a China",
+    "Mynt fija el precio de la OPV récord de GCash en Filipinas en 966 millones de dólares"
+   ],
+   "curioso": "Sony lanza un Walkman bañado en oro por 5.900 dólares, equivalente a más de 44 años de suscripción a Spotify",
+   "date": "2026-10-18"
+  }
+ ],
  "calls": {
   "2026-10-17": {
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 3,
    "gemini-3.1-flash-lite": 1
+  },
+  "2026-10-18": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-17": []
+  "2026-10-17": [],
+  "2026-10-18": []
  },
- "last_call": 1792265251.371076
+ "last_call": 1792308020.5869017
 }
