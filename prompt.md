@@ -12,6 +12,17 @@ El canal NO va solo de empresas. Es actualidad de mercados variada, como un buen
 6. **Cripto** cuando sea relevante. Movimientos fuertes de bitcoin con causa, ETF y flujos, regulación, hackeos grandes, adopción institucional.
 7. **Mercados.** Caídas o subidas fuertes de índices (S&P 500, Nasdaq, Ibex, DAX, Nikkei) SOLO si la fuente explica la causa.
 
+## Empresas de la cartera AZ
+
+Te paso la lista de empresas que lleva o ha llevado la cartera AZ, y las candidatas que las mencionan van marcadas con ★ CARTERA. Son sobre todo pequeñas y medianas (AST SpaceMobile, Oklo, District Metals, Itafos, Global Ship Lease, Grab, Nextil, Amper, OHLA) más Alibaba y JD.com. Al canal le interesa seguirlas de cerca, por eso tienen un listón más bajo que te indico en el mensaje.
+
+- Puntúalas con la misma escala y con honestidad. El alcance de una pequeña es 1 y el de Alibaba 2, no lo infles. El listón rebajado ya compensa su tamaño.
+- Solo cuenta si la empresa es la protagonista. Una noticia sobre China que nombra de pasada a Alibaba, o un artículo de "acciones nucleares" con Oklo en una lista, no es una noticia de la cartera.
+- Lo que sí merece salir. Resultados y guidance, contratos y acuerdos comerciales, aprobaciones o rechazos regulatorios (la FCC para AST SpaceMobile, la NRC o el Departamento de Energía para Oklo, los permisos de uranio en Suecia para District Metals), lanzamientos clave (satélites de AST, reactores de Oklo, modelos de IA de Alibaba), ampliaciones de capital, colocaciones y deuda, fusiones, OPA y compras de participaciones, cambios de consejero delegado, dividendos y recompras, reestructuraciones y refinanciaciones (OHLA), subidas o caídas de más de un 7% con causa conocida.
+- Lo que no. Precios objetivo de analistas sin un hecho detrás, artículos de "¿es buen momento para comprar?", resúmenes de cómo va la acción, menciones en listas, publicidad.
+- Titular con su ticker como cualquier empresa, por ejemplo $ASTS, $OKLO, $BABA, $JD, $GSL, $GRAB. Para las de la bolsa española o canadiense usa $NXT para Nextil, $AMP para Amper, $OHLA, $IFOS para Itafos y $DMX para District Metals. No digas en el texto que es una empresa de la cartera.
+- Categoría "empresas".
+
 ## Variedad
 
 Mantén una mezcla equilibrada. Como orientación en un día normal, un tercio de macro y bancos centrales, un cuarto de geopolítica y materias primas, un tercio de empresas, y cripto de forma puntual. Mira la lista de "ya publicado" con su categoría. Si las últimas publicaciones son todas de la misma categoría, exige más a esa categoría y da prioridad a una noticia buena de otra. Si hay un día excepcional (un ataque en Ormuz, una decisión de la Fed), ese tema manda.

@@ -40,6 +40,7 @@ with open(os.path.join(BASE, "config.json"), encoding="utf-8") as fh:
 with open(os.path.join(BASE, "prompt.md"), encoding="utf-8") as fh:
     SYSTEM_PROMPT = fh.read()
 STATE_PATH = os.path.join(BASE, "state.json")
+CARTERA = CFG.get("cartera") or {}
 
 TZ_ES = ZoneInfo("Europe/Madrid")
 TZ_PT = ZoneInfo("America/Los_Angeles")  # la cuota de Gemini se reinicia a medianoche del Pacífico
@@ -166,6 +167,67 @@ def article_text(url):
         return re.sub(r"\s+", " ", txt)[: CFG["article_chars"]]
     except Exception:
         return ""
+
+
+# ---------------------------------------------------------------- cartera
+
+def _cartera_matchers():
+    """Por cada empresa de la cartera, una expresión que la detecta en un titular."""
+    out = []
+    for co in CARTERA.get("companies", []):
+        pats = [r"\$" + re.escape(co["ticker"]) + r"(?![A-Za-z0-9])"]
+        pats += [r"(?i:(?<![A-Za-z0-9])" + re.escape(a) + r"(?![A-Za-z0-9]))" for a in co.get("aliases", [])]
+        pats += [r"(?<![A-Za-z0-9$])" + re.escape(c) + r"(?![A-Za-z0-9])" for c in co.get("codes", [])]
+        out.append((co["ticker"], re.compile("|".join(pats))))
+    return out
+
+
+CARTERA_RE = _cartera_matchers()
+
+
+def holdings_in(text):
+    """Tickers de la cartera que aparecen en un texto."""
+    return [t for t, rx in CARTERA_RE if rx.search(text or "")]
+
+
+def cartera_feeds():
+    """Feeds de Google News con las empresas de la cartera, para no depender de que salgan en los medios generales."""
+    from urllib.parse import quote_plus
+    hours = int(CARTERA.get("feed_hours", 6))
+    groups = {"en": [], "es": []}
+    singles = []
+    for co in CARTERA.get("companies", []):
+        if not co.get("q"):
+            continue
+        lang = co.get("lang", "en")
+        (singles if co.get("propio") else groups.setdefault(lang, [])).append((lang, [co]))
+    feeds = []
+    chunks = list(singles)
+    for lang, items in groups.items():
+        cos = [c for _, cs in items for c in cs]
+        chunks += [(lang, cos[i:i + 3]) for i in range(0, len(cos), 3)]
+    for lang, cos in chunks:
+        q = "(" + " OR ".join(c["q"] for c in cos) + f") when:{hours}h"
+        loc = "hl=es&gl=ES&ceid=ES:es" if lang == "es" else "hl=en-US&gl=US&ceid=US:en"
+        feeds.append({"name": "Cartera " + ", ".join(c["ticker"] for c in cos),
+                      "url": f"https://news.google.com/rss/search?q={quote_plus(q)}&{loc}"})
+    return feeds
+
+
+def post_holdings(post, cands):
+    """Tickers de la cartera de una propuesta. El titular tiene que nombrar la empresa y alguna de sus
+    fuentes tiene que ser una candidata de esa empresa, así no basta con que el modelo lo diga."""
+    title = (post.get("text") or "").strip().split("\n")[0]
+    in_title = holdings_in(title)
+    if not in_title:
+        return []
+    src = set()
+    for i in post.get("ids") or []:
+        try:
+            src.update(cands[int(i)].get("cartera", []))
+        except (ValueError, IndexError, TypeError):
+            continue
+    return [t for t in in_title if t in src]
 
 
 # ---------------------------------------------------------------- Gemini
@@ -511,7 +573,7 @@ def send_telegram(text, photo=None, link=None):
 
 # ---------------------------------------------------------------- principal
 
-def build_message(cands, st, min_score, max_posts, now_es):
+def build_message(cands, st, min_score, max_posts, now_es, cartera_min=None):
     limit = time.time() - 48 * 3600
     recent = [f"[{dt.datetime.fromtimestamp(p['t'], TZ_ES):%d/%m %H.%M}] {p['title']}"
               + (f" · tema {p['tema']}" if p.get("tema") else "")
@@ -520,6 +582,11 @@ def build_message(cands, st, min_score, max_posts, now_es):
         f"Fecha y hora actual en España {now_es.strftime('%A %d/%m/%Y %H.%M')}.",
         f"Puntuación mínima en la escala de importancia AZ para publicar {min_score} sobre 10. Máximo {max_posts} noticias.",
     ]
+    if cartera_min is not None and CARTERA.get("companies"):
+        lines.append(f"Puntuación mínima para noticias cuya protagonista sea una empresa de la cartera AZ {cartera_min} sobre 10. "
+                     "Las candidatas que la mencionan van marcadas con ★ CARTERA.")
+        lines.append("Empresas de la cartera AZ (ticker y nombre) "
+                     + ", ".join(f"${c['ticker']} {c['name']}" for c in CARTERA["companies"]) + ".")
     if MODE == "test":
         lines.append("Esto es una prueba del canal, devuelve SIEMPRE la mejor noticia disponible (1 sola) aunque no llegue a la puntuación, siempre que sea real y relevante.")
     lines.append("\nYA PUBLICADO EN LAS ÚLTIMAS 48 HORAS. Prohibido volver a publicar cualquiera de estas historias, "
@@ -528,7 +595,8 @@ def build_message(cands, st, min_score, max_posts, now_es):
     lines.append("\nNoticias candidatas")
     for i, c in enumerate(cands):
         mins = int((time.time() - c["ts"]) / 60)
-        block = f"\n[{i}] {c['source']} · hace {mins} min\nTitular {c['title']}"
+        star = (" · ★ CARTERA " + " ".join("$" + t for t in c["cartera"])) if c.get("cartera") else ""
+        block = f"\n[{i}] {c['source']} · hace {mins} min{star}\nTitular {c['title']}"
         if c["summary"] and c["summary"] not in c["title"]:
             block += f"\nResumen {c['summary']}"
         if c.get("text"):
@@ -551,23 +619,34 @@ def main():
     log(f"AZ Alertas · modo {MODE} · {now_es:%d/%m/%Y %H.%M} España")
 
     with ThreadPoolExecutor(10) as ex:
-        results = list(ex.map(fetch_feed, CFG["feeds"]))
+        results = list(ex.map(fetch_feed, CFG["feeds"] + cartera_feeds()))
     items = []
     for name, its, status in results:
         log(f"  feed {name}: {status} ({len(its)})")
         items += its
 
-    max_age = CFG["max_age_minutes"] * 60 * (2 if MODE == "test" else 1)
+    mult = 2 if MODE == "test" else 1
+    max_age = CFG["max_age_minutes"] * 60 * mult
+    # las pequeñas tardan más en salir en Google News, así que sus noticias se aceptan con más antigüedad
+    max_age_cartera = max(max_age, int(CARTERA.get("max_age_minutes", 0)) * 60 * mult)
     cands, keys = [], set()
     for it in sorted(items, key=lambda x: -x["ts"]):
-        if now - it["ts"] > max_age or it["key"] in keys:
+        if it["key"] in keys:
+            continue
+        it["cartera"] = holdings_in(it["title"] + " " + it["summary"])
+        if now - it["ts"] > (max_age_cartera if it["cartera"] else max_age):
             continue
         if it["key"] in st["seen"] and MODE != "test":
             continue
         keys.add(it["key"])
         cands.append(it)
-    cands = cands[: CFG["max_candidates"]]
-    log(f"  candidatas nuevas {len(cands)}")
+    # las de la cartera nunca se quedan fuera por el tope de candidatas
+    mine = [c for c in cands if c["cartera"]]
+    rest = [c for c in cands if not c["cartera"]]
+    cands = mine[: CFG["max_candidates"]]
+    cands += rest[: max(0, CFG["max_candidates"] - len(cands))]
+    cands.sort(key=lambda x: -x["ts"])
+    log(f"  candidatas nuevas {len(cands)} (de la cartera {len(mine)})")
     if not cands:
         save_state(st)
         if MODE == "test":
@@ -578,9 +657,12 @@ def main():
     posted_today = sum(1 for p in st["posted"] if p.get("d") == today)
     night = CFG["night_hours"][0] <= now_es.hour < CFG["night_hours"][1]
     min_score = CFG["min_score_night"] if night else CFG["min_score"]
+    cartera_min = CARTERA.get("min_score_night" if night else "min_score", min_score)
+    cartera_min = min(cartera_min, min_score)
     max_posts = min(CFG["max_posts_per_run"], CFG["daily_post_cap"] - posted_today)
     if MODE == "test":
         min_score, max_posts = CFG["test_min_score"], 1
+        cartera_min = min(cartera_min, min_score)
 
     def mark_seen():
         for c in cands:
@@ -594,7 +676,8 @@ def main():
 
     # agrupa llamadas para no gastar la cuota gratuita en 1 noticia suelta
     mins_since = (now - st.get("last_call", 0)) / 60
-    if MODE == "normal" and len(cands) < CFG["call_if_new_at_least"] and mins_since < CFG["call_every_minutes"]:
+    if MODE == "normal" and not mine and len(cands) < CFG["call_if_new_at_least"] \
+            and mins_since < CFG["call_every_minutes"]:
         log(f"  espero a juntar más noticias ({len(cands)} nuevas, última llamada hace {int(mins_since)} min)")
         save_state(st)
         return
@@ -604,7 +687,7 @@ def main():
     for c, t in zip(cands, texts):
         c["text"] = t
 
-    result = call_gemini(st, build_message(cands, st, min_score, max_posts, now_es))
+    result = call_gemini(st, build_message(cands, st, min_score, max_posts, now_es, cartera_min))
     if result is None:
         log("  sin respuesta del modelo, lo reintento en la siguiente ejecución")
         save_state(st)
@@ -615,8 +698,11 @@ def main():
     posts = [p for p in result.get("posts", []) if isinstance(p, dict) and p.get("text")]
     for p in posts:
         p["score"] = rubric_score(p)
-        log(f"  propuesta [{p['score']}/10 · {p.get('category', '?')}] {p.get('puntos')} {p.get('motivo', '')}")
-    posts.sort(key=lambda p: -p["score"])
+        p["mine"] = post_holdings(p, cands)
+        tag = f" · cartera {' '.join(p['mine'])}" if p["mine"] else ""
+        log(f"  propuesta [{p['score']}/10 · {p.get('category', '?')}{tag}] {p.get('puntos')} {p.get('motivo', '')}")
+    # una noticia de la cartera que pasa su listón va por delante de una general de la misma nota
+    posts.sort(key=lambda p: (-p["score"], not p["mine"]))
     last_post = st["posted"][-1]["t"] if st["posted"] else 0
     gap_ok = (now - last_post) / 60 >= CFG["min_minutes_between_posts"]
     published = 0
@@ -625,13 +711,15 @@ def main():
         if published >= max_posts:
             break
         score = float(p.get("score", 0) or 0)
-        if MODE != "test" and score < min_score:
+        is_mine = bool(p.get("mine"))
+        if MODE != "test" and score < (cartera_min if is_mine else min_score):
             continue
-        if MODE == "normal" and not gap_ok and score < CFG["breaking_score"]:
+        priority = score >= CFG["breaking_score"] or (is_mine and CARTERA.get("saltar_espera", True))
+        if MODE == "normal" and not gap_ok and not priority:
             log(f"  [{score}] se queda fuera para no saturar (última publicación hace {int((now - last_post) / 60)} min)")
             continue
-        if MODE == "normal" and published >= 1 and score < CFG["breaking_score"]:
-            continue  # en una misma pasada solo se suma una segunda si es de última hora
+        if MODE == "normal" and published >= 1 and not priority:
+            continue  # en una misma pasada solo se suma una segunda si es de última hora o de la cartera
         text = lint(p["text"], p.get("category", ""))
         if not text:
             log("  descartada por formato")
@@ -663,8 +751,11 @@ def main():
             continue
         if send_telegram(text, photo, link):
             published += 1
-            st["posted"].append({"d": today, "t": int(time.time()), "c": p.get("category", "?"),
-                                "tema": p.get("tema", ""), "title": text.split("\n")[0].strip("*")})
+            entry = {"d": today, "t": int(time.time()), "c": p.get("category", "?"),
+                     "tema": p.get("tema", ""), "title": text.split("\n")[0].strip("*")}
+            if is_mine:
+                entry["cartera"] = p["mine"]
+            st["posted"].append(entry)
             if MODE == "normal" or MODE == "test":
                 web_store.add_flash(text, p.get("category", ""), time.time(), TZ_ES)
             time.sleep(CFG["seconds_between_posts"])

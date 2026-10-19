@@ -10,6 +10,17 @@ Cada 15 minutos GitHub Actions MIRA las fuentes, pero solo publica cuando algo l
 5. deja al menos 15 min entre publicaciones salvo un 10, como mucho 2 por pasada y 12 al día
 6. no repite historias, compara cada noticia con todo lo publicado en las últimas 36 horas (titular, palabras clave y tema) y descarta las que ya se han contado aunque vengan con otras palabras. Solo deja pasar un giro gordo del mismo tema si es un 10 y el titular es distinto
 
+## Empresas de la cartera
+
+Además de la actualidad general, el bot vigila las empresas de la cartera AZ (`cartera` en config.json): AST SpaceMobile, Oklo, District Metals, Itafos, Global Ship Lease, Grab, Alibaba, JD.com, Nextil, Amper y OHLA.
+
+- tienen sus propias búsquedas en Google News (últimas 6 horas), así no dependen de que salgan en CNBC o Expansión
+- su listón es **6 sobre 10** (7 de madrugada) en vez de 8, porque al ser pequeñas nunca llegarían a 8 con la escala general
+- no esperan los 15 minutos entre publicaciones y pueden salir como segunda noticia de una pasada
+- solo cuentan si la empresa es la protagonista y el titular lleva su ticker, una mención de pasada no vale
+
+Para añadir o quitar una empresa, edita la lista `companies` de `cartera`. `aliases` se buscan en los titulares sin distinguir mayúsculas, `codes` tal cual (tickers) y `q` es la búsqueda de Google News. Con `"propio": true` la empresa tiene un feed para ella sola (las que generan muchísimas noticias, como Alibaba).
+
 Las noticias salen solo con texto, sin imagen ni fuente. En config.json, `"source_link": true` añade "🔗 Fuente [medio]" con la vista previa de la noticia original, y `"images": true` activa fotos de Pixabay.
 
 Las noticias de acciones llevan $TICKER. El resto (macro, Fed, Ormuz, petróleo, cripto...) va sin ticker, con bandera o emoji de categoría.

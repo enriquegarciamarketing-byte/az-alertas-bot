@@ -136,5 +136,141 @@
       "url": "https://news.google.com/rss/search?q=(BCE+OR+Fed+OR+IPC+OR+inflaci%C3%B3n+OR+paro+OR+PIB+OR+Ormuz+OR+petr%C3%B3leo+OR+aranceles)+when:2h&hl=es&gl=ES&ceid=ES:es"
     }
   ],
-  "stock_photo_fallback": false
+  "stock_photo_fallback": false,
+  "cartera": {
+    "_nota": "Empresas que llevo o he llevado. Sus noticias salen con nota 6 (7 de madrugada) en vez de 8. Para añadir una, copia un bloque. aliases se buscan sin distinguir mayúsculas, codes solo tal cual. q es lo que se busca en Google News. propio=true le da un feed solo para ella (empresas con muchísimas noticias).",
+    "min_score": 6,
+    "min_score_night": 7,
+    "max_age_minutes": 360,
+    "saltar_espera": true,
+    "feed_hours": 6,
+    "companies": [
+      {
+        "ticker": "ASTS",
+        "name": "AST SpaceMobile",
+        "aliases": [
+          "AST SpaceMobile",
+          "SpaceMobile"
+        ],
+        "codes": [
+          "ASTS"
+        ],
+        "q": "\"AST SpaceMobile\""
+      },
+      {
+        "ticker": "OKLO",
+        "name": "Oklo",
+        "aliases": [
+          "Oklo"
+        ],
+        "codes": [
+          "OKLO"
+        ],
+        "q": "Oklo"
+      },
+      {
+        "ticker": "DMX",
+        "name": "District Metals",
+        "aliases": [
+          "District Metals"
+        ],
+        "codes": [],
+        "q": "\"District Metals\""
+      },
+      {
+        "ticker": "IFOS",
+        "name": "Itafos",
+        "aliases": [
+          "Itafos"
+        ],
+        "codes": [
+          "IFOS"
+        ],
+        "q": "Itafos"
+      },
+      {
+        "ticker": "GSL",
+        "name": "Global Ship Lease",
+        "aliases": [
+          "Global Ship Lease"
+        ],
+        "codes": [
+          "GSL"
+        ],
+        "q": "\"Global Ship Lease\""
+      },
+      {
+        "ticker": "GRAB",
+        "name": "Grab Holdings",
+        "aliases": [
+          "Grab Holdings",
+          "GrabPay",
+          "GrabFood"
+        ],
+        "codes": [
+          "GRAB",
+          "Grab"
+        ],
+        "q": "\"Grab Holdings\""
+      },
+      {
+        "ticker": "BABA",
+        "name": "Alibaba",
+        "aliases": [
+          "Alibaba"
+        ],
+        "codes": [
+          "BABA"
+        ],
+        "q": "Alibaba",
+        "propio": true
+      },
+      {
+        "ticker": "JD",
+        "name": "JD.com",
+        "aliases": [
+          "JD.com",
+          "JD Logistics",
+          "JD Health",
+          "Jingdong"
+        ],
+        "codes": [],
+        "q": "\"JD.com\"",
+        "propio": true
+      },
+      {
+        "ticker": "NXT",
+        "name": "Nueva Expresión Textil (Nextil)",
+        "aliases": [
+          "Nextil",
+          "Nueva Expresión Textil",
+          "Nueva Expresion Textil"
+        ],
+        "codes": [],
+        "q": "Nextil OR \"Nueva Expresión Textil\"",
+        "lang": "es"
+      },
+      {
+        "ticker": "AMP",
+        "name": "Amper",
+        "aliases": [
+          "Amper"
+        ],
+        "codes": [],
+        "q": "Amper",
+        "lang": "es"
+      },
+      {
+        "ticker": "OHLA",
+        "name": "OHLA",
+        "aliases": [
+          "OHLA",
+          "OHL"
+        ],
+        "codes": [],
+        "q": "OHLA",
+        "lang": "es"
+      }
+    ]
+  }
 }
