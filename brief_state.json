@@ -12,6 +12,19 @@
    ],
    "curioso": "Sony lanza un Walkman bañado en oro por 5.900 dólares, equivalente a más de 44 años de suscripción a Spotify",
    "date": "2026-10-18"
+  },
+  {
+   "historia": "El PIB de China crece un 4,5% interanual pero el Ibex cae un 1,05% arrastrado por Francia",
+   "protagonista": "China",
+   "concepto": "Producto Interior Bruto",
+   "contexto": [
+    "Lindt & Sprüngli nombra a Dieter Weisskopf CEO interino",
+    "Técnicas Reunidas logra contrato de 200 millones en Canadá",
+    "Merlin Properties cae un 25% por la exposición a CoreWeave",
+    "España supera los 11,5 millones de pasajeros aéreos internacionales en septiembre"
+   ],
+   "curioso": "Sony lanza un Walkman de oro por 5.900 dólares, equivalente a más de 44 años de suscripción a Spotify",
+   "date": "2026-10-19"
   }
  ],
  "calls": {
@@ -22,11 +35,16 @@
   },
   "2026-10-18": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-19": {
+   "gemini-3.8-flash": 1,
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
   "2026-10-17": [],
-  "2026-10-18": []
+  "2026-10-18": [],
+  "2026-10-19": []
  },
- "last_call": 1792308020.5869017
+ "last_call": 1792395100.13949
 }
