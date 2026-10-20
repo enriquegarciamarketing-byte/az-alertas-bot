@@ -8298,8 +8298,9 @@
    "gemini-3.5-flash-lite": 20
   },
   "2026-10-20": {
-   "gemini-3.8-flash": 6,
-   "gemini-3.5-flash-lite": 4
+   "gemini-3.8-flash": 7,
+   "gemini-3.5-flash-lite": 5,
+   "gemini-3.1-flash-lite": 1
   }
  },
  "exhausted": {
@@ -8311,7 +8312,7 @@
   ],
   "2026-10-20": []
  },
- "last_call": 1792511916.2279634,
+ "last_call": 1792513478.5632706,
  "photos": [
   "pixabay:6485158"
  ]
