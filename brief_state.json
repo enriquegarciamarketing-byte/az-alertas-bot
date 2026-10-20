@@ -25,26 +25,37 @@
    ],
    "curioso": "Sony lanza un Walkman de oro por 5.900 dólares, equivalente a más de 44 años de suscripción a Spotify",
    "date": "2026-10-19"
+  },
+  {
+   "historia": "El barril de crudo Brent supera los 110 dólares impulsado por la tensión en Oriente Medio y frena los márgenes de refino",
+   "protagonista": "Petróleo Brent",
+   "concepto": "Margen de refino",
+   "contexto": [
+    "Enagás reduce un 22,3 % su beneficio a septiembre pero confirma su meta de 235 millones en 2026",
+    "La constructora de centros de datos Elice cae un 33 % en su debut bursátil en la Bolsa de Seúl",
+    "National Australia Bank recortará 2.500 puestos de trabajo para proteger su rentabilidad",
+    "Foxconn y Mitsubishi Electric firman una alianza al 50 % en tecnologías para vehículos eléctricos"
+   ],
+   "curioso": "El 24 % de las oficinas de Shanghái están desiertas, equivalente a 10 pisos a oscuras en una torre de 40 plantas",
+   "date": "2026-10-20"
   }
  ],
  "calls": {
-  "2026-10-17": {
-   "gemini-3.8-flash": 2,
-   "gemini-3.5-flash-lite": 3,
-   "gemini-3.1-flash-lite": 1
-  },
   "2026-10-18": {
    "gemini-3.8-flash": 1
   },
   "2026-10-19": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-10-20": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-17": [],
   "2026-10-18": [],
-  "2026-10-19": []
+  "2026-10-19": [],
+  "2026-10-20": []
  },
- "last_call": 1792395100.13949
+ "last_call": 1792481265.791143
 }
