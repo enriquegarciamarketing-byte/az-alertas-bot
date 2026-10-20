@@ -1,226 +1,234 @@
 [
-  {
-    "id": "01f3ed12a1",
-    "ts": 1792347241,
-    "date": "2026-10-18",
-    "category": "geopolitica",
-    "title": "🇸🇦 Varias entidades financieras en Arabia Saudí ordenan el teletrabajo tras nuevos ataques de los hutíes",
-    "body": "Las tensiones en la región se han intensificado tras los recientes intercambios de bombardeos y una serie de ataques en territorio saudí, obligando a las firmas financieras a enviar a sus empleados a casa por motivos de seguridad. La escalada en la zona de Oriente Medio amenaza con perturbar la actividad corporativa y los mercados energéticos locales 🛢"
-  },
-  {
-    "id": "fe398f91f2",
-    "ts": 1792348886,
-    "date": "2026-10-18",
-    "category": "empresas",
-    "title": "$MSFT recibe un nuevo impulso en bolsa tras elevar UBS su precio objetivo hasta los 675 dólares",
-    "body": "La entidad financiera destaca que la valoración actual de la compañía tecnológica **no está estirada** y mantiene una perspectiva muy favorable sobre su crecimiento. El movimiento refuerza el atractivo del valor entre los grandes inversores institucionales de cara a la recta final del ejercicio 💼"
-  },
-  {
-    "id": "1c06b882de",
-    "ts": 1792350288,
-    "date": "2026-10-18",
-    "category": "empresas",
-    "title": "Accenture explora la venta de su negocio en China por unos 1.334 millones de euros",
-    "body": "La consultora ha contratado a JP Morgan para realizar una revisión estratégica de sus operaciones en el gigante asiático tras recibir muestras de interés no solicitadas. El proceso podría atraer el apetito de fondos de capital privado y compradores estratégicos en plena reestructuración del sector tecnológico regional. Las acciones reaccionan con atención en el mercado tras cerrar su último año fiscal con una facturación global de **65.743 millones de euros** 🌐"
-  },
-  {
-    "id": "121fd402f6",
-    "ts": 1792355667,
-    "date": "2026-10-18",
-    "category": "geopolitica",
-    "title": "🇫🇷 Francia sufre graves disturbios y daños millonarios en negocios por las protestas",
-    "body": "Las manifestaciones contra el coste de la vida y el deterioro de los servicios públicos derivaron en una ola de violencia generalizada con daños en comercios y edificios públicos. El presidente Emmanuel Macron pidió calma tras unos altercados que se saldaron con miles de detenidos, afectando a la cotización del euro y a los índices de renta variable francesa."
-  },
-  {
-    "id": "56a54bb8e6",
-    "ts": 1792367812,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "Cleanaway acepta una OPA de 6.500 millones de dólares de EQT y sus acciones se disparan",
-    "body": "La firma australiana de gestión de residuos ha dado luz verde a la propuesta de adquisición presentada por el fondo de inversión EQT por un importe de **6.500 millones de dólares**. Tras el anuncio del acuerdo, los títulos de la compañía han registrado un **fuerte repunte** en la bolsa australiana impulsados por el volumen de la operación corporativa 📈"
-  },
-  {
-    "id": "b60c9d3b55",
-    "ts": 1792373167,
-    "date": "2026-10-19",
-    "category": "materias_primas",
-    "title": "🛢 El WTI se desploma hacia los 97 dólares tras las señales de distensión en Oriente Medio y Rusia",
-    "body": "El crudo estadounidense registra descensos de hasta **4 dólares por barril** y frena el rally que lo había llevado a tocar los 110 dólares. La caída se produce después de que Vance señalara una posible desescalada en Irán y de que Estados Unidos eximiera de sanciones a las importaciones de crudo ruso."
-  },
-  {
-    "id": "d06583d5df",
-    "ts": 1792376313,
-    "date": "2026-10-19",
-    "category": "macro",
-    "title": "🇨🇳 El PIB de China crece un 4,5% interanual en el tercer trimestre y supera las previsiones",
-    "body": "La economía china acelera su ritmo desde el 4,4% estimado por el consenso, impulsada principalmente por un fuerte aumento de las exportaciones tecnológicas que compensa la debilidad del sector inmobiliario. Con este resultado, el país se mantiene en la senda de cumplir con su objetivo de crecimiento anual fijado por el gobierno."
-  },
-  {
-    "id": "7e0da417de",
-    "ts": 1792378521,
-    "date": "2026-10-19",
-    "category": "geopolitica",
-    "title": "⚓ La crisis en el estrecho de Ormuz deja a 6.000 marinos atrapados tras nuevos ataques",
-    "body": "La ONU advierte de una situación límite para las tripulaciones mientras un petrolero ha sufrido una explosión al chocar con una mina en la zona. Irán ha lanzado nuevas advertencias a Estados Unidos en plena escalada regional, manteniendo bloqueada una ruta clave por la que transita una quinta parte del crudo mundial."
-  },
-  {
-    "id": "dcdcd1239b",
-    "ts": 1792382430,
-    "date": "2026-10-19",
-    "category": "geopolitica",
-    "title": "🇷🇺 Putin propone a Trump y Xi una cumbre urgente para negociar el fin de la guerra en Ucrania",
-    "body": "El presidente ruso planteó este encuentro a tres bandas durante una llamada telefónica con Donald Trump, con la intención de cerrar un acuerdo definitivo sin la participación directa de Kiev. La posible cita, que genera gran inquietud entre los aliados europeos, podría celebrarse en noviembre en el marco de la cumbre de la APEC en Shenzhen. Las tensiones geopolíticas continúan marcando el pulso de las principales plazas financieras mundiales 🌐"
-  },
-  {
-    "id": "acc2151f6e",
-    "ts": 1792386822,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "El Santander se alía con Nvidia para desplegar inteligencia artificial en todo el grupo",
-    "body": "La entidad ha sellado un marco de colaboración de tres años con el fabricante de chips para desarrollar capacidades orientadas a reducir costes, prevenir el fraude y mejorar la atención al cliente. El banco español espera generar **1.000 millones de euros** entre ingresos y ahorros gracias a esta tecnología en un plazo de dos años 🤖"
-  },
-  {
-    "id": "fe1a65cf95",
-    "ts": 1792405000,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "$VOW congelará el sueldo de sus 660.000 empleados en todo el mundo hasta 2030",
-    "body": "El grupo automovilístico alemán prepara una congelación salarial integral para toda su plantilla global hasta finales de la década, según documentos internos desvelados por la prensa germana. El severo plan de ajuste abarca a **660.000 trabajadores** y ha sido confirmado por el comité de empresa mundial del consorcio, mientras la dirección de la compañía rechazó valorar la medida al considerarla **especulaciones**."
-  },
-  {
-    "id": "db2902d491",
-    "ts": 1792418116,
-    "date": "2026-10-19",
-    "category": "mercados",
-    "title": "🇺🇸 La Bolsa de Nueva York extiende el horario de opciones y prepara sesiones de 23 horas",
-    "body": "El operador de la NYSE introduce negociación ampliada de 7.30 a 9.25 y de 16.00 a 16.15 horas para **29 grandes valores y fondos** incluyendo a Nvidia y el ETF del S&P 500. El mercado avanzará hacia un modelo operativo de **23 horas diarias** a partir del próximo 6 de diciembre ante la creciente demanda de operativa continua 🕒"
-  },
-  {
-    "id": "e55d4933e2",
-    "ts": 1792419999,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "Silence Therapeutics se disparó un 125% tras anunciar su adquisición por parte de Merck",
-    "body": "La compañía biofarmacéutica se disparó en bolsa después de que **Merck** confirmara la operación de compra corporativa. La fuerte prima ofrecida por el gigante farmacéutico desató compras masivas en los títulos de la empresa durante la sesión 📈"
-  },
-  {
-    "id": "558d54379a",
-    "ts": 1792422238,
-    "date": "2026-10-19",
-    "category": "mercados",
-    "title": "📉 El Ibex acelera las caídas y pierde un 2% arrastrado por la crisis política en Francia",
-    "body": "Los mercados europeos sufren un fuerte castigo por la inestabilidad en el país galo, la falta de Presupuestos y la ausencia de acuerdos fiscales. La presión se traslada al euro, a la deuda francesa y al sector bancario europeo, mientras el barril de **brent retrocede un 2%** en la sesión."
-  },
-  {
-    "id": "199dd69d69",
-    "ts": 1792426263,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "El principal inquilino de Merlin Properties, CoreWeave, entra en riesgo de impago y desploma la confianza",
-    "body": "La socimi explicó a los analistas que cerca del **90% de las rentas** de su división de centros de datos proceden de esta tecnológica estadounidense, actualmente bajo presión por su elevada exposición al sector de la inteligencia artificial. La advertencia generó máxima preocupación en el mercado sobre los ingresos futuros de la inmobiliaria en este segmento estratégico 🏢"
-  },
-  {
-    "id": "1b6b0fecb5",
-    "ts": 1792429826,
-    "date": "2026-10-19",
-    "category": "empresas",
-    "title": "$ASTS se alía con cuatro operadoras europeas para llevar telefonía satelital a 500 millones de usuarios",
-    "body": "La compañía ha recibido una carta de intenciones de cuatro grandes operadoras de telecomunicaciones en Europa para colaborar en la obtención de licencias de espectro móvil por satélite y acelerar su despliegue comercial. El proyecto conjunto busca ofrecer cobertura móvil directa a dispositivos convencionales en un mercado potencial de **500 millones de usuarios** lo que impulsaba las acciones de la firma un **4%** en Wall Street."
-  },
-  {
-    "id": "7bd528ba19",
-    "ts": 1792455225,
-    "date": "2026-10-20",
-    "category": "materias_primas",
-    "title": "🪙 El oro cae por debajo de los 4.150 dólares presionado por el alza de los bonos",
-    "body": "El metal precioso cede terreno ante los elevados rendimientos de los bonos del Tesoro de Estados Unidos y la persistente inflación impulsada por la energía. Este incremento en la rentabilidad de la deuda soberana desvía flujos de capital hacia los bonos, lastrando la cotización del oro en los mercados internacionales."
-  },
-  {
-    "id": "c84a880978",
-    "ts": 1792468658,
-    "date": "2026-10-20",
-    "category": "macro",
-    "title": "🇪🇺 La crisis de deuda en Francia se extiende por Europa y reabre la presión sobre las primas de riesgo",
-    "body": "Los violentos disturbios del fin de semana en territorio francés han vuelto a colocar en el centro de la diana a la deuda soberana gala, contagiando de rebote a **Italia y España**. Los inversores penalizan la falta de reformas y el elevado déficit del país, recordando los peores fantasmas de la crisis periférica de 2012. El auxilio del Banco Central Europeo exigirá unas condiciones estrictas que París está lejos de cumplir, elevando la tensión en los mercados de bonos 📉"
-  },
-  {
-    "id": "e1ca4781e7",
-    "ts": 1792468679,
-    "date": "2026-10-20",
-    "category": "empresas",
-    "title": "$BABA entra como inversor clave en la salida a bolsa del gigante de componentes Dongshan Precision",
-    "body": "La firma de placas de circuito impreso ha lanzado su oferta pública en Hong Kong para recaudar hasta **10.670 millones de dólares de Hong Kong** unos 1.270 millones de euros, con el gigante del e-commerce como uno de sus **20 inversores principales**. Esta operación refuerza la apuesta de la compañía por asegurar suministros estratégicos en su cadena tecnológica en plena reestructuración del sector."
-  },
-  {
-    "id": "ac19562ce7",
-    "ts": 1792470066,
-    "date": "2026-10-20",
-    "category": "bancos_centrales",
-    "title": "🏦 Bank Indonesia afronta una subida de tipos de urgencia tras la amenaza de MSCI de excluir al país",
-    "body": "Citibank espera un endurecimiento preventivo de **50 puntos básicos hasta el 6,25%** después de que el gestor de índices amenazara con degradar el mercado bursátil a la categoría de independiente. El aviso desató la peor racha de ventas de la historia en Yakarta, obligando a las autoridades a tomar medidas para mejorar la transparencia."
-  },
-  {
-    "id": "02cdf71989",
-    "ts": 1792473477,
-    "date": "2026-10-20",
-    "category": "empresas",
-    "title": "BlackRock ve en la escasez de potencia y energía el mayor riesgo para la inteligencia artificial",
-    "body": "El consejero delegado Larry Fink ha señalado que la demanda de capacidad de cómputo crece mucho más rápido que la oferta y que el verdadero problema no es una burbuja sino la falta de energía y profesionales cualificados. Las declaraciones llegan mientras Wall Street intenta recuperar el tono tras el castigo bursátil de la semana pasada por el endeudamiento récord en infraestructuras tecnológicas. Nvidia subió un **1,4%** y Tesla avanzó un **3,8%** en la última sesión regular ⚡️"
-  },
-  {
-    "id": "47cd48d048",
-    "ts": 1792475745,
-    "date": "2026-10-20",
-    "category": "materias_primas",
-    "title": "🛢 El Brent supera los 110 dólares por los ataques a petroleros en el golfo Pérsico",
-    "body": "El crudo de referencia escala hasta nuevos máximos de cinco meses tras la escalada de tensiones en Oriente Medio y las nuevas listas negras de buques en el estrecho de Ormuz. La amenaza al suministro energético impulsa con fuerza a las principales productoras y reaviva la presión inflacionista en los mercados globales. Las bolsas europeas reaccionan con caídas generalizadas ante el encarecimiento de la energía"
-  },
-  {
-    "id": "7bef3a85c0",
-    "ts": 1792477084,
-    "date": "2026-10-20",
-    "category": "mercados",
-    "title": "📉 Las bolsas asiáticas sufren fuertes descensos y el Ibex apunta a perder los 19.000 puntos",
-    "body": "El selectivo español cede arrastrado por el varapalo tecnológico en Asia, donde Corea del Sur se hunde un **4,4%** y Japón cae un 1,4% en una sesión marcada por la inestabilidad en Francia y la presión sostenida del petróleo. La prima de riesgo gala y el encarecimiento energético vuelven a castigar las valoraciones europeas en la apertura."
-  },
-  {
-    "id": "9ea582d54b",
-    "ts": 1792477105,
-    "date": "2026-10-20",
-    "category": "empresas",
-    "title": "$ASTS cae en preapertura tras la presión de Viasat a la FCC contra su espectro",
-    "body": "Las acciones de la compañía retroceden después de que su competidor haya solicitado formalmente al regulador estadounidense que rechace su petición de uso de espectro en el extranjero al considerarla defectuosa. La disputa regulatoria frena temporalmente el optimismo inversor tras los recientes acuerdos europeos de la compañía satelital 📉"
-  },
-  {
-    "id": "b1042a5d4b",
-    "ts": 1792482517,
-    "date": "2026-10-20",
-    "category": "materias_primas",
-    "title": "🇺🇸 EE. UU. autoriza la venta de petroleros de la flota oscura para abaratar el transporte de crudo",
-    "body": "El Gobierno estadounidense permitirá que los barcos sancionados vuelvan a operar de forma legal con el objetivo de contener los desbocados costes de envío, según anunció el secretario de Energía Chris Wright. La medida busca dar salida comercial a una parte clave del crudo bloqueado en los mercados internacionales y aliviar la presión sobre las rutas globales. El crudo reacciona con descensos mientras los inversores recalculan los flujos de suministro **🛢**"
-  },
-  {
-    "id": "a8f61474e9",
-    "ts": 1792482538,
-    "date": "2026-10-20",
-    "category": "empresas",
-    "title": "$BABA presenta su hoja de ruta en chips para conducción autónoma y entra en el capital de Neolix",
-    "body": "El gigante tecnológico ha desvelado su arquitectura de procesadores RISC-V orientada a la robótica y el sector del automóvil, complementando su reciente inversión en el fabricante de vehículos autónomos Neolix dentro de una ronda de **400 millones de dólares**. La compañía refuerza su apuesta por el hardware avanzado y los sistemas de transporte inteligente. Las acciones cotizan con atención a su expansión en nuevos mercados tecnológicos **🚗**"
-  },
-  {
-    "id": "7a63308202",
-    "ts": 1792484489,
-    "date": "2026-10-20",
-    "category": "geopolitica",
-    "title": "🇺🇸 EE. UU. prohíbe el uso de la inteligencia artificial china DeepSeek en todas sus agencias federales",
-    "body": "El Departamento de Seguridad Nacional ha ordenado a los organismos civiles del gobierno federal **la retirada inmediata** de cualquier herramienta o servicio vinculado a la tecnológica china ante el riesgo de que Pekín acceda a información sensible. El veto abarca también productos de terceros basados en sus modelos y tensa aún más la pugna tecnológica bilateral, con el Ministerio de Exteriores del gigante asiático advirtiendo de que defenderá **los intereses de sus empresas** 🤖"
-  },
-  {
-    "id": "4e7925b030",
-    "ts": 1792488517,
-    "date": "2026-10-20",
-    "category": "empresas",
-    "title": "$BABA, ByteDance y Tencent encargan a $NVDA chips por más de 35.000 millones de dólares",
-    "body": "Las tres grandes tecnológicas chinas han formalizado pedidos de semiconductores de inteligencia artificial con la firma estadounidense por un importe conjunto superior a los **35.000 millones de dólares** según ha adelantado Reuters en exclusiva. La operación evidencia el fuerte apetito de los gigantes asiáticos por blindar su infraestructura de computación ante posibles nuevos endurecimientos regulatorios en Washington."
-  }
+ {
+  "id": "01f3ed12a1",
+  "ts": 1792347241,
+  "date": "2026-10-18",
+  "category": "geopolitica",
+  "title": "🇸🇦 Varias entidades financieras en Arabia Saudí ordenan el teletrabajo tras nuevos ataques de los hutíes",
+  "body": "Las tensiones en la región se han intensificado tras los recientes intercambios de bombardeos y una serie de ataques en territorio saudí, obligando a las firmas financieras a enviar a sus empleados a casa por motivos de seguridad. La escalada en la zona de Oriente Medio amenaza con perturbar la actividad corporativa y los mercados energéticos locales 🛢"
+ },
+ {
+  "id": "fe398f91f2",
+  "ts": 1792348886,
+  "date": "2026-10-18",
+  "category": "empresas",
+  "title": "$MSFT recibe un nuevo impulso en bolsa tras elevar UBS su precio objetivo hasta los 675 dólares",
+  "body": "La entidad financiera destaca que la valoración actual de la compañía tecnológica **no está estirada** y mantiene una perspectiva muy favorable sobre su crecimiento. El movimiento refuerza el atractivo del valor entre los grandes inversores institucionales de cara a la recta final del ejercicio 💼"
+ },
+ {
+  "id": "1c06b882de",
+  "ts": 1792350288,
+  "date": "2026-10-18",
+  "category": "empresas",
+  "title": "Accenture explora la venta de su negocio en China por unos 1.334 millones de euros",
+  "body": "La consultora ha contratado a JP Morgan para realizar una revisión estratégica de sus operaciones en el gigante asiático tras recibir muestras de interés no solicitadas. El proceso podría atraer el apetito de fondos de capital privado y compradores estratégicos en plena reestructuración del sector tecnológico regional. Las acciones reaccionan con atención en el mercado tras cerrar su último año fiscal con una facturación global de **65.743 millones de euros** 🌐"
+ },
+ {
+  "id": "121fd402f6",
+  "ts": 1792355667,
+  "date": "2026-10-18",
+  "category": "geopolitica",
+  "title": "🇫🇷 Francia sufre graves disturbios y daños millonarios en negocios por las protestas",
+  "body": "Las manifestaciones contra el coste de la vida y el deterioro de los servicios públicos derivaron en una ola de violencia generalizada con daños en comercios y edificios públicos. El presidente Emmanuel Macron pidió calma tras unos altercados que se saldaron con miles de detenidos, afectando a la cotización del euro y a los índices de renta variable francesa."
+ },
+ {
+  "id": "56a54bb8e6",
+  "ts": 1792367812,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "Cleanaway acepta una OPA de 6.500 millones de dólares de EQT y sus acciones se disparan",
+  "body": "La firma australiana de gestión de residuos ha dado luz verde a la propuesta de adquisición presentada por el fondo de inversión EQT por un importe de **6.500 millones de dólares**. Tras el anuncio del acuerdo, los títulos de la compañía han registrado un **fuerte repunte** en la bolsa australiana impulsados por el volumen de la operación corporativa 📈"
+ },
+ {
+  "id": "b60c9d3b55",
+  "ts": 1792373167,
+  "date": "2026-10-19",
+  "category": "materias_primas",
+  "title": "🛢 El WTI se desploma hacia los 97 dólares tras las señales de distensión en Oriente Medio y Rusia",
+  "body": "El crudo estadounidense registra descensos de hasta **4 dólares por barril** y frena el rally que lo había llevado a tocar los 110 dólares. La caída se produce después de que Vance señalara una posible desescalada en Irán y de que Estados Unidos eximiera de sanciones a las importaciones de crudo ruso."
+ },
+ {
+  "id": "d06583d5df",
+  "ts": 1792376313,
+  "date": "2026-10-19",
+  "category": "macro",
+  "title": "🇨🇳 El PIB de China crece un 4,5% interanual en el tercer trimestre y supera las previsiones",
+  "body": "La economía china acelera su ritmo desde el 4,4% estimado por el consenso, impulsada principalmente por un fuerte aumento de las exportaciones tecnológicas que compensa la debilidad del sector inmobiliario. Con este resultado, el país se mantiene en la senda de cumplir con su objetivo de crecimiento anual fijado por el gobierno."
+ },
+ {
+  "id": "7e0da417de",
+  "ts": 1792378521,
+  "date": "2026-10-19",
+  "category": "geopolitica",
+  "title": "⚓ La crisis en el estrecho de Ormuz deja a 6.000 marinos atrapados tras nuevos ataques",
+  "body": "La ONU advierte de una situación límite para las tripulaciones mientras un petrolero ha sufrido una explosión al chocar con una mina en la zona. Irán ha lanzado nuevas advertencias a Estados Unidos en plena escalada regional, manteniendo bloqueada una ruta clave por la que transita una quinta parte del crudo mundial."
+ },
+ {
+  "id": "dcdcd1239b",
+  "ts": 1792382430,
+  "date": "2026-10-19",
+  "category": "geopolitica",
+  "title": "🇷🇺 Putin propone a Trump y Xi una cumbre urgente para negociar el fin de la guerra en Ucrania",
+  "body": "El presidente ruso planteó este encuentro a tres bandas durante una llamada telefónica con Donald Trump, con la intención de cerrar un acuerdo definitivo sin la participación directa de Kiev. La posible cita, que genera gran inquietud entre los aliados europeos, podría celebrarse en noviembre en el marco de la cumbre de la APEC en Shenzhen. Las tensiones geopolíticas continúan marcando el pulso de las principales plazas financieras mundiales 🌐"
+ },
+ {
+  "id": "acc2151f6e",
+  "ts": 1792386822,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "El Santander se alía con Nvidia para desplegar inteligencia artificial en todo el grupo",
+  "body": "La entidad ha sellado un marco de colaboración de tres años con el fabricante de chips para desarrollar capacidades orientadas a reducir costes, prevenir el fraude y mejorar la atención al cliente. El banco español espera generar **1.000 millones de euros** entre ingresos y ahorros gracias a esta tecnología en un plazo de dos años 🤖"
+ },
+ {
+  "id": "fe1a65cf95",
+  "ts": 1792405000,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "$VOW congelará el sueldo de sus 660.000 empleados en todo el mundo hasta 2030",
+  "body": "El grupo automovilístico alemán prepara una congelación salarial integral para toda su plantilla global hasta finales de la década, según documentos internos desvelados por la prensa germana. El severo plan de ajuste abarca a **660.000 trabajadores** y ha sido confirmado por el comité de empresa mundial del consorcio, mientras la dirección de la compañía rechazó valorar la medida al considerarla **especulaciones**."
+ },
+ {
+  "id": "db2902d491",
+  "ts": 1792418116,
+  "date": "2026-10-19",
+  "category": "mercados",
+  "title": "🇺🇸 La Bolsa de Nueva York extiende el horario de opciones y prepara sesiones de 23 horas",
+  "body": "El operador de la NYSE introduce negociación ampliada de 7.30 a 9.25 y de 16.00 a 16.15 horas para **29 grandes valores y fondos** incluyendo a Nvidia y el ETF del S&P 500. El mercado avanzará hacia un modelo operativo de **23 horas diarias** a partir del próximo 6 de diciembre ante la creciente demanda de operativa continua 🕒"
+ },
+ {
+  "id": "e55d4933e2",
+  "ts": 1792419999,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "Silence Therapeutics se disparó un 125% tras anunciar su adquisición por parte de Merck",
+  "body": "La compañía biofarmacéutica se disparó en bolsa después de que **Merck** confirmara la operación de compra corporativa. La fuerte prima ofrecida por el gigante farmacéutico desató compras masivas en los títulos de la empresa durante la sesión 📈"
+ },
+ {
+  "id": "558d54379a",
+  "ts": 1792422238,
+  "date": "2026-10-19",
+  "category": "mercados",
+  "title": "📉 El Ibex acelera las caídas y pierde un 2% arrastrado por la crisis política en Francia",
+  "body": "Los mercados europeos sufren un fuerte castigo por la inestabilidad en el país galo, la falta de Presupuestos y la ausencia de acuerdos fiscales. La presión se traslada al euro, a la deuda francesa y al sector bancario europeo, mientras el barril de **brent retrocede un 2%** en la sesión."
+ },
+ {
+  "id": "199dd69d69",
+  "ts": 1792426263,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "El principal inquilino de Merlin Properties, CoreWeave, entra en riesgo de impago y desploma la confianza",
+  "body": "La socimi explicó a los analistas que cerca del **90% de las rentas** de su división de centros de datos proceden de esta tecnológica estadounidense, actualmente bajo presión por su elevada exposición al sector de la inteligencia artificial. La advertencia generó máxima preocupación en el mercado sobre los ingresos futuros de la inmobiliaria en este segmento estratégico 🏢"
+ },
+ {
+  "id": "1b6b0fecb5",
+  "ts": 1792429826,
+  "date": "2026-10-19",
+  "category": "empresas",
+  "title": "$ASTS se alía con cuatro operadoras europeas para llevar telefonía satelital a 500 millones de usuarios",
+  "body": "La compañía ha recibido una carta de intenciones de cuatro grandes operadoras de telecomunicaciones en Europa para colaborar en la obtención de licencias de espectro móvil por satélite y acelerar su despliegue comercial. El proyecto conjunto busca ofrecer cobertura móvil directa a dispositivos convencionales en un mercado potencial de **500 millones de usuarios** lo que impulsaba las acciones de la firma un **4%** en Wall Street."
+ },
+ {
+  "id": "7bd528ba19",
+  "ts": 1792455225,
+  "date": "2026-10-20",
+  "category": "materias_primas",
+  "title": "🪙 El oro cae por debajo de los 4.150 dólares presionado por el alza de los bonos",
+  "body": "El metal precioso cede terreno ante los elevados rendimientos de los bonos del Tesoro de Estados Unidos y la persistente inflación impulsada por la energía. Este incremento en la rentabilidad de la deuda soberana desvía flujos de capital hacia los bonos, lastrando la cotización del oro en los mercados internacionales."
+ },
+ {
+  "id": "c84a880978",
+  "ts": 1792468658,
+  "date": "2026-10-20",
+  "category": "macro",
+  "title": "🇪🇺 La crisis de deuda en Francia se extiende por Europa y reabre la presión sobre las primas de riesgo",
+  "body": "Los violentos disturbios del fin de semana en territorio francés han vuelto a colocar en el centro de la diana a la deuda soberana gala, contagiando de rebote a **Italia y España**. Los inversores penalizan la falta de reformas y el elevado déficit del país, recordando los peores fantasmas de la crisis periférica de 2012. El auxilio del Banco Central Europeo exigirá unas condiciones estrictas que París está lejos de cumplir, elevando la tensión en los mercados de bonos 📉"
+ },
+ {
+  "id": "e1ca4781e7",
+  "ts": 1792468679,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "$BABA entra como inversor clave en la salida a bolsa del gigante de componentes Dongshan Precision",
+  "body": "La firma de placas de circuito impreso ha lanzado su oferta pública en Hong Kong para recaudar hasta **10.670 millones de dólares de Hong Kong** unos 1.270 millones de euros, con el gigante del e-commerce como uno de sus **20 inversores principales**. Esta operación refuerza la apuesta de la compañía por asegurar suministros estratégicos en su cadena tecnológica en plena reestructuración del sector."
+ },
+ {
+  "id": "ac19562ce7",
+  "ts": 1792470066,
+  "date": "2026-10-20",
+  "category": "bancos_centrales",
+  "title": "🏦 Bank Indonesia afronta una subida de tipos de urgencia tras la amenaza de MSCI de excluir al país",
+  "body": "Citibank espera un endurecimiento preventivo de **50 puntos básicos hasta el 6,25%** después de que el gestor de índices amenazara con degradar el mercado bursátil a la categoría de independiente. El aviso desató la peor racha de ventas de la historia en Yakarta, obligando a las autoridades a tomar medidas para mejorar la transparencia."
+ },
+ {
+  "id": "02cdf71989",
+  "ts": 1792473477,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "BlackRock ve en la escasez de potencia y energía el mayor riesgo para la inteligencia artificial",
+  "body": "El consejero delegado Larry Fink ha señalado que la demanda de capacidad de cómputo crece mucho más rápido que la oferta y que el verdadero problema no es una burbuja sino la falta de energía y profesionales cualificados. Las declaraciones llegan mientras Wall Street intenta recuperar el tono tras el castigo bursátil de la semana pasada por el endeudamiento récord en infraestructuras tecnológicas. Nvidia subió un **1,4%** y Tesla avanzó un **3,8%** en la última sesión regular ⚡️"
+ },
+ {
+  "id": "47cd48d048",
+  "ts": 1792475745,
+  "date": "2026-10-20",
+  "category": "materias_primas",
+  "title": "🛢 El Brent supera los 110 dólares por los ataques a petroleros en el golfo Pérsico",
+  "body": "El crudo de referencia escala hasta nuevos máximos de cinco meses tras la escalada de tensiones en Oriente Medio y las nuevas listas negras de buques en el estrecho de Ormuz. La amenaza al suministro energético impulsa con fuerza a las principales productoras y reaviva la presión inflacionista en los mercados globales. Las bolsas europeas reaccionan con caídas generalizadas ante el encarecimiento de la energía"
+ },
+ {
+  "id": "7bef3a85c0",
+  "ts": 1792477084,
+  "date": "2026-10-20",
+  "category": "mercados",
+  "title": "📉 Las bolsas asiáticas sufren fuertes descensos y el Ibex apunta a perder los 19.000 puntos",
+  "body": "El selectivo español cede arrastrado por el varapalo tecnológico en Asia, donde Corea del Sur se hunde un **4,4%** y Japón cae un 1,4% en una sesión marcada por la inestabilidad en Francia y la presión sostenida del petróleo. La prima de riesgo gala y el encarecimiento energético vuelven a castigar las valoraciones europeas en la apertura."
+ },
+ {
+  "id": "9ea582d54b",
+  "ts": 1792477105,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "$ASTS cae en preapertura tras la presión de Viasat a la FCC contra su espectro",
+  "body": "Las acciones de la compañía retroceden después de que su competidor haya solicitado formalmente al regulador estadounidense que rechace su petición de uso de espectro en el extranjero al considerarla defectuosa. La disputa regulatoria frena temporalmente el optimismo inversor tras los recientes acuerdos europeos de la compañía satelital 📉"
+ },
+ {
+  "id": "b1042a5d4b",
+  "ts": 1792482517,
+  "date": "2026-10-20",
+  "category": "materias_primas",
+  "title": "🇺🇸 EE. UU. autoriza la venta de petroleros de la flota oscura para abaratar el transporte de crudo",
+  "body": "El Gobierno estadounidense permitirá que los barcos sancionados vuelvan a operar de forma legal con el objetivo de contener los desbocados costes de envío, según anunció el secretario de Energía Chris Wright. La medida busca dar salida comercial a una parte clave del crudo bloqueado en los mercados internacionales y aliviar la presión sobre las rutas globales. El crudo reacciona con descensos mientras los inversores recalculan los flujos de suministro **🛢**"
+ },
+ {
+  "id": "a8f61474e9",
+  "ts": 1792482538,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "$BABA presenta su hoja de ruta en chips para conducción autónoma y entra en el capital de Neolix",
+  "body": "El gigante tecnológico ha desvelado su arquitectura de procesadores RISC-V orientada a la robótica y el sector del automóvil, complementando su reciente inversión en el fabricante de vehículos autónomos Neolix dentro de una ronda de **400 millones de dólares**. La compañía refuerza su apuesta por el hardware avanzado y los sistemas de transporte inteligente. Las acciones cotizan con atención a su expansión en nuevos mercados tecnológicos **🚗**"
+ },
+ {
+  "id": "7a63308202",
+  "ts": 1792484489,
+  "date": "2026-10-20",
+  "category": "geopolitica",
+  "title": "🇺🇸 EE. UU. prohíbe el uso de la inteligencia artificial china DeepSeek en todas sus agencias federales",
+  "body": "El Departamento de Seguridad Nacional ha ordenado a los organismos civiles del gobierno federal **la retirada inmediata** de cualquier herramienta o servicio vinculado a la tecnológica china ante el riesgo de que Pekín acceda a información sensible. El veto abarca también productos de terceros basados en sus modelos y tensa aún más la pugna tecnológica bilateral, con el Ministerio de Exteriores del gigante asiático advirtiendo de que defenderá **los intereses de sus empresas** 🤖"
+ },
+ {
+  "id": "4e7925b030",
+  "ts": 1792488517,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "$BABA, ByteDance y Tencent encargan a $NVDA chips por más de 35.000 millones de dólares",
+  "body": "Las tres grandes tecnológicas chinas han formalizado pedidos de semiconductores de inteligencia artificial con la firma estadounidense por un importe conjunto superior a los **35.000 millones de dólares** según ha adelantado Reuters en exclusiva. La operación evidencia el fuerte apetito de los gigantes asiáticos por blindar su infraestructura de computación ante posibles nuevos endurecimientos regulatorios en Washington."
+ },
+ {
+  "id": "349fbbc9b7",
+  "ts": 1792511916,
+  "date": "2026-10-20",
+  "category": "materias_primas",
+  "title": "🛢 El petróleo retrocede desde máximos tras la apertura de vías diplomáticas entre EE. UU. e Iran",
+  "body": "El crudo Brent cae un **1% hasta los 108,31 dólares** por barril y el WTI cede hasta los **97,50 dólares** moderando los avances tras rozar los 111 dólares en la sesión. La corrección llega ante la esperanza de progresos diplomáticos en Oriente Medio, a pesar de los recientes ataques a petroleros en el estrecho de Ormuz que habían disparado la tensión. Este respiro en los precios del crudo frena la presión sobre la deuda soberana y da impulso a los principales índices bursátiles."
+ }
 ]
