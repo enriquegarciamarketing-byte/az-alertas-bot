@@ -15,11 +15,12 @@
     7
   ],
   "breaking_score": 10,
-  "min_minutes_between_posts": 15,
+  "breaking_skip_wait": false,
+  "min_minutes_between_posts": 55,
   "no_repeat_hours": 36,
   "test_min_score": 6,
-  "max_posts_per_run": 2,
-  "daily_post_cap": 12,
+  "max_posts_per_run": 1,
+  "daily_post_cap": 0,
   "max_age_minutes": 150,
   "max_candidates": 60,
   "article_chars": 900,
@@ -142,7 +143,7 @@
     "min_score": 6,
     "min_score_night": 7,
     "max_age_minutes": 360,
-    "saltar_espera": true,
+    "saltar_espera": false,
     "feed_hours": 6,
     "companies": [
       {

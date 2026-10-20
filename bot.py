@@ -659,7 +659,8 @@ def main():
     min_score = CFG["min_score_night"] if night else CFG["min_score"]
     cartera_min = CARTERA.get("min_score_night" if night else "min_score", min_score)
     cartera_min = min(cartera_min, min_score)
-    max_posts = min(CFG["max_posts_per_run"], CFG["daily_post_cap"] - posted_today)
+    cap = CFG.get("daily_post_cap", 0)   # 0 = sin tope diario
+    max_posts = min(CFG["max_posts_per_run"], cap - posted_today) if cap else CFG["max_posts_per_run"]
     if MODE == "test":
         min_score, max_posts = CFG["test_min_score"], 1
         cartera_min = min(cartera_min, min_score)
@@ -671,6 +672,16 @@ def main():
     if max_posts <= 0:
         log("  tope diario de publicaciones alcanzado")
         mark_seen()
+        save_state(st)
+        return
+
+    # ritmo fijo: si aún no toca publicar, ni se llama a Gemini ni se marcan como vistas,
+    # así cuando toque elige la mejor de todo lo acumulado
+    last_post = st["posted"][-1]["t"] if st["posted"] else 0
+    gap_min = (now - last_post) / 60
+    can_jump = CFG.get("breaking_skip_wait", True) or (mine and CARTERA.get("saltar_espera", True))
+    if MODE == "normal" and gap_min < CFG["min_minutes_between_posts"] and not can_jump:
+        log(f"  aún no toca publicar (última hace {int(gap_min)} min), acumulo {len(cands)} candidatas")
         save_state(st)
         return
 
@@ -714,7 +725,7 @@ def main():
         is_mine = bool(p.get("mine"))
         if MODE != "test" and score < (cartera_min if is_mine else min_score):
             continue
-        priority = score >= CFG["breaking_score"] or (is_mine and CARTERA.get("saltar_espera", True))
+        priority = (score >= CFG["breaking_score"] and CFG.get("breaking_skip_wait", True)) or (is_mine and CARTERA.get("saltar_espera", True))
         if MODE == "normal" and not gap_ok and not priority:
             log(f"  [{score}] se queda fuera para no saturar (última publicación hace {int((now - last_post) / 60)} min)")
             continue
