@@ -174,5 +174,21 @@
   "category": "materias_primas",
   "title": "🛢 El Brent supera los 110 dólares por los ataques a petroleros en el golfo Pérsico",
   "body": "El crudo de referencia escala hasta nuevos máximos de cinco meses tras la escalada de tensiones en Oriente Medio y las nuevas listas negras de buques en el estrecho de Ormuz. La amenaza al suministro energético impulsa con fuerza a las principales productoras y reaviva la presión inflacionista en los mercados globales. Las bolsas europeas reaccionan con caídas generalizadas ante el encarecimiento de la energía"
+ },
+ {
+  "id": "7bef3a85c0",
+  "ts": 1792477084,
+  "date": "2026-10-20",
+  "category": "mercados",
+  "title": "📉 Las bolsas asiáticas sufren fuertes descensos y el Ibex apunta a perder los 19.000 puntos",
+  "body": "El selectivo español cede arrastrado por el varapalo tecnológico en Asia, donde Corea del Sur se hunde un **4,4%** y Japón cae un 1,4% en una sesión marcada por la inestabilidad en Francia y la presión sostenida del petróleo. La prima de riesgo gala y el encarecimiento energético vuelven a castigar las valoraciones europeas en la apertura."
+ },
+ {
+  "id": "9ea582d54b",
+  "ts": 1792477105,
+  "date": "2026-10-20",
+  "category": "empresas",
+  "title": "$ASTS cae en preapertura tras la presión de Viasat a la FCC contra su espectro",
+  "body": "Las acciones de la compañía retroceden después de que su competidor haya solicitado formalmente al regulador estadounidense que rechace su petición de uso de espectro en el extranjero al considerarla defectuosa. La disputa regulatoria frena temporalmente el optimismo inversor tras los recientes acuerdos europeos de la compañía satelital 📉"
  }
 ]
