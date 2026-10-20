@@ -8,7 +8,7 @@ on:
       modo:
         description: "test publica 1 noticia ya, dry solo la muestra en el log, normal funciona como el automático"
         type: choice
-        default: test
+        default: normal
         options: [test, dry, normal]
 
 permissions:

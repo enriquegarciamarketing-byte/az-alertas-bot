@@ -750,7 +750,7 @@ def main():
             if ratio < 0.7:   # giro gordo de una historia ya contada (nota 10 y titular distinto)
                 log(f"  tema ya publicado pero es un giro de 10, se publica · antes {old['title'][:60]}")
                 old = None
-        if old and MODE != "test":
+        if old:   # nunca se repite, tampoco en las pruebas manuales
             log(f"  repetida, no se publica ({why}) · ya salió {dt.datetime.fromtimestamp(old['t'], TZ_ES):%d/%m %H.%M} · {old['title'][:70]}")
             continue
         dup_batch = [q for q in sent_now if same_story(cand, q)[0]]
