@@ -675,6 +675,13 @@ def main():
         save_state(st)
         return
 
+    # horas de silencio: no se publica ni se llama a Gemini; lo acumulado se valora al terminar
+    q = CFG.get("quiet_hours")
+    if MODE == "normal" and q and q[0] <= now_es.hour < q[1]:
+        log(f"  horas de silencio ({q[0]}:00 a {q[1]}:00), no se publica")
+        save_state(st)
+        return
+
     # ritmo fijo: si aún no toca publicar, ni se llama a Gemini ni se marcan como vistas,
     # así cuando toque elige la mejor de todo lo acumulado
     last_post = st["posted"][-1]["t"] if st["posted"] else 0
