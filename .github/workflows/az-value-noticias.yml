@@ -17,6 +17,10 @@ on:
         description: "Enviar ya la noticia mejor puntuada aunque no llegue al mínimo (prueba)"
         type: boolean
         default: false
+      solo:
+        description: "Prueba con una sola empresa, por ticker (p. ej. IZER). Úsalo junto a forzar_una"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -51,7 +55,7 @@ jobs:
           TELEGRAM_VALUE_BOT_TOKEN: ${{ secrets.TELEGRAM_VALUE_BOT_TOKEN }}
           TELEGRAM_VALUE_CHAT_ID: ${{ secrets.TELEGRAM_VALUE_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python az_value/noticias.py ${{ inputs.prueba && '--dry-run' || '' }} ${{ inputs.forzar_una && '--minimo 0 --tope 1 --horas 48' || '' }}
+        run: python az_value/noticias.py ${{ inputs.prueba && '--dry-run' || '' }} ${{ inputs.forzar_una && '--minimo 0 --tope 1 --horas 48' || '' }} ${{ inputs.solo && format('--solo {0}', inputs.solo) || '' }}
 
       - name: Guardar estado
         if: always()

@@ -264,7 +264,8 @@ def yahoo_news(ticker: str) -> list[dict]:
     return out
 
 
-def recoger(empresas: list[dict], estado: dict, horas: int, ahora: dt.datetime) -> dict[str, list[dict]]:
+def recoger(empresas: list[dict], estado: dict, horas: int, ahora: dt.datetime,
+            incluir_vistos: bool = False) -> dict[str, list[dict]]:
     """Titulares nuevos (no vistos y recientes) por ticker."""
     limite = ahora - dt.timedelta(hours=horas)
     vistos = estado.setdefault("vistos", {})
@@ -290,7 +291,7 @@ def recoger(empresas: list[dict], estado: dict, horas: int, ahora: dt.datetime) 
                 continue
             titulos.add(clave)
             it["id"] = _id(e["ticker"] + clave)
-            if it["id"] in vistos:
+            if it["id"] in vistos and not incluir_vistos:
                 continue
             nuevos.append(it)
         nuevos.sort(key=lambda x: x["fecha"], reverse=True)
@@ -475,6 +476,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--horas", type=int, help="antigüedad máxima de los titulares")
     ap.add_argument("--tope", type=int, help="máximo de mensajes en esta pasada")
     ap.add_argument("--excluir", default="", help="tickers a saltar en esta pasada, separados por comas")
+    ap.add_argument("--solo", default="", help="prueba con una sola empresa (incluye titulares ya revisados)")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
@@ -506,7 +508,10 @@ def main(argv: list[str] | None = None) -> int:
     estado = cargar_estado()
     primera = not estado.get("ultima_pasada")
     horas = args.horas or (12 if primera else aj["horas_maximas"])
-    por_ticker = recoger(empresas, estado, horas, ahora)
+    if args.solo:
+        quiero = args.solo.strip().upper().split(".")[0]
+        empresas = [e for e in empresas if e["ticker"].split(".")[0] == quiero]
+    por_ticker = recoger(empresas, estado, horas, ahora, incluir_vistos=bool(args.solo))
     total = sum(len(v) for v in por_ticker.values())
     log.info("Titulares nuevos: %s", total)
     if not total:
