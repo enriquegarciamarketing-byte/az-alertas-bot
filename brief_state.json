@@ -38,24 +38,37 @@
    ],
    "curioso": "El 24 % de las oficinas de Shanghái están desiertas, equivalente a 10 pisos a oscuras en una torre de 40 plantas",
    "date": "2026-10-20"
+  },
+  {
+   "historia": "Elon Musk confirma negociaciones y comités especiales para fusionar SpaceX y Tesla en un gigante de 3,5 billones de dólares",
+   "protagonista": "Tesla y SpaceX",
+   "concepto": "Sinergia corporativa",
+   "contexto": [
+    "Iberdrola gana 5.816 millones hasta septiembre, eleva su dividendo a cuenta a 0,275 euros y bate récord con 10.087 millones invertidos",
+    "Carrefour cae un 12 % en bolsa tras recortar su previsión de beneficio anual por la inestabilidad social en Francia",
+    "La OPV de 3.200 millones de dólares de Jio Platforms se suscribe en pocas horas en la India y fortalece a la rupia",
+    "NextDC se desploma un 40 % al paralizarse sus proyectos de centros de datos de IA por la oposición vecinal al consumo eléctrico"
+   ],
+   "curioso": "Iberdrola invierte 37 millones de euros al día, equivalente a llenar más de 460.000 depósitos de gasolina diarios",
+   "date": "2026-10-21"
   }
  ],
  "calls": {
-  "2026-10-18": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-19": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
   },
   "2026-10-20": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-21": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-18": [],
   "2026-10-19": [],
-  "2026-10-20": []
+  "2026-10-20": [],
+  "2026-10-21": []
  },
- "last_call": 1792481265.791143
+ "last_call": 1792567892.900939
 }
