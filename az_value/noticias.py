@@ -462,6 +462,7 @@ def guardar_estado(estado: dict, ahora: dt.datetime) -> None:
     estado["vistos"] = {k: v for k, v in estado.get("vistos", {}).items() if v >= corte}
     estado["publicadas"] = [p for p in estado.get("publicadas", []) if p["fecha"] >= corte][-200:]
     estado["ultima_pasada"] = ahora.isoformat()
+    estado.pop("aviso", None)
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
 
 
@@ -478,11 +479,17 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     if not args.dry_run:
+        aviso = None
         if not os.environ.get("TELEGRAM_VALUE_BOT_TOKEN"):
-            log.warning("Falta el secreto TELEGRAM_VALUE_BOT_TOKEN: no se publica nada")
-            return 0
-        if not chat_destino():
-            log.warning("No encuentro tu chat privado con el bot de AZ Value: escríbele cualquier cosa en Telegram")
+            aviso = "Falta el secreto TELEGRAM_VALUE_BOT_TOKEN"
+        elif not chat_destino():
+            aviso = "No encuentro tu chat privado con el bot de AZ Value: escríbele cualquier cosa en Telegram"
+        if aviso:
+            log.warning("%s: no se publica nada", aviso)
+            est = cargar_estado()
+            if est.get("aviso") != aviso:
+                est["aviso"] = aviso
+                ESTADO.write_text(json.dumps(est, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
             return 0
 
     ahora = dt.datetime.now(dt.timezone.utc)
