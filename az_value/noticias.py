@@ -54,6 +54,10 @@ API = "https://generativelanguage.googleapis.com/v1beta"
 MADRID = ZoneInfo("Europe/Madrid")
 UA = "AZRadar/1.0 (+https://github.com/enriquegarciamarketing-byte)"
 
+EFECTOS = {"positivo": "🟢 Positiva para la acción",
+           "negativo": "🔴 Negativa para la acción",
+           "neutro": "⚪ Neutra para la acción"}
+
 CATEGORIAS = ["Corporativo", "Resultados", "Accionistas", "Financiación", "Contratos",
               "Regulatorio", "Producto", "Directiva", "Analistas"]
 
@@ -86,14 +90,22 @@ Tu trabajo
    texto    tres frases y entre 45 y 70 palabras. Las dos primeras cuentan el hecho
             usando SOLO los datos de los titulares y resúmenes que tienes (quién, qué,
             cuánto, cuándo). Si no tienes cifras, no las inventes y di que la compañía
-            no las ha detallado. La tercera explica en general qué suele implicar este
-            tipo de hecho para el accionista. Nada de frases de relleno que repitan lo
+            no las ha detallado. La tercera explica por qué es bueno, malo o neutro para
+            el accionista de esta empresa, de forma concreta (dilución, caja, deuda,
+            crecimiento, riesgo regulatorio...). Nada de frases de relleno que repitan lo
             dicho con otras palabras. Sin dos puntos, sin rayas, sin emojis, sin exclamaciones.
+5. Decide el efecto para la acción a medio plazo desde el punto de vista del accionista
+   efecto   "positivo", "negativo" o "neutro". Ampliaciones de capital, dilución,
+            rebajas de previsiones, salidas de accionistas de referencia, multas o
+            pérdida de contratos suelen ser negativas. Recompras, contratos relevantes,
+            subidas de previsiones, entradas de inversores de calidad o aprobaciones
+            suelen ser positivas. Si es mixto o rutinario, neutro.
 
 Devuelve JSON con esta forma exacta
 {{"eventos": [{{"ticker": "TICKER tal cual aparece", "ids": ["id", "..."],
   "categoria": una de {categorias},
   "impacto": n, "magnitud": n, "novedad": n, "fuente": n,
+  "efecto": "positivo" o "negativo" o "neutro",
   "fuente_original": "CNMV" o "SEC" o "Nota de prensa" o el nombre del medio,
   "tema": "etiqueta corta del hecho en minúsculas, por ejemplo adquisicion advanced radar",
   "titulo": "...", "texto": "..."}}]}}
@@ -402,6 +414,7 @@ def formatear(ev: dict, empresa: dict, item: dict | None) -> str:
     e = html.escape
     lineas = [f"<b>{e(empresa['cabecera'])}</b>",
               f"{e(ev['categoria'])} · relevancia {ev['relevancia']}/100",
+              EFECTOS.get(str(ev.get("efecto", "")).lower().strip(), EFECTOS["neutro"]),
               "",
               f"<b>{e(limpiar(ev['titulo']))}</b>",
               "",
