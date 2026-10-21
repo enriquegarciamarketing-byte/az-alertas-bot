@@ -1,0 +1,77 @@
+# ─────────────────────────────────────────────────────────────
+#  AZ VALUE · noticias corporativas de tu cartera
+#  Las empresas que llevas en cartera (solo nombres, este repo
+#  es público). Cuando compres o vendas, añade o quita la empresa
+#  aquí y el bot empieza o deja de seguirla.
+# ─────────────────────────────────────────────────────────────
+
+ajustes:
+  relevancia_minima: 65      # sobre 100: por debajo no se publica
+  horas_maximas: 30          # descarta noticias más antiguas
+  max_por_pasada: 4          # tope de mensajes en cada pasada
+  silencio_desde: 1          # no publica entre la 1:00 y las 7:00 (hora de Madrid)
+  silencio_hasta: 7
+
+empresas:
+  NXT.MC:
+    nombre: "Nueva Expresión Textil"
+    cabecera: "Nueva Expresión Textil (NXT)"
+    buscar: ["Nueva Expresión Textil", "Nueva Expresion Textil", "Dogi Nueva Expresión"]
+    grafico: "BME:NXT"
+  OHLA.MC:
+    nombre: "OHLA"
+    cabecera: "OHLA (OHLA)"
+    buscar: ["OHLA", "Obrascón Huarte Lain"]
+    grafico: "BME:OHLA"
+  AMP.MC:
+    nombre: "Amper"
+    cabecera: "Amper, S.A. (AMP)"
+    buscar: ["Amper bolsa", "Grupo Amper", "Amper CNMV"]
+    grafico: "BME:AMP"
+  IZER.MC:
+    nombre: "Izertis"
+    cabecera: "Izertis (IZER)"
+    buscar: ["Izertis"]
+    grafico: "BME:IZER"
+  ASTS:
+    nombre: "AST SpaceMobile"
+    cabecera: "AST SpaceMobile (ASTS)"
+    buscar: ["AST SpaceMobile"]
+    ingles: true
+    grafico: "NASDAQ:ASTS"
+  OKLO:
+    nombre: "Oklo"
+    cabecera: "Oklo Inc. (OKLO)"
+    buscar: ["Oklo nuclear", "Oklo Inc"]
+    ingles: true
+    grafico: "NYSE:OKLO"
+  BABA:
+    nombre: "Alibaba"
+    cabecera: "Alibaba Group (BABA)"
+    buscar: ["Alibaba Group"]
+    ingles: true
+    grafico: "NYSE:BABA"
+  JD:
+    nombre: "JD.com"
+    cabecera: "JD.com (JD)"
+    buscar: ["JD.com"]
+    ingles: true
+    grafico: "NASDAQ:JD"
+  IFOS.V:
+    nombre: "Itafos"
+    cabecera: "Itafos Inc. (IFOS)"
+    buscar: ["Itafos"]
+    ingles: true
+    grafico: "TSXV:IFOS"
+  HG.CN:
+    nombre: "HydroGraph"
+    cabecera: "HydroGraph Clean Power (HG)"
+    buscar: ["HydroGraph Clean Power", "HydroGraph graphene"]
+    ingles: true
+    grafico: "CSE:HG"
+  DMX.V:
+    nombre: "District Metals"
+    cabecera: "District Metals (DMX)"
+    buscar: ["District Metals"]
+    ingles: true
+    grafico: "TSXV:DMX"
