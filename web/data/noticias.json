@@ -478,5 +478,13 @@
   "category": "materias_primas",
   "title": "🛢 El Brent supera los 112 dólares tras descartar Trump la negociación con Irán",
   "body": "El crudo de referencia europea sube un **3,3% hasta los 112,37 dólares** y el WTI avanza un 2,8% hasta los 99,88 dólares después de que Donald Trump afirmara que no hay conversaciones y que algo sucederá pronto. Funcionarios estadounidenses confirmaron que los ejércitos de EE. UU. E Israel preparan planes para ataques renovados tras las elecciones de mitad de mandato."
+ },
+ {
+  "id": "a0b0be4dc1",
+  "ts": 1792679033,
+  "date": "2026-10-22",
+  "category": "macro",
+  "title": "📊 El TJUE obliga a los bancos a devolver el dinero de transferencias no autorizadas incluso con negligencia del cliente",
+  "body": "El Tribunal de Justicia de la Unión Europea ha dictaminado que las entidades financieras deben reembolsar los fondos perdidos en estafas bancarias aunque el usuario haya facilitado sus claves bajo engaño. Esta resolución, que supone un cambio significativo frente a la práctica habitual de alegar negligencia grave, abre la puerta a que los clientes recuperen el **85% de las pérdidas** que actualmente asumen. La medida impacta directamente en los protocolos de seguridad y los costes operativos de los bancos en toda la eurozona"
  }
 ]
