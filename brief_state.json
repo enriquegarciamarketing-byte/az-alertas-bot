@@ -51,24 +51,36 @@
    ],
    "curioso": "Iberdrola invierte 37 millones de euros al día, equivalente a llenar más de 460.000 depósitos de gasolina diarios",
    "date": "2026-10-21"
+  },
+  {
+   "historia": "Micron afronta la primera huelga de la historia en la industria de semiconductores de Taiwán por el reparto de los beneficios de la inteligencia artificial",
+   "protagonista": "Micron Technology",
+   "concepto": "Participación en beneficios",
+   "contexto": [
+    "El BCE eleva el requerimiento de capital CET1 a Bankinter al 9,06 % para 2027",
+    "El barril de Brent supera los 111 dólares tras ataques a Aramco y a siete petroleros en Ormuz",
+    "Atresmedia eleva ingresos un 4 % y aprueba un dividendo histórico de 187 millones tras vender Fever Labs",
+    "La aseguradora nipona Daiichi Life destina el 1 % de sus 219.300 millones de dólares a comprar oro físico"
+   ],
+   "curioso": "Las 16,5 toneladas de oro que comprará Daiichi Life equivalen al peso de 11 todoterrenos macizos de oro",
+   "date": "2026-10-22"
   }
  ],
  "calls": {
-  "2026-10-19": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-10-20": {
    "gemini-3.8-flash": 1
   },
   "2026-10-21": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-22": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-19": [],
   "2026-10-20": [],
-  "2026-10-21": []
+  "2026-10-21": [],
+  "2026-10-22": []
  },
- "last_call": 1792567892.900939
+ "last_call": 1792654266.8615675
 }
