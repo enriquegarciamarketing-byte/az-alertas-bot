@@ -64,23 +64,36 @@
    ],
    "curioso": "Las 16,5 toneladas de oro que comprará Daiichi Life equivalen al peso de 11 todoterrenos macizos de oro",
    "date": "2026-10-22"
+  },
+  {
+   "historia": "Volvo Cars hunde un 25 % su valor en bolsa y recorta 2.500 empleos por pérdidas millonarias en China",
+   "protagonista": "Volvo Cars",
+   "concepto": "Pérdida operativa",
+   "contexto": [
+    "SK Hynix cancela la salida a bolsa de su filial Solidigm en Nueva York",
+    "El petróleo Brent se mantiene al alza y supera los 114 dólares",
+    "La inflación de Japón supera el objetivo del 2 % y alienta nuevas subidas de tipos",
+    "Los precios de los pisos en Centrotokio caen por quinto mes consecutivo"
+   ],
+   "curioso": "11 todoterrenos macizos de oro equivalen a las 16,5 toneladas que comprará Daiichi Life",
+   "date": "2026-10-23"
   }
  ],
  "calls": {
-  "2026-10-20": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-21": {
    "gemini-3.8-flash": 1
   },
   "2026-10-22": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-23": {
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-10-20": [],
   "2026-10-21": [],
-  "2026-10-22": []
+  "2026-10-22": [],
+  "2026-10-23": []
  },
- "last_call": 1792654266.8615675
+ "last_call": 1792740915.7723706
 }
