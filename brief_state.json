@@ -77,23 +77,36 @@
    ],
    "curioso": "11 todoterrenos macizos de oro equivalen a las 16,5 toneladas que comprará Daiichi Life",
    "date": "2026-10-23"
+  },
+  {
+   "historia": "Las dudas sobre el gasto desmedido en IA provocan caídas del 6 % en Alphabet, caja negativa en Meta y alzas en los CDS",
+   "protagonista": "Alphabet",
+   "concepto": "Credit default swap",
+   "contexto": [
+    "La rentabilidad de la deuda francesa marca máximos desde 2002 por los disturbios sociales",
+    "Volkswagen reconvierte su histórica fábrica de Osnabrück hacia pedidos militares ante el empuje chino",
+    "Google tala 250.000 árboles en Finlandia para un centro de datos de IA y desplaza manadas de lobos",
+    "Park24 indemniza a 1,46 millones de clientes tras la filtración masiva de sus documentos de identidad"
+   ],
+   "curioso": "Los 250.000 árboles talados por Google en Finlandia equivalen a arrasar 17 veces todo el Parque del Retiro de Madrid",
+   "date": "2026-10-24"
   }
  ],
  "calls": {
-  "2026-10-21": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-22": {
    "gemini-3.8-flash": 1
   },
   "2026-10-23": {
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-10-24": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-21": [],
   "2026-10-22": [],
-  "2026-10-23": []
+  "2026-10-23": [],
+  "2026-10-24": []
  },
- "last_call": 1792740915.7723706
+ "last_call": 1792826739.9110737
 }
