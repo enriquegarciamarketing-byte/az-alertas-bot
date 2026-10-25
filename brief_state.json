@@ -90,23 +90,36 @@
    ],
    "curioso": "Los 250.000 árboles talados por Google en Finlandia equivalen a arrasar 17 veces todo el Parque del Retiro de Madrid",
    "date": "2026-10-24"
+  },
+  {
+   "historia": "La gran banca española enfila un beneficio récord de 29.200 millones de euros por los tipos del BCE antes de la temporada de resultados",
+   "protagonista": "Gran banca española",
+   "concepto": "Margen de intereses",
+   "contexto": [
+    "Tokio Marine lanza el primer seguro para robots con IA ante un mercado de 80.000 millones",
+    "Sídney inaugura su segundo aeropuerto internacional de 3.940 millones de dólares tras una década",
+    "Mitsubishi Motors repliega su negocio en el Sudeste Asiático ante el avance del coche eléctrico chino",
+    "Nuevos ataques con misiles hutíes contra infraestructuras saudíes mantienen bajo tensión el precio del crudo"
+   ],
+   "curioso": "Los 29.200 millones de beneficio de la banca equivalen a pagar 24 millones de cuotas hipotecarias mensuales de 1.200 euros",
+   "date": "2026-10-25"
   }
  ],
  "calls": {
-  "2026-10-22": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-23": {
    "gemini-3.5-flash-lite": 1
   },
   "2026-10-24": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-25": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-22": [],
   "2026-10-23": [],
-  "2026-10-24": []
+  "2026-10-24": [],
+  "2026-10-25": []
  },
- "last_call": 1792826739.9110737
+ "last_call": 1792913112.4101653
 }
