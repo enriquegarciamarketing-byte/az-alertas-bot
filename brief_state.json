@@ -103,23 +103,37 @@
    ],
    "curioso": "Los 29.200 millones de beneficio de la banca equivalen a pagar 24 millones de cuotas hipotecarias mensuales de 1.200 euros",
    "date": "2026-10-25"
+  },
+  {
+   "historia": "Moeve y Galp rompen sus negociaciones de fusión valorada en 18.000 millones de euros",
+   "protagonista": "Moeve",
+   "concepto": "Valoración de activos",
+   "contexto": [
+    "SoftBank prepara 50.000 millones para impulsar la inteligencia artificial en Malasia",
+    "DIA registra unas ventas en España de 1.608 millones en el tercer trimestre",
+    "Tokio Marine lanza un seguro para robots con IA un 20 % más caro",
+    "China urge a Estados Unidos a frenar las restricciones a la inversión extranjera"
+   ],
+   "curioso": "1.800 millones de menús del día equivalen a los 18.000 millones de la fusión",
+   "date": "2026-10-26"
   }
  ],
  "calls": {
-  "2026-10-23": {
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-10-24": {
    "gemini-3.8-flash": 1
   },
   "2026-10-25": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-26": {
+   "gemini-3.8-flash": 1,
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-10-23": [],
   "2026-10-24": [],
-  "2026-10-25": []
+  "2026-10-25": [],
+  "2026-10-26": []
  },
- "last_call": 1792913112.4101653
+ "last_call": 1793000148.3302925
 }
