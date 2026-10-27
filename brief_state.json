@@ -116,24 +116,37 @@
    ],
    "curioso": "1.800 millones de menús del día equivalen a los 18.000 millones de la fusión",
    "date": "2026-10-26"
+  },
+  {
+   "historia": "Microsoft ofrece bajas voluntarias incentivadas a 60.000 empleados para costear su inversión en inteligencia artificial",
+   "protagonista": "Microsoft",
+   "concepto": "Baja incentivada",
+   "contexto": [
+    "NVIDIA COMPRA ACCIONES DE META POR 3.000 MILLONES PARA IMPULSAR MODELOS DE IA",
+    "EL BCE EXIGE MÁS RESERVAS A LA BANCA ESPAÑOLA DE CARA A 2027",
+    "SUBARU DEJARÁ DE VENDER COCHES DE GASOLINA EN EUROPA EN 2028",
+    "MARCAS CHINAS ROMPEN SUS CONTRATOS CON MBAPPÉ POR UN MEME POLÍTICO"
+   ],
+   "curioso": "60.000 empleados de Microsoft superan la población entera de Ávila y llenarían 300 aviones comerciales",
+   "date": "2026-10-27"
   }
  ],
  "calls": {
-  "2026-10-24": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-25": {
    "gemini-3.8-flash": 1
   },
   "2026-10-26": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-10-27": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-24": [],
   "2026-10-25": [],
-  "2026-10-26": []
+  "2026-10-26": [],
+  "2026-10-27": []
  },
- "last_call": 1793000148.3302925
+ "last_call": 1793086529.2091527
 }
