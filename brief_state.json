@@ -129,24 +129,37 @@
    ],
    "curioso": "60.000 empleados de Microsoft superan la población entera de Ávila y llenarían 300 aviones comerciales",
    "date": "2026-10-27"
+  },
+  {
+   "historia": "SK Hynix dispara su beneficio trimestral hasta 62.900 millones de dólares gracias a la demanda de chips de inteligencia artificial",
+   "protagonista": "SK Hynix",
+   "concepto": "Beneficio operativo",
+   "contexto": [
+    "Jio Platforms debuta en la Bolsa de India con una subida del 21,4% tras una OPA de 3.000 millones de dólares",
+    "Endesa eleva su beneficio neto hasta septiembre un 14,7% hasta los 1.962 millones de euros",
+    "UBS registra un beneficio antes de impuestos de 3.590 millones de dólares, un 27% más",
+    "VinFast apuesta por el mercado de India para expandir su negocio de vehículos eléctricos en Asia"
+   ],
+   "curioso": "Los 62.900 millones de beneficio de SK Hynix equivalen a 31.450 millones de menús del día a dos euros",
+   "date": "2026-10-28"
   }
  ],
  "calls": {
-  "2026-10-25": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-26": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
   },
   "2026-10-27": {
    "gemini-3.8-flash": 1
+  },
+  "2026-10-28": {
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-10-25": [],
   "2026-10-26": [],
-  "2026-10-27": []
+  "2026-10-27": [],
+  "2026-10-28": []
  },
- "last_call": 1793086529.2091527
+ "last_call": 1793173545.3604183
 }
