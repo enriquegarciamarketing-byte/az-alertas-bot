@@ -155,24 +155,37 @@
    ],
    "curioso": "5.006 millones de euros equivalen a más de 2.500 millones de menús del día a dos euros",
    "date": "2026-10-29"
+  },
+  {
+   "historia": "Binance sufre un hackeo de 6.300 millones de dólares y congela todas las retiradas y depósitos",
+   "protagonista": "Binance",
+   "concepto": "Riesgo de contraparte",
+   "contexto": [
+    "INTEL SE HUNDE UN 20 % POR EL FRENO EN LOS ORDENADORES",
+    "NEINOR LANZA UNA OPA SOBRE AEDAS PARA EXCLUIRLA DE BOLSA",
+    "EL BANCO DE JAPÓN DA POR VENCIDA LA DEFLACIÓN TRAS DÉCADAS",
+    "CUATRO PETROLEROS SUFREN DAÑOS POR MINAS EN EL ESTRECHO DE ORMUZ"
+   ],
+   "curioso": "Los 6.300 millones sustraídos a Binance pagarían las cuotas hipotecarias de más de 6 millones de familias",
+   "date": "2026-10-30"
   }
  ],
  "calls": {
-  "2026-10-27": {
-   "gemini-3.8-flash": 1
-  },
   "2026-10-28": {
    "gemini-3.5-flash-lite": 1
   },
   "2026-10-29": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-10-30": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-27": [],
   "2026-10-28": [],
-  "2026-10-29": []
+  "2026-10-29": [],
+  "2026-10-30": []
  },
- "last_call": 1793259797.0377245
+ "last_call": 1793346405.7900765
 }
