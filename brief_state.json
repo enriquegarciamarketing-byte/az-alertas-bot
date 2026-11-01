@@ -181,25 +181,37 @@
    ],
    "curioso": "Los 6.300 millones sustraídos a Binance equivalen a más de 2.500 millones de menús del día a dos euros",
    "date": "2026-10-31"
+  },
+  {
+   "historia": "Anthropic registra la solicitud para su salida a bolsa con una valoración de hasta 2 billones de dólares",
+   "protagonista": "Anthropic",
+   "concepto": "Folleto de salida a bolsa",
+   "contexto": [
+    "La banca española cobra hasta 276 euros anuales a clientes no vinculados",
+    "Las petroleras europeas ganan 68.000 millones de euros por el alza del crudo",
+    "El FBI culpa a piratas de Corea del Norte del robo de 6.300 millones en Binance",
+    "Toyota y Waymo pondrán en marcha robotaxis autónomos en Japón en 2027"
+   ],
+   "curioso": "276 euros de comisiones bancarias anuales equivalen a 184 cafés de bar a 1,50 euros",
+   "date": "2026-11-01"
   }
  ],
  "calls": {
-  "2026-10-29": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-10-30": {
    "gemini-3.8-flash": 1
   },
   "2026-10-31": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-11-01": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-10-29": [],
   "2026-10-30": [],
-  "2026-10-31": []
+  "2026-10-31": [],
+  "2026-11-01": []
  },
- "last_call": 1793432208.56209
+ "last_call": 1793518967.042469
 }
