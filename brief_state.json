@@ -207,6 +207,19 @@
    ],
    "curioso": "Venta de 100.000 pares de palillos en 30 minutos, equivalente a 55 pares por segundo",
    "date": "2026-11-02"
+  },
+  {
+   "historia": "Disney estudia miles de despidos para recortar un 20 % sus costes anuales ante la presión de la taquilla y el streaming",
+   "protagonista": "Disney",
+   "concepto": "Reestructuración operativa",
+   "contexto": [
+    "Aisin desarrolla un chip que recorta un 98 % el gasto de energía",
+    "Aramco eleva su beneficio un 34 % impulsada por los precios del crudo",
+    "Banco Sabadell lanza una opa sobre el 100 % de la socimi Atom",
+    "Prosegur Cash eleva su beneficio hasta los 68 millones gracias a Latinoamérica"
+   ],
+   "curioso": "Los precios de las memorias DRAM se duplican en 2026, equivalente a comprar un componente al doble de su coste anterior",
+   "date": "2026-11-03"
   }
  ],
  "calls": {
@@ -218,8 +231,8 @@
    "gemini-3.8-flash": 1
   },
   "2026-11-02": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1,
+   "gemini-3.8-flash": 3,
+   "gemini-3.5-flash-lite": 2,
    "gemini-3.1-flash-lite": 1
   }
  },
@@ -228,5 +241,5 @@
   "2026-11-01": [],
   "2026-11-02": []
  },
- "last_call": 1793606707.9757135
+ "last_call": 1793692550.6564171
 }
