@@ -220,13 +220,22 @@
    ],
    "curioso": "Los precios de las memorias DRAM se duplican en 2026, equivalente a comprar un componente al doble de su coste anterior",
    "date": "2026-11-03"
+  },
+  {
+   "historia": "Los demócratas ganan el control total del Congreso de EE. UU. en las midterms",
+   "protagonista": "Partido Demócrata",
+   "concepto": "Mayoría legislativa",
+   "contexto": [
+    "Novo Nordisk eleva su previsión anual impulsada por la venta de la pastilla Wegovy",
+    "Mitsui Chemicals adquiere JSR por más de 8.200 millones de dólares en Japón",
+    "Los precios de las memorias DRAM se duplican por el desvío de chips hacia la IA",
+    "Prosegur eleva su beneficio un 5,6 por ciento gracias al crecimiento en EE. UU."
+   ],
+   "curioso": "Deuda oculta de la IA de 3,2 billones de dólares comparada con menús de restaurante",
+   "date": "2026-11-04"
   }
  ],
  "calls": {
-  "2026-10-31": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-11-01": {
    "gemini-3.8-flash": 1
   },
@@ -234,12 +243,16 @@
    "gemini-3.8-flash": 3,
    "gemini-3.5-flash-lite": 2,
    "gemini-3.1-flash-lite": 1
+  },
+  "2026-11-03": {
+   "gemini-3.8-flash": 1,
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-10-31": [],
   "2026-11-01": [],
-  "2026-11-02": []
+  "2026-11-02": [],
+  "2026-11-03": []
  },
- "last_call": 1793692550.6564171
+ "last_call": 1793779227.0310836
 }
