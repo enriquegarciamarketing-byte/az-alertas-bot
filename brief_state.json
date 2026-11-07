@@ -259,13 +259,12 @@
    ],
    "curioso": "Robo de 6.340 millones de dólares en criptomonedas comparado con menús de restaurante",
    "date": "2026-11-06"
+  },
+  {
+   "date": "2026-11-07"
   }
  ],
  "calls": {
-  "2026-11-03": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-11-04": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1,
@@ -274,14 +273,19 @@
   "2026-11-05": {
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-11-06": {
+   "gemini-3.8-flash": 2,
+   "gemini-3.5-flash-lite": 1,
+   "gemini-3.1-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-11-03": [],
   "2026-11-04": [],
   "2026-11-05": [
    "gemini-3.8-flash"
-  ]
+  ],
+  "2026-11-06": []
  },
- "last_call": 1793951796.9729211
+ "last_call": 1794037420.0650227
 }
