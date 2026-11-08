@@ -262,14 +262,22 @@
   },
   {
    "date": "2026-11-07"
+  },
+  {
+   "historia": "Dos buques petroleros sufren incendios tras chocar con minas navales en el estrecho de Ormuz amenazando el crudo mundial",
+   "protagonista": "Estrecho de Ormuz",
+   "concepto": "Punto de estrangulamiento",
+   "contexto": [
+    "Grab reduce su comisión máxima en Vietnam al 32 % tras protestas de conductores",
+    "Los fabricantes chinos Seres y Li Auto preparan su salto a Europa en 2027",
+    "Japón acumula 887.000 millones de dólares en depósitos bancarios desprotegidos",
+    "Bridgestone exprime la producción de ruedas mineras gigantes por el cobre para la IA"
+   ],
+   "curioso": "La pesca de salmón en Japón cae al 3 % de su récord histórico comparado con piezas de sushi",
+   "date": "2026-11-08"
   }
  ],
  "calls": {
-  "2026-11-04": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1,
-   "gemini-3.1-flash-lite": 1
-  },
   "2026-11-05": {
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 1
@@ -278,14 +286,17 @@
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 1,
    "gemini-3.1-flash-lite": 1
+  },
+  "2026-11-07": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-11-04": [],
   "2026-11-05": [
    "gemini-3.8-flash"
   ],
-  "2026-11-06": []
+  "2026-11-06": [],
+  "2026-11-07": []
  },
- "last_call": 1794037420.0650227
+ "last_call": 1794124113.8022122
 }
