@@ -275,13 +275,22 @@
    ],
    "curioso": "La pesca de salmón en Japón cae al 3 % de su récord histórico comparado con piezas de sushi",
    "date": "2026-11-08"
+  },
+  {
+   "historia": "Nvidia investiga a su CEO por una relación con una supuesta espía china",
+   "protagonista": "Nvidia",
+   "concepto": "OPI",
+   "contexto": [
+    "Iberdrola modernizará la red eléctrica de Nueva York",
+    "Credit Agricole propone fusionar su negocio italiano con Banco BPM",
+    "Singapore Airlines invierte 1.600 millones en renovar sus cabinas",
+    "Las tensiones entre Malasia y Taiwán amenazan las inversiones en chips"
+   ],
+   "curioso": "El coste del superordenador de SpaceX equivale a 17 veces sus reservas de bitcoin",
+   "date": "2026-11-09"
   }
  ],
  "calls": {
-  "2026-11-05": {
-   "gemini-3.8-flash": 2,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-11-06": {
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 1,
@@ -289,14 +298,17 @@
   },
   "2026-11-07": {
    "gemini-3.8-flash": 1
+  },
+  "2026-11-09": {
+   "gemini-3.8-flash": 1,
+   "gemini-3.5-flash-lite": 1,
+   "gemini-3.1-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-11-05": [
-   "gemini-3.8-flash"
-  ],
   "2026-11-06": [],
-  "2026-11-07": []
+  "2026-11-07": [],
+  "2026-11-09": []
  },
- "last_call": 1794124113.8022122
+ "last_call": 1794211368.4721532
 }
