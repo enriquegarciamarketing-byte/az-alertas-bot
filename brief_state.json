@@ -288,14 +288,22 @@
    ],
    "curioso": "El coste del superordenador de SpaceX equivale a 17 veces sus reservas de bitcoin",
    "date": "2026-11-09"
+  },
+  {
+   "historia": "España afronta su primera huelga general en 14 años convocada por CCOO y UGT",
+   "protagonista": "CCOO y UGT",
+   "concepto": "Efecto de segunda ronda",
+   "contexto": [
+    "Digi entra en pérdidas operativas de 707.000 euros por amortizaciones y costes de salida a bolsa",
+    "Alibaba escindirá su fabricante de chips T-Head para sacarlo a la bolsa de Hong Kong",
+    "China supera el billón de dólares de superávit comercial anual con importaciones subiendo un 42 %",
+    "Moscú interviene las filiales de Japan Tobacco amenazando con pérdidas de 8.200 millones de dólares"
+   ],
+   "curioso": "La china Mixue tiene más locales que McDonald's o Starbucks pero sus acciones caen un 56 %",
+   "date": "2026-11-11"
   }
  ],
  "calls": {
-  "2026-11-06": {
-   "gemini-3.8-flash": 2,
-   "gemini-3.5-flash-lite": 1,
-   "gemini-3.1-flash-lite": 1
-  },
   "2026-11-07": {
    "gemini-3.8-flash": 1
   },
@@ -303,12 +311,15 @@
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1,
    "gemini-3.1-flash-lite": 1
+  },
+  "2026-11-10": {
+   "gemini-3.8-flash": 2
   }
  },
  "exhausted": {
-  "2026-11-06": [],
   "2026-11-07": [],
-  "2026-11-09": []
+  "2026-11-09": [],
+  "2026-11-10": []
  },
- "last_call": 1794211368.4721532
+ "last_call": 1794384096.48423
 }
