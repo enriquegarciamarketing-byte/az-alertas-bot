@@ -301,12 +301,22 @@
    ],
    "curioso": "La china Mixue tiene más locales que McDonald's o Starbucks pero sus acciones caen un 56 %",
    "date": "2026-11-11"
+  },
+  {
+   "historia": "Santander ampliará capital en 1.900 millones de euros para absorber el 100 % de su filial en Brasil mejorando un 5 % la oferta de canje",
+   "protagonista": "Banco Santander",
+   "concepto": "Ecuación de canje",
+   "contexto": [
+    "El consejo de Nvidia debate el cese de Jensen Huang tras filtrarse un segundo romance interno",
+    "El itrio se multiplica por nueve en un año por el bloqueo de China a las exportaciones",
+    "Toyota venderá sus minicamiones Kei-01 en EE.UU. a partir de 2027 ante el encarecimiento de la gasolina",
+    "Indonesia, Tailandia y Filipinas crearán una reserva compartida de petróleo apoyada por Japón"
+   ],
+   "curioso": "La ampliación de capital de 1.900 M€ de Santander equivale a 23,7 millones de depósitos de gasolina de 80 euros",
+   "date": "2026-11-12"
   }
  ],
  "calls": {
-  "2026-11-07": {
-   "gemini-3.8-flash": 1
-  },
   "2026-11-09": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1,
@@ -314,12 +324,15 @@
   },
   "2026-11-10": {
    "gemini-3.8-flash": 2
+  },
+  "2026-11-11": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-11-07": [],
   "2026-11-09": [],
-  "2026-11-10": []
+  "2026-11-10": [],
+  "2026-11-11": []
  },
- "last_call": 1794384096.48423
+ "last_call": 1794470426.79699
 }
