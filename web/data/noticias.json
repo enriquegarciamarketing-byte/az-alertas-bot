@@ -2590,5 +2590,21 @@
   "category": "materias_primas",
   "title": "🇺🇸 La ASEAN y Japón crearán un sistema conjunto de reservas petroleras de emergencia para 2027",
   "body": "Los países del Sudeste Asiático lanzarán este mecanismo coordinado tras los graves problemas de suministro provocados por el conflicto en Irán y el cierre de rutas. La iniciativa busca reforzar la seguridad energética regional y mitigar el impacto sobre los inventarios globales 🛢"
+ },
+ {
+  "id": "2b260be624",
+  "ts": 1794463754,
+  "date": "2026-11-12",
+  "category": "macro",
+  "title": "🇯🇵 La inflación al productor de Japón se acelera al 7,1% en octubre y presiona al BoJ",
+  "body": "El índice de precios al productor superó las previsiones del mercado del 6,5%, acelerándose desde el 6,8% de septiembre. Este repunte, impulsado por los costes de energía e importación, refuerza los argumentos para que el Banco de Japón ejecute una nueva subida de tipos de interés próximamente."
+ },
+ {
+  "id": "057df49c40",
+  "ts": 1794463774,
+  "date": "2026-11-12",
+  "category": "empresas",
+  "title": "$BABA cae en bolsa ante el riesgo de nuevas restricciones de EE. UU. al acceso a chips de IA",
+  "body": "Las acciones de la compañía retroceden tras informes que apuntan a que Washington estudia limitar el acceso remoto de firmas chinas a tecnología avanzada de procesamiento. Esta medida afectaría a la capacidad de las empresas locales para entrenar modelos de inteligencia artificial de gran escala mediante servicios en la nube."
  }
 ]
