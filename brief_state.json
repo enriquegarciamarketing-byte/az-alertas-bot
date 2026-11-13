@@ -314,25 +314,37 @@
    ],
    "curioso": "La ampliación de capital de 1.900 M€ de Santander equivale a 23,7 millones de depósitos de gasolina de 80 euros",
    "date": "2026-11-12"
+  },
+  {
+   "historia": "Jensen Huang dimite como CEO de Nvidia tras escándalos personales",
+   "protagonista": "Nvidia",
+   "concepto": "Gobierno corporativo",
+   "contexto": [
+    "Enagás adquiere un 18% de Teréga por 311 millones",
+    "Richemont alcanza 12.280 millones de euros en ingresos semestrales",
+    "Indonesia, Tailandia y Filipinas crean reservas conjuntas de petróleo",
+    "Microsoft sufre un apagón global en Outlook y Teams"
+   ],
+   "curioso": "La capitalización de Nvidia comparada con barriles de petróleo Brent",
+   "date": "2026-11-13"
   }
  ],
  "calls": {
-  "2026-11-09": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1,
-   "gemini-3.1-flash-lite": 1
-  },
   "2026-11-10": {
    "gemini-3.8-flash": 2
   },
   "2026-11-11": {
    "gemini-3.8-flash": 1
+  },
+  "2026-11-12": {
+   "gemini-3.8-flash": 1,
+   "gemini-3.5-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-11-09": [],
   "2026-11-10": [],
-  "2026-11-11": []
+  "2026-11-11": [],
+  "2026-11-12": []
  },
- "last_call": 1794470426.79699
+ "last_call": 1794556760.6383789
 }
