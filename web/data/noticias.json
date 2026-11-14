@@ -2822,5 +2822,13 @@
   "category": "empresas",
   "title": "Italia multa a Meta con 805 millones de euros por el uso de datos de usuarios de Android",
   "body": "La autoridad de competencia transalpina sanciona al gigante tecnológico tras concluir que recopiló información personal sin el consentimiento adecuado a través de dispositivos móviles. La sanción se suma a la creciente presión regulatoria europea sobre las grandes tecnológicas por la gestión de la privacidad y la explotación comercial de los datos. Las acciones de la compañía cotizaban con descensos moderados tras conocerse la resolución judicial en la sesión."
+ },
+ {
+  "id": "48f60c8385",
+  "ts": 1794680737,
+  "date": "2026-11-14",
+  "category": "macro",
+  "title": "🇺🇸 La parada aérea nacional en EE. UU. afectará a 5.000 vuelos tras un fallo en los sistemas de L3Harris",
+  "body": "El corte de tráfico aéreo más largo desde el 11-S se produjo después de que una actualización en una infraestructura gestionada por **L3Harris Technologies** saturara los encaminadores de la red con más de un millar de peticiones por segundo. El secretario de Transporte, Sean Duffy, descartó indicios de sabotaje o ciberataque malicioso tras el incidente que obligó a cancelar miles de trayectos a nivel nacional. La Administración Federal de Aviación advirtió de que la anticuada red de telecomunicaciones seguirá sufriendo problemas de estabilidad sin una profunda renovación."
  }
 ]
