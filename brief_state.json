@@ -327,24 +327,37 @@
    ],
    "curioso": "La capitalización de Nvidia comparada con barriles de petróleo Brent",
    "date": "2026-11-13"
+  },
+  {
+   "historia": "JD.com culmina la compra de Ceconomy, matriz de MediaMarkt y Saturn, por 1.500 millones de dólares con aval de la UE",
+   "protagonista": "JD.com",
+   "concepto": "Omnicanalidad",
+   "contexto": [
+    "El uranio alcanza máximos históricos impulsado por la demanda de electricidad de la IA",
+    "Bitcoin cae por debajo de 68.000 dólares ante el trasvase de liquidez a la salida a bolsa de Anthropic",
+    "Petroleros impactan con minas navales en Ormuz manteniendo el crudo en 95,84 dólares",
+    "Las ventas del Día del Soltero en China crecen solo un 4,8 % reflejando la debilidad del consumo"
+   ],
+   "curioso": "La compra de Ceconomy por 1.500 millones de dólares equivale a 1,5 millones de ordenadores portátiles de 1.000 dólares",
+   "date": "2026-11-14"
   }
  ],
  "calls": {
-  "2026-11-10": {
-   "gemini-3.8-flash": 2
-  },
   "2026-11-11": {
    "gemini-3.8-flash": 1
   },
   "2026-11-12": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
+  },
+  "2026-11-13": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-11-10": [],
   "2026-11-11": [],
-  "2026-11-12": []
+  "2026-11-12": [],
+  "2026-11-13": []
  },
- "last_call": 1794556760.6383789
+ "last_call": 1794642704.2079194
 }
