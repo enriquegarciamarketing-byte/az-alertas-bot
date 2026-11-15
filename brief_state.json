@@ -340,24 +340,41 @@
    ],
    "curioso": "La compra de Ceconomy por 1.500 millones de dólares equivale a 1,5 millones de ordenadores portátiles de 1.000 dólares",
    "date": "2026-11-14"
+  },
+  {
+   "historia": "Ataque a petroleros en el Estrecho de Ormuz y base en Bahréin eleva tensión y riesgo en el precio del crudo",
+   "protagonista": "Irán",
+   "concepto": "Estrecho estratégico",
+   "contexto": [
+    "Elon Musk respalda el regreso de Jensen Huang a Nvidia con 135.000 firmas",
+    "Digital Realty Trust invertirá 10.000 millones de dólares en centros de datos en Japón",
+    "WHI Holdings prepara la mayor salida a bolsa de Japón en 2026 con 2.500 millones de dólares",
+    "Las ventas del Día del Soltero en China crecen solo un 4,8 %"
+   ],
+   "curioso": "El arsenal de 2.500 misiles de Irán comparado con 100 días de ataque ininterrumpido",
+   "date": "2026-11-15"
   }
  ],
  "calls": {
-  "2026-11-11": {
-   "gemini-3.8-flash": 1
-  },
   "2026-11-12": {
    "gemini-3.8-flash": 1,
    "gemini-3.5-flash-lite": 1
   },
   "2026-11-13": {
    "gemini-3.8-flash": 1
+  },
+  "2026-11-14": {
+   "gemini-3.8-flash": 2,
+   "gemini-3.5-flash-lite": 1,
+   "gemini-3.1-flash-lite": 1
   }
  },
  "exhausted": {
-  "2026-11-11": [],
   "2026-11-12": [],
-  "2026-11-13": []
+  "2026-11-13": [],
+  "2026-11-14": [
+   "gemini-3.8-flash"
+  ]
  },
- "last_call": 1794642704.2079194
+ "last_call": 1794729052.7435577
 }
