@@ -353,13 +353,22 @@
    ],
    "curioso": "El arsenal de 2.500 misiles de Irán comparado con 100 días de ataque ininterrumpido",
    "date": "2026-11-15"
+  },
+  {
+   "historia": "El FMI alerta de una burbuja de un billón de dólares en financiación circular de la IA",
+   "protagonista": "Fondo Monetario Internacional",
+   "concepto": "Financiación circular",
+   "contexto": [
+    "El butano sube un 3,5 % y alcanza su tope de 19,55 euros",
+    "SK Hynix invertirá 450.000 millones en un megacomplejo de chips en Corea del Sur",
+    "STC reduce su beneficio un 5,7 % y elimina el dividendo extraordinario",
+    "New World se desploma tras anunciar una ampliación de 3.200 millones"
+   ],
+   "curioso": "El billón de dólares de deuda circular en IA comparado con cafés para el planeta e hipotecas durante 80 años",
+   "date": "2026-11-16"
   }
  ],
  "calls": {
-  "2026-11-12": {
-   "gemini-3.8-flash": 1,
-   "gemini-3.5-flash-lite": 1
-  },
   "2026-11-13": {
    "gemini-3.8-flash": 1
   },
@@ -367,14 +376,17 @@
    "gemini-3.8-flash": 2,
    "gemini-3.5-flash-lite": 1,
    "gemini-3.1-flash-lite": 1
+  },
+  "2026-11-16": {
+   "gemini-3.8-flash": 1
   }
  },
  "exhausted": {
-  "2026-11-12": [],
   "2026-11-13": [],
   "2026-11-14": [
    "gemini-3.8-flash"
-  ]
+  ],
+  "2026-11-16": []
  },
- "last_call": 1794729052.7435577
+ "last_call": 1794821534.9916625
 }
