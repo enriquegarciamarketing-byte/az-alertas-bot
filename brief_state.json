@@ -366,6 +366,19 @@
    ],
    "curioso": "El billón de dólares de deuda circular en IA comparado con cafés para el planeta e hipotecas durante 80 años",
    "date": "2026-11-16"
+  },
+  {
+   "historia": "EE. UU. restringe el acceso remoto a chips de IA para empresas chinas tras el escándalo de Jensen Huang.",
+   "protagonista": "Nvidia",
+   "concepto": "Acceso remoto",
+   "contexto": [
+    "Vodafone España crece un 3,4 % en ingresos pese a pérdidas financieras.",
+    "El Brent cae a 91,93 $ ante expectativas de superávit global.",
+    "New World cae a mínimos tras anunciar una ampliación de 3.200 millones.",
+    "Japón registra emisión récord de bonos minoristas por tipos de interés."
+   ],
+   "curioso": "1.450 drones lanzados en una noche comparado con 60 drones por hora.",
+   "date": "2026-11-17"
   }
  ],
  "calls": {
@@ -378,7 +391,9 @@
    "gemini-3.1-flash-lite": 1
   },
   "2026-11-16": {
-   "gemini-3.8-flash": 1
+   "gemini-3.8-flash": 2,
+   "gemini-3.5-flash-lite": 1,
+   "gemini-3.1-flash-lite": 1
   }
  },
  "exhausted": {
@@ -388,5 +403,5 @@
   ],
   "2026-11-16": []
  },
- "last_call": 1794821534.9916625
+ "last_call": 1794902390.3518407
 }
