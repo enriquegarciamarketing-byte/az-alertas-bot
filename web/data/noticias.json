@@ -3070,5 +3070,13 @@
   "category": "materias_primas",
   "title": "🛢 El flujo de crudo por el estrecho de Ormuz cae a 10 millones de barriles diarios tras nuevos ataques",
   "body": "Dos buques han sido alcanzados por proyectiles en la zona según la Marina británica, elevando la tensión en el principal cuelloella de botella energético del mundo. Los ataques continuados en noviembre han reducido drásticamente el tránsito habitual de petroleros, tensionando el mercado global de materias primas."
+ },
+ {
+  "id": "ff7b914b87",
+  "ts": 1795282833,
+  "date": "2026-11-21",
+  "category": "empresas",
+  "title": "$ASTS y AT&T completan con éxito la primera transición de red móvil a satélite",
+  "body": "La compañía y el operador han validado el traspaso directo de llamadas y datos entre terminales convencionales y el espacio sin necesidad de hardware adicional. Este avance comercial clave acerca el despliegue comercial masivo de la conectividad de banda ancha directa al móvil."
  }
 ]
